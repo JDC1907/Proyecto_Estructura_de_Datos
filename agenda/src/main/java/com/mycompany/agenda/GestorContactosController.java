@@ -15,6 +15,9 @@ import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -65,13 +68,43 @@ public class GestorContactosController implements Initializable {
     @FXML
     private Button btanterior;
     @FXML
-    private Pane PaneContactos;
-    @FXML
     private Button upContactsButton;
     @FXML
     private Button downContactsButton;
     @FXML
     private VBox contactosVBox;
+    @FXML
+    private TextField txtBuscar;
+    @FXML
+    private MenuButton MbtOrdenarpor;
+    @FXML
+    private MenuItem MApellidoNombre;
+    @FXML
+    private MenuItem MmayorContenido;
+    @FXML
+    private MenuItem MfechaCumpleaños;
+    @FXML
+    private MenuItem Mempresa;
+    @FXML
+    private MenuItem MpaisResisdencia;
+    @FXML
+    private MenuItem Mpersona;
+    @FXML
+    private MenuItem Empresa;
+    @FXML
+    private MenuItem MredesSociales;
+    @FXML
+    private Menu Mciudad;
+    @FXML
+    private Button btsiguienteFoto;
+    @FXML
+    private Button btanteriorFoto;
+    @FXML
+    private Button bteliminarFoto;
+    @FXML
+    private Button btagregarFoto;
+    @FXML
+    private Pane PaneContactos;
     
     /**
      * Initializes the controller class.
@@ -88,7 +121,7 @@ public class GestorContactosController implements Initializable {
         }
         Iterator<Contacto> it = agenda.Sistema.contactos.iterator();
         int numElementos = 0;
-        while(it.hasNext() && numElementos<6){
+        while(it.hasNext() && numElementos<11){
             Contacto contacto = it.next();
             HBox cajaContacto = new HBox();
             cajaContacto.setCursor(Cursor.HAND);
@@ -148,7 +181,7 @@ public class GestorContactosController implements Initializable {
        private void mostrarSeisContactos(int indice){
         contactosVBox.getChildren().clear();
         int numElementos = 0;
-        while( numElementos<6){
+        while( numElementos<11){
             if(indice<0){
                 indice=agenda.Sistema.contactos.size()-1;
                 

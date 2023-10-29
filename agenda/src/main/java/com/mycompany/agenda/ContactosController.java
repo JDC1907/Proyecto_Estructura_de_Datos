@@ -94,7 +94,7 @@ public class ContactosController {
     private void mostrarSeisContactos(int indice){
         contactosVBox.getChildren().clear();
         int numElementos = 0;
-        while( numElementos<6){
+        while( numElementos<11){
             if(indice<0){
                 indice=agenda.Sistema.contactos.size()-1;
                 

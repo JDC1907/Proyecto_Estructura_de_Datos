@@ -32,7 +32,7 @@ public class PreCarga1 implements Initializable {
                 Platform.runLater(() -> {
                     Parent root = null;
                     try {
-                        root = FXMLLoader.load(getClass().getResource("gestorContactos.fxml"));
+                        root = FXMLLoader.load(getClass().getResource("EstiloGestorContacto.fxml"));
                     }catch (IOException e) {
                     }   scene = new Scene(root, 900, 720);
                     stage = new Stage();
