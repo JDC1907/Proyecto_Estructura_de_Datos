@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 public class PreCarga1 implements Initializable {
     private static Stage stage;
     private  static Scene scene;
-    private static final String icon = "img/icono.jpg";
+    private static final String icon = "img/icono2.png";
     @FXML
     private Pane body;
 
@@ -32,9 +32,9 @@ public class PreCarga1 implements Initializable {
                 Platform.runLater(() -> {
                     Parent root = null;
                     try {
-                        root = FXMLLoader.load(getClass().getResource("contactos.fxml"));
+                        root = FXMLLoader.load(getClass().getResource("gestorContactos.fxml"));
                     }catch (IOException e) {
-                    }   scene = new Scene(root, 720, 480);
+                    }   scene = new Scene(root, 900, 720);
                     stage = new Stage();
                     stage.setTitle("ContactYou");
                     stage.getIcons().add(new Image(icon) );

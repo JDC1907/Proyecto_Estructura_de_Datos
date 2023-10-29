@@ -25,7 +25,7 @@ public class App extends Application {
     public static HashSet tags;
     //public static List<Contacto> contactos = new LinkedList();
     private static Stage stage;
-    private static final String icon = "img/icono.jpg";
+    private static final String icon = "img/icono2.png";
 
     @Override
     public void start(Stage stage) throws IOException {

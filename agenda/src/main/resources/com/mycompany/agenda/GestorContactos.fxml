@@ -36,7 +36,7 @@
                      </effect>
                   </Button>
                   <Label prefHeight="18.0" prefWidth="22.0" />
-                  <Button fx:id="btagregar" alignment="CENTER" contentDisplay="CENTER" minWidth="39.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="69.0" text="+">
+                  <Button fx:id="btagregar" alignment="CENTER" contentDisplay="CENTER" minWidth="39.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="70.0" text="+">
                      <effect>
                         <Glow level="0.42" />
                      </effect>
@@ -49,12 +49,35 @@
             </HBox>
             <TabPane layoutX="1.0" layoutY="29.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="520.0" prefWidth="336.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
-                <Tab fx:id="tabpersona" text="Untitled Tab 1">
+                <Tab fx:id="tabpersona" text="Persona">
                      <content>
-                        <Pane prefHeight="200.0" prefWidth="200.0" />
+                        <Pane fx:id="PaneContactos" prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Button fx:id="upContactsButton" disable="true" layoutX="153.0" layoutY="5.0" mnemonicParsing="false" onAction="#retrocederContactos" opacity="0.0" prefHeight="40.0" prefWidth="30.0">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Button>
+                              <ImageView fitHeight="18.0" fitWidth="22.0" layoutX="158.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/up.png" />
+                                 </image>
+                              </ImageView>
+                              <VBox fx:id="contactosVBox" fillWidth="false" layoutX="3.0" layoutY="11.0" maxHeight="600.0" minHeight="0.0" prefHeight="469.0" prefWidth="336.0" />
+                              <Button fx:id="downContactsButton" disable="true" layoutX="150.0" layoutY="453.0" mnemonicParsing="false" onAction="#avanzarContactos" opacity="0.0" prefHeight="40.0" prefWidth="30.0">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Button>
+                              <ImageView fitHeight="18.0" fitWidth="22.0" layoutX="158.0" layoutY="464.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../img/down.png" />
+                                 </image>
+                              </ImageView>
+                           </children></Pane>
                      </content>
                   </Tab>
-                <Tab fx:id="tabempresa" text="Untitled Tab 2" />
+                <Tab fx:id="tabempresa" text="Empresa" />
               </tabs>
             </TabPane>
          </children>
@@ -125,11 +148,11 @@
             </ScrollPane>
             <Pane layoutX="-3.0" layoutY="38.0" prefHeight="160.0" prefWidth="532.0">
                <children>
-                  <HBox layoutX="162.0" layoutY="29.0" prefHeight="112.0" prefWidth="206.0" style="-fx-background-radius: 100;">
+                  <HBox layoutX="196.0" layoutY="24.0" prefHeight="112.0" prefWidth="142.0" style="-fx-background-radius: 100;">
                      <children>
-                        <ImageView fitHeight="112.0" fitWidth="200.0">
+                        <ImageView fitHeight="112.0" fitWidth="148.0">
                            <image>
-                              <Image url="@../../../../../../../../../../../../../../../Pictures/Saved%20Pictures/curso-de-git-y-github.png" />
+                              <Image url="@../../../img/user.png" />
                            </image>
                         </ImageView>
                      </children>
