@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="662.0" prefWidth="873.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="662.0" prefWidth="873.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.agenda.GestorContactosController">
    <children>
       <Pane layoutY="71.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="595.0" prefWidth="336.0" style="-fx-border-color: B2B2B2;">
          <children>
@@ -63,7 +63,7 @@
          <children>
             <HBox alignment="CENTER_RIGHT" layoutX="-1.0" layoutY="-1.0" prefHeight="38.0" prefWidth="532.0">
                <children>
-                  <Button alignment="CENTER" contentDisplay="CENTER" minWidth="39.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="91.0" text="Editar">
+                  <Button fx:id="bteditar" alignment="CENTER" contentDisplay="CENTER" minWidth="39.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="91.0" text="Editar">
                      <effect>
                         <Glow level="0.42" />
                      </effect>
