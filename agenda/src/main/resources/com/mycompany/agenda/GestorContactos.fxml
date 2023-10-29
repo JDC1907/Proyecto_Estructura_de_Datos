@@ -36,7 +36,7 @@
                      </effect>
                   </Button>
                   <Label prefHeight="18.0" prefWidth="22.0" />
-                  <Button alignment="CENTER" contentDisplay="CENTER" minWidth="39.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="69.0" text="+">
+                  <Button fx:id="btagregar" alignment="CENTER" contentDisplay="CENTER" minWidth="39.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="69.0" text="+">
                      <effect>
                         <Glow level="0.42" />
                      </effect>
@@ -49,12 +49,12 @@
             </HBox>
             <TabPane layoutX="1.0" layoutY="29.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="520.0" prefWidth="336.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
-                <Tab text="Untitled Tab 1">
+                <Tab fx:id="tabpersona" text="Untitled Tab 1">
                      <content>
                         <Pane prefHeight="200.0" prefWidth="200.0" />
                      </content>
                   </Tab>
-                <Tab text="Untitled Tab 2" />
+                <Tab fx:id="tabempresa" text="Untitled Tab 2" />
               </tabs>
             </TabPane>
          </children>
@@ -87,35 +87,35 @@
                   <Label prefHeight="18.0" prefWidth="197.0" />
                </children>
             </HBox>
-            <ScrollPane layoutX="6.0" layoutY="183.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="338.0" prefWidth="532.0">
+            <ScrollPane layoutX="4.0" layoutY="198.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="338.0" prefWidth="532.0">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="581.0" prefWidth="511.0">
                      <children>
                         <VBox accessibleRole="SCROLL_PANE" layoutY="1.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="630.0" prefWidth="515.0">
                            <children>
                               <Label alignment="CENTER" prefHeight="18.0" prefWidth="88.0" text="Nombre" />
-                              <TextField prefHeight="35.0" prefWidth="515.0" />
+                              <TextField fx:id="txtNombre" prefHeight="35.0" prefWidth="515.0" />
                               <Label alignment="CENTER" prefHeight="18.0" prefWidth="88.0" text="Apellido" />
-                              <TextField />
+                              <TextField fx:id="txtApellido" />
                               <Label alignment="CENTER" prefHeight="18.0" prefWidth="92.0" text="Empresa" />
-                              <TextField />
+                              <TextField fx:id="txtEmpresa" />
                               <Label alignment="CENTER" prefHeight="18.0" prefWidth="88.0" text="Emails" />
                               <Label alignment="CENTER" prefHeight="18.0" prefWidth="137.0" text="Personal" />
-                              <TextField />
+                              <TextField fx:id="txtEmailPer" />
                               <Label alignment="CENTER" prefHeight="18.0" prefWidth="136.0" text="Trabajo" />
-                              <TextField />
+                              <TextField fx:id="txtEmailTra" />
                               <Label alignment="CENTER" prefHeight="18.0" prefWidth="91.0" text="Telefono" />
                               <Label alignment="CENTER" prefHeight="18.0" prefWidth="137.0" text="Celular" />
-                              <TextField />
+                              <TextField fx:id="txtTelf" />
                               <Label alignment="CENTER" prefHeight="18.0" prefWidth="137.0" text="Trabajo" />
-                              <TextField />
+                              <TextField fx:id="txtTelfTra" />
                               <Label alignment="CENTER" prefHeight="18.0" prefWidth="123.0" text="Casa" />
-                              <TextField />
-                              <TextField />
+                              <TextField fx:id="txtTelfCasa" />
                               <Label alignment="CENTER" prefHeight="18.0" prefWidth="175.0" text="Direccion de domicilio" />
+                              <TextField fx:id="txtDireccion" />
                               <Label alignment="CENTER" prefHeight="18.0" prefWidth="88.0" />
                               <Label alignment="CENTER" prefHeight="18.0" prefWidth="164.0" text="Direccion de trabajo" />
-                              <TextField />
+                              <TextField fx:id="txtdireccionTrabajo" />
                               <Label alignment="CENTER" prefHeight="18.0" prefWidth="88.0" />
                            </children>
                         </VBox>
@@ -138,7 +138,7 @@
             </Pane>
             <HBox alignment="CENTER_RIGHT" layoutX="-1.0" layoutY="562.0" prefHeight="29.0" prefWidth="532.0">
                <children>
-                  <Button alignment="CENTER" contentDisplay="CENTER" minWidth="39.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="95.0" style="-fx-background-color: 00FF0000;" text="Siguiente" textFill="#ff9696">
+                  <Button fx:id="btsiguiente" alignment="CENTER" contentDisplay="CENTER" minWidth="39.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="95.0" style="-fx-background-color: 00FF0000;" text="Siguiente" textFill="#ff9696">
                      <effect>
                         <Glow level="0.42" />
                      </effect>
@@ -147,7 +147,7 @@
                      </font>
                   </Button>
                   <Label prefHeight="18.0" prefWidth="282.0" />
-                  <Button alignment="CENTER" contentDisplay="CENTER" minWidth="39.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="95.0" style="-fx-background-color: 00FF0000;" text="Anterior" textFill="#ff9696">
+                  <Button fx:id="btanterior" alignment="CENTER" contentDisplay="CENTER" minWidth="39.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="95.0" style="-fx-background-color: 00FF0000;" text="Anterior" textFill="#ff9696">
                      <effect>
                         <Glow level="0.42" />
                      </effect>
