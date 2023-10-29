@@ -3,6 +3,7 @@ package com.mycompany.agenda;
 
 import agenda.Contacto;
 import java.util.Iterator;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -120,6 +121,17 @@ public class ContactosController {
             numElementos++;
             indice++;
         }
+        
+    }
+    
+    public void seleccionar(ActionEvent event){
+        
+        
+    }
+    
+    
+    public void editarDatos(ActionEvent event){
+        
         
     }
 }
