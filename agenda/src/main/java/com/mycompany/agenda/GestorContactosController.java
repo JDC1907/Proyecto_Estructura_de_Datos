@@ -121,7 +121,7 @@ public class GestorContactosController implements Initializable {
         }
         Iterator<Contacto> it = agenda.Sistema.contactos.iterator();
         int numElementos = 0;
-        while(it.hasNext() && numElementos<11){
+        while(it.hasNext() && numElementos<8){
             Contacto contacto = it.next();
             HBox cajaContacto = new HBox();
             cajaContacto.setCursor(Cursor.HAND);

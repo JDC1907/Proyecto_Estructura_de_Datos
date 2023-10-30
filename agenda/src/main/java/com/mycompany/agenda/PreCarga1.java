@@ -7,6 +7,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -41,6 +42,7 @@ public class PreCarga1 implements Initializable {
                     stage.setResizable(false);
                     stage.setScene(scene);
                     stage.show();
+
                     body.getScene().getWindow().hide();
                 });
             } catch (InterruptedException e) {

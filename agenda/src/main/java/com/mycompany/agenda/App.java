@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.HashSet;
+import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.stage.StageStyle;
 import tda.LinkedList;
@@ -31,6 +32,7 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
 //       cargarContactos(contactos);
         scene = new Scene(loadFXML("precarga1"), 600, 379);
+        scene.setCursor(Cursor.WAIT);
         stage.setScene(scene);
         stage.setTitle("ContactYou");
         stage.getIcons().add(new Image(icon));
