@@ -9,10 +9,10 @@ package agenda;
  * @author nhale
  */
 public class Usuario {
-    protected String nombreUsr;
+  protected String nombreUsr;
   protected String contrasena;
   protected String nombre;
-  protected String tipo;
+  protected String tipo;//enum
   
   public Usuario(String nombreUsr, String contrasena, String nombre, String tipo){
     this.nombreUsr = nombreUsr;

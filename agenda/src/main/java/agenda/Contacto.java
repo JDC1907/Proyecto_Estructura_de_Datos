@@ -1,6 +1,7 @@
 
 package agenda;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -8,7 +9,7 @@ import tda.ArrayList;
 import tda.LinkedList;
 
 
-public abstract class Contacto {
+public abstract class Contacto implements Serializable {
     private HashSet tags;
     private HashMap<String, String> atributos;
     private LinkedList<String> photos;

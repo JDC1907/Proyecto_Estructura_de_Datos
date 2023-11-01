@@ -38,6 +38,7 @@ public class Sistema {
         p.setAtributte("Cumpleaños", "12/15/15");
         p.addPhoto("/imgpersonas/persona7.jpg");
         contactos.addLast(p);
+        
     }
 
 //    public static ArrayList<Usuario> getUsuarios() {
