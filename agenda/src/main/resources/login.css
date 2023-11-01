@@ -1,0 +1,38 @@
+.button{
+    -fx-background-color:#041D26;
+    -fx-text-fill:#ffffff;    
+}
+.button:hover{
+    -fx-background-color: #2F6173;
+    -fx-border-color: #041D26;
+    -fx-border-width: 2 ;
+    
+}
+
+.vbox{
+-fx-background-color: #2F6173;
+-fx-aligment: center;
+-fx-spacing: 15;
+}
+
+#botonCerrar{
+    -fx-background-color:#041D26;     
+}
+#botonCerrar:hover{
+    -fx-background-color: #2F6173;
+    -fx-border-color: #041D26;
+    -fx-border-width: 2 ;
+    
+}
+#usrName{
+    -fx-background-color: #F0F0F2;
+    -fx-border-color: #041D26;
+    -fx-border-width: 2 ;
+    -fx-border-radius: 2px;        
+}
+#usrPass{
+    -fx-background-color: #F0F0F2;
+    -fx-border-color: #041D26;
+    -fx-border-width: 2 ;
+    -fx-border-radius: 2px;        
+}

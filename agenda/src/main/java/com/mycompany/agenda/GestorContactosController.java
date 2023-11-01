@@ -36,75 +36,12 @@ public class GestorContactosController implements Initializable {
     private int indice = 0;
 
     @FXML
-    private Button bteditar;
-    @FXML
-    private Button btagregar;
-    @FXML
-    private Tab tabpersona;
-    @FXML
-    private Tab tabempresa;
-    @FXML
-    private TextField txtNombre;
-    @FXML
-    private TextField txtApellido;
-    @FXML
-    private TextField txtEmpresa;
-    @FXML
-    private TextField txtEmailPer;
-    @FXML
-    private TextField txtEmailTra;
-    @FXML
-    private TextField txtTelf;
-    @FXML
-    private TextField txtTelfTra;
-    @FXML
-    private TextField txtTelfCasa;
-    @FXML
-    private TextField txtDireccion;
-    @FXML
-    private TextField txtdireccionTrabajo;
-    @FXML
-    private Button btsiguiente;
-    @FXML
-    private Button btanterior;
-    @FXML
     private Button upContactsButton;
     @FXML
     private Button downContactsButton;
     @FXML
     private VBox contactosVBox;
-    @FXML
-    private TextField txtBuscar;
-    @FXML
-    private MenuButton MbtOrdenarpor;
-    @FXML
-    private MenuItem MApellidoNombre;
-    @FXML
-    private MenuItem MmayorContenido;
-    @FXML
-    private MenuItem MfechaCumpleaños;
-    @FXML
-    private MenuItem Mempresa;
-    @FXML
-    private MenuItem MpaisResisdencia;
-    @FXML
-    private MenuItem Mpersona;
-    @FXML
-    private MenuItem Empresa;
-    @FXML
-    private MenuItem MredesSociales;
-    @FXML
-    private Menu Mciudad;
-    @FXML
-    private Button btsiguienteFoto;
-    @FXML
-    private Button btanteriorFoto;
-    @FXML
-    private Button bteliminarFoto;
-    @FXML
-    private Button btagregarFoto;
-    @FXML
-    private Pane PaneContactos;
+
     
     /**
      * Initializes the controller class.

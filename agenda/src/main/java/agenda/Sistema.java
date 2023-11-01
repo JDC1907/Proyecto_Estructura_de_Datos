@@ -4,6 +4,7 @@
  */
 package agenda;
 
+import java.util.HashSet;
 import tda.ArrayList;
 import tda.LinkedList;
 import tda.List;
@@ -16,6 +17,7 @@ public class Sistema {
     static private ArrayList<Usuario> usuarios = new ArrayList<>();
 
     public static List<Contacto> contactos = new LinkedList();
+    public static HashSet<String> tags = new HashSet();
     
     public static void inicializarSistema(){
     usuarios.addLast(new Usuario("admin","12345678","Ädministrador","ädmin"));
@@ -37,7 +39,25 @@ public class Sistema {
         p.setAtributte("Usuario fb", "@Facebook");
         p.setAtributte("Cumpleaños", "12/15/15");
         p.addPhoto("/imgpersonas/persona7.jpg");
+        p.addTag("Familia");
+        p.addTag("Amigos");
+
         contactos.addLast(p);
+        
+        Persona p2 = new Persona("Jean Carlos", "095555555");
+        p2.setAtributte("Usuario twitter", "@Twitter");
+        p2.setAtributte("Usuario fb", "@Facebook");
+        p2.setAtributte("Cumpleaños", "12/15/15");
+        p2.addPhoto("/imgpersonas/persona5.jpg");
+        p2.addTag("Familia");
+        p2.addTag("Amigos");
+        p2.addTag("Trabajo");
+        p2.addTag("Escuella");
+        contactos.addLast(p2);
+        
+        for(Contacto contacto: contactos){
+            tags.addAll(contacto.getTags());
+        }
         
     }
 

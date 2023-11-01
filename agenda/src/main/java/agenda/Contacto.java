@@ -15,13 +15,39 @@ public abstract class Contacto implements Serializable {
     private LinkedList<String> photos;
 
     public Contacto(String name, String number) {
-        tags = new HashSet();
+        tags = new HashSet<String>();
         atributos = new HashMap<>();
         photos = new LinkedList();
         atributos.put("number", number);
         atributos.put("name", name);       
     }
-
+    
+    public boolean addTag(String tag){
+        if(!tag.equals("") && tag != null){
+            tags.add(tag);
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean removeTag(String tag){
+        if(tags.contains(tag)){
+            tags.remove(tag);
+            return true;
+        }
+        return false;
+    }
+    public boolean setTag(String oldTag, String newTag){
+        if(removeTag(oldTag)){
+            return addTag(newTag);
+        }
+        return false;
+    }
+    
+    public HashSet getTags(){
+        return tags;
+    }
+    
     public String getName() {
         return atributos.get("name");
     }

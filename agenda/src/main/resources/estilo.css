@@ -1,0 +1,47 @@
+.label{
+    -fx-text-fill: #0a386e;
+    -fx-font-size: 15px;
+}
+
+.titulo{
+    -fx-font-weight: bold;
+}
+
+.respuesta-correcta{
+    -fx-font-weight: bold;
+    -fx-text-fill: #49b963;
+}
+
+.border-pane{
+    -fx-background-color: #eef4ff;
+}
+
+.button { 
+    -fx-background-color: #80a4d2;
+    -fx-border-color: #FFFFFF;
+    -fx-border-width: 0;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: "Arial";
+    -fx-font-size: 16px;
+    -fx-background-radius: 2 2 2 2;
+    -fx-border-radius: 2 2 2 2;
+}
+
+.button:hover { -fx-background-color: #5a88be;
+               -fx-font-size: 18px;
+}
+
+.button:pressed { -fx-background-color: #517196;
+	-fx-text-fill: #FFFFFF;
+	-fx-font-weight: bold;
+}
+
+.combo-box-base{
+    -fx-background-color: -fx-shadow-highlight-color, #80a4d2;
+    -fx-text-fill: #FFFFFF;
+}
+
+.combo-box .list-cell {
+    -fx-background-color: #90c3e2;
+    -fx-text-fill: #0a386e;
+}
