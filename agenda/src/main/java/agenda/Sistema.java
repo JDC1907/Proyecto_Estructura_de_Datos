@@ -6,6 +6,8 @@ package agenda;
 
 import java.util.HashSet;
 import tda.ArrayList;
+import tda.CircularList;
+import tda.DoublyLinkedList;
 import tda.LinkedList;
 import tda.List;
 
@@ -16,7 +18,9 @@ import tda.List;
 public class Sistema {
     static private ArrayList<Usuario> usuarios = new ArrayList<>();
 
-    public static List<Contacto> contactos = new LinkedList();
+    public static CircularList<Contacto> contactos = new DoublyLinkedList();
+    
+    //public static List<Contacto> contactos = new LinkedList();
     public static HashSet<String> tags = new HashSet();
     
     public static void inicializarSistema(){

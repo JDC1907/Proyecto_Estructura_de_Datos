@@ -2,7 +2,11 @@ package ggm;
 
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.ListIterator;
+import java.util.Scanner;
 import tda.ArrayList;
+import tda.CircularList;
+import tda.DoublyLinkedList;
 import tda.LinkedList;
 import tda.List;
 
@@ -13,7 +17,35 @@ import tda.List;
 public class Main {
 
     public static void main(String[] args) {
-
+        
+        CircularList<String> l = new DoublyLinkedList<>();
+        l.addLast("Ultimo");
+        l.addLast("Hola");
+        l.addLast("Chao");
+        l.addLast("Primero");
+        System.out.println(l);
+        l.set(1,"CHola");
+        System.out.println(l);
+        l.set(0, "Chao");
+        System.out.println(l);
+        l.set(l.size()-1, "Chao");
+        System.out.println(l);
+        for(String elemento: l){
+            System.out.println(elemento);
+        }
+        Scanner sc = new Scanner(System.in);
+        ListIterator it = l.listIterator();
+        /*
+        while(true){
+        System.out.print("Next or previous: ");
+        if(sc.nextLine().equals("next")){
+            System.out.println(it.next());
+        }        else{
+            System.out.println(it.previous());
+        }
+        }
+        
+/*
         List<Student> l1 = new LinkedList<>();
         l1.addLast(new Student("Maria", "Panchana", 19));
         l1.addLast(new Student("Pepe", "Ortega", 21));
@@ -74,7 +106,7 @@ public class Main {
 
         System.out.println("intersection2.size(): " + intersection2.size());
 
-        System.out.println(intersection2);
+        System.out.println(intersection2);*/
 
     }
 }

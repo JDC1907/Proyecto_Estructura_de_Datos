@@ -35,7 +35,8 @@ public class PreCarga1 implements Initializable {
                     try {
                         root = FXMLLoader.load(getClass().getResource("EstiloGestorContacto.fxml"));
                     }catch (IOException e) {
-                    }   scene = new Scene(root, 900, 720);
+                    }
+                    scene = new Scene(root, 900, 720);
                     stage = new Stage();
                     stage.setTitle("ContactYou");
                     stage.getIcons().add(new Image(icon) );

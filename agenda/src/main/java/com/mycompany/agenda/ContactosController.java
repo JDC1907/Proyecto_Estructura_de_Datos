@@ -3,10 +3,8 @@ package com.mycompany.agenda;
 
 import agenda.Contacto;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
-import javafx.event.ActionEvent;
+import java.util.ListIterator;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -19,6 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import tda.ArrayList;
+import tda.CircularList;
 import tda.List;
 
 public class ContactosController {
@@ -30,11 +29,38 @@ public class ContactosController {
     private int indice = 0;
     private Contacto contactoSeleccionado;
     private HBox cajaContactoSeleccionada;
+    private ListIterator<Contacto> itList;
+    private ListIterator<Contacto> itList1, itList2, itList3, itList4, itList5, itList6;
 
     @FXML
     private void initialize(){
+        
+        itList = agenda.Sistema.contactos.listIterator();
+        prepararIteradores(agenda.Sistema.contactos);
         cargarContactosPanelIzquierdo(agenda.Sistema.contactos);
         cargarTags();
+    }
+    
+    private void avanzarIterator(int steps, Iterator it){
+        for(int i=1;i<steps;i++){
+            it.next();
+        }
+    }
+    
+    private void prepararIteradores(CircularList list){
+        int i = 2;
+        itList1 = list.listIterator();
+        avanzarIterator(i,itList1);
+        itList2 = list.listIterator();
+        avanzarIterator(++i,itList2);
+        itList3 = list.listIterator();
+        avanzarIterator(++i,itList3);
+        itList4 = list.listIterator();
+        avanzarIterator(++i,itList4);
+        itList5 = list.listIterator();
+        avanzarIterator(++i,itList5);
+        itList6 = list.listIterator();
+        avanzarIterator(++i,itList6);
     }
     
     private void cargarTags(){
@@ -69,7 +95,6 @@ public class ContactosController {
         if(lista.size()>numeroContactosMostrados){
             setDisableButtonsDownUp(false);
         }
-        //Iterator<Contacto> it = agenda.Sistema.contactos.iterator();
         int numElementos = 0;
         while(it.hasNext() && numElementos<numeroContactosMostrados){
             Contacto contacto = it.next();
@@ -133,7 +158,7 @@ public class ContactosController {
                     contacto.updateKeyAtributte(key, label.getText());
                 });
     }
-    
+    /*
     private void mostrarContactosIterados(int indice){
         contactosVBox.getChildren().clear();
         int numElementos = 0;
@@ -149,9 +174,9 @@ public class ContactosController {
             numElementos++;
             indice++;
         }
-    }
+    }*/
     
-    private void mostrarContacto(Contacto contacto){
+    private void mostrarContacto(int indice, Contacto contacto){
         HBox cajaContacto = new HBox();
         cajaContacto.setCursor(Cursor.HAND);
         cajaContacto.setOnMouseClicked((e)->{
@@ -169,27 +194,40 @@ public class ContactosController {
         datosContacto.getChildren().add(new Label(contacto.getName()));
         datosContacto.getChildren().add(new Label(contacto.getNumber()));
         cajaContacto.getChildren().add(datosContacto);
-        contactosVBox.getChildren().add(cajaContacto);
+        contactosVBox.getChildren().add(indice,cajaContacto);
+        
+    }
+    
+    private boolean mostrarContacto(Contacto contacto){
+        if(contacto == null){
+            return false;
+        }
+        mostrarContacto(contactosVBox.getChildren().size(), contacto);
+        return true;
         
     }
     
     @FXML
     private void retrocederContactos(){
-        indice--;
-        mostrarContactosIterados(indice);
-        if(indice<0){
-            indice=agenda.Sistema.contactos.size()-1;
-        }
-        
+        contactosVBox.getChildren().clear();
+        mostrarContacto(itList1.previous());
+        mostrarContacto(itList2.previous());
+        mostrarContacto(itList3.previous());
+        mostrarContacto(itList4.previous());
+        mostrarContacto(itList5.previous());
+        mostrarContacto(itList6.previous());
     }
     
     @FXML
     private void avanzarContactos(){
-        indice++;
-        mostrarContactosIterados(indice);
-        if(indice>=agenda.Sistema.contactos.size()){
-            indice=0;
-        }
+        contactosVBox.getChildren().clear();
+        mostrarContacto(itList1.next());
+        mostrarContacto(itList2.next());
+        mostrarContacto(itList3.next());
+        mostrarContacto(itList4.next());
+        mostrarContacto(itList5.next());
+        mostrarContacto(itList6.next());
+        
     }
     
     @FXML
@@ -200,9 +238,7 @@ public class ContactosController {
     
     @FXML
     public void deleteContact(){
-        //int indiceContactoBorrado = agenda.Sistema.contactos.indexOf(contactoSeleccionado);
         agenda.Sistema.contactos.remove(contactoSeleccionado);
-        //int indiceCajaContactoSeleccionada = contactosVBox.getChildren().indexOf(cajaContactoSeleccionada);
         contactosVBox.getChildren().remove(cajaContactoSeleccionada);
         cargarContactosPanelIzquierdo(agenda.Sistema.contactos);
         datosContactoAtributosVBox.getChildren().clear();
