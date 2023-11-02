@@ -21,7 +21,7 @@ import tda.CircularList;
 import tda.List;
 
 public class ContactosController {
-    private final int numeroContactosMostrados = 6;
+    private final int NUMERO_CONTACTOS_MOSTRADOS = 6;
     @FXML private VBox contactosVBox, datosContactoAtributosVBox, datosContactoVBox;
     @FXML private ImageView contactoImg;
     @FXML private Button upContactsButton, downContactsButton, deleteContactButton;
@@ -30,13 +30,15 @@ public class ContactosController {
     private Contacto contactoSeleccionado;
     private HBox cajaContactoSeleccionada;
     private ListIterator<Contacto> itList;
-    private ListIterator<Contacto> itList1, itList2, itList3, itList4, itList5, itList6;
+    //private ListIterator<Contacto> itList1, itList2, itList3, itList4, itList5, itList6;
+    private List<ListIterator<Contacto>> iterators = new ArrayList<>();
+    private boolean retrocedio = false; //usado para saber si avanzó  en la lista de contactos
+    private boolean avanzo = true; //usado para saber si retrocedio en la lista de contactos
 
     @FXML
     private void initialize(){
-        
         itList = agenda.Sistema.contactos.listIterator();
-        prepararIteradores(agenda.Sistema.contactos);
+        prepararIteradores(agenda.Sistema.contactos, NUMERO_CONTACTOS_MOSTRADOS);
         cargarContactosPanelIzquierdo(agenda.Sistema.contactos);
         cargarTags();
     }
@@ -47,21 +49,15 @@ public class ContactosController {
         }
     }
     
-    private void prepararIteradores(CircularList list){
-        int i = 2;
-        itList1 = list.listIterator();
-        avanzarIterator(i,itList1);
-        itList2 = list.listIterator();
-        avanzarIterator(++i,itList2);
-        itList3 = list.listIterator();
-        avanzarIterator(++i,itList3);
-        itList4 = list.listIterator();
-        avanzarIterator(++i,itList4);
-        itList5 = list.listIterator();
-        avanzarIterator(++i,itList5);
-        itList6 = list.listIterator();
-        avanzarIterator(++i,itList6);
-    }
+    private List<ListIterator<Contacto>> prepararIteradores(CircularList list, int numIterators){
+        iterators = new ArrayList<>();
+        for(int i = 0; i < numIterators; i++){
+            ListIterator<Contacto> it = list.listIterator();
+            avanzarIterator(i+2, it);
+            iterators.addLast(it);
+        }
+    return iterators;
+}
     
     private void cargarTags(){
         for(String tag: agenda.Sistema.tags){
@@ -92,11 +88,11 @@ public class ContactosController {
         Iterator<Contacto> it = lista.iterator();
         contactosVBox.getChildren().clear();
         setDisableButtonsDownUp(true);
-        if(lista.size()>numeroContactosMostrados){
+        if(lista.size()>NUMERO_CONTACTOS_MOSTRADOS){
             setDisableButtonsDownUp(false);
         }
         int numElementos = 0;
-        while(it.hasNext() && numElementos<numeroContactosMostrados){
+        while(it.hasNext() && numElementos<NUMERO_CONTACTOS_MOSTRADOS){
             Contacto contacto = it.next();
             mostrarContacto(contacto);
             numElementos++;
@@ -158,24 +154,7 @@ public class ContactosController {
                     contacto.updateKeyAtributte(key, label.getText());
                 });
     }
-    /*
-    private void mostrarContactosIterados(int indice){
-        contactosVBox.getChildren().clear();
-        int numElementos = 0;
-        while( numElementos<numeroContactosMostrados){
-            if(indice<0){
-                indice=agenda.Sistema.contactos.size()-1;
-                
-            }else if(indice>=agenda.Sistema.contactos.size()){
-                indice=0;
-            }
-            Contacto contacto = agenda.Sistema.contactos.get(indice);
-            mostrarContacto(contacto);
-            numElementos++;
-            indice++;
-        }
-    }*/
-    
+ 
     private void mostrarContacto(int indice, Contacto contacto){
         HBox cajaContacto = new HBox();
         cajaContacto.setCursor(Cursor.HAND);
@@ -210,24 +189,33 @@ public class ContactosController {
     @FXML
     private void retrocederContactos(){
         contactosVBox.getChildren().clear();
-        mostrarContacto(itList1.previous());
-        mostrarContacto(itList2.previous());
-        mostrarContacto(itList3.previous());
-        mostrarContacto(itList4.previous());
-        mostrarContacto(itList5.previous());
-        mostrarContacto(itList6.previous());
+        if (avanzo){
+            for(ListIterator<Contacto> itList: iterators){
+                itList.previous();
+                itList.previous();
+            }
+        }
+        for(ListIterator<Contacto> itList: iterators){
+            mostrarContacto(itList.previous());
+        }
+        retrocedio = true;
+        avanzo = false;
     }
     
     @FXML
     private void avanzarContactos(){
         contactosVBox.getChildren().clear();
-        mostrarContacto(itList1.next());
-        mostrarContacto(itList2.next());
-        mostrarContacto(itList3.next());
-        mostrarContacto(itList4.next());
-        mostrarContacto(itList5.next());
-        mostrarContacto(itList6.next());
-        
+        if (retrocedio){
+            for(ListIterator<Contacto> itList: iterators){
+                itList.next();
+                itList.next();
+            }
+        }
+        for(ListIterator<Contacto> itList: iterators){
+            mostrarContacto(itList.next());
+        }
+        retrocedio = false;
+        avanzo = true;
     }
     
     @FXML
