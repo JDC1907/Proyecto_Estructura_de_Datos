@@ -23,36 +23,70 @@ public class Sistema {
     usuarios.addLast(new Usuario("admin","12345678","Ädministrador","ädmin"));
 //    usuarios.addLast(new Usuario("Laura preciado","lau567","Persona","person"));
     
-        contactos.addLast(new Persona("Nombre1", "123456"));
-        contactos.addLast(new Persona("Nombre2", "087555"));
-        contactos.addLast(new Persona("Nombre3", "023456"));
-        contactos.addLast(new Persona("Nombre4", "123456"));
-        contactos.addLast(new Persona("Nombre5", "123456"));
-        contactos.addLast(new Persona("Nombre6", "123456"));
-        contactos.addLast(new Persona("Nombre7", "123456"));
-        contactos.addLast(new Persona("Nombre8", "123456"));
-        contactos.addLast(new Persona("Nombre9", "123456"));
-        contactos.addLast(new Persona("Nombre10", "123456"));
-        contactos.addLast(new Persona("Nombre11", "123456"));
+        contactos.addLast(new Persona("Nombre1", "123456"){
+            {addTag("Todo");
+            }
+        });
+        contactos.addLast(new Persona("Nombre2", "087555"){
+            {addTag("Todo");
+            }
+        });
+        contactos.addLast(new Persona("Nombre3", "023456"){
+            {addTag("Todo");
+            }
+        });
+        contactos.addLast(new Persona("Nombre4", "123456"){
+            {addTag("Todo");
+            }
+        });
+        contactos.addLast(new Persona("Nombre5", "123456"){
+            {addTag("Todo");
+            }
+        });
+        contactos.addLast(new Persona("Nombre6", "123456"){
+            {addTag("Todo");
+            }
+        });
+        contactos.addLast(new Persona("Nombre7", "123456"){
+            {addTag("Todo");
+            }
+        });
+        contactos.addLast(new Persona("Nombre8", "123456"){
+            {addTag("Todo");
+            }
+        });
+        contactos.addLast(new Persona("Nombre9", "123456"){
+            {addTag("Todo");
+            }
+        });
+        contactos.addLast(new Persona("Nombre10", "123456"){
+            {addTag("Todo");
+            }
+        });
+        contactos.addLast(new Persona("Nombre11", "123456"){
+            {addTag("Todo");
+            }
+        });
         Persona p = new Persona("Juan Carlos", "095555555");
-        p.setAtributte("Usuario twitter", "@Twitter");
-        p.setAtributte("Usuario fb", "@Facebook");
-        p.setAtributte("Cumpleaños", "12/15/15");
+        p.putAtributte("Usuario twitter", "@Twitter");
+        p.putAtributte("Usuario fb", "@Facebook");
+        p.putAtributte("Cumpleaños", "12/15/15");
         p.addPhoto("/imgpersonas/persona7.jpg");
         p.addTag("Familia");
         p.addTag("Amigos");
-
+        p.addTag("Todo");
         contactos.addLast(p);
         
         Persona p2 = new Persona("Jean Carlos", "095555555");
-        p2.setAtributte("Usuario twitter", "@Twitter");
-        p2.setAtributte("Usuario fb", "@Facebook");
-        p2.setAtributte("Cumpleaños", "12/15/15");
+        p2.putAtributte("Usuario twitter", "@Twitter");
+        p2.putAtributte("Usuario fb", "@Facebook");
+        p2.putAtributte("Cumpleaños", "12/15/15");
         p2.addPhoto("/imgpersonas/persona5.jpg");
         p2.addTag("Familia");
         p2.addTag("Amigos");
         p2.addTag("Trabajo");
         p2.addTag("Escuella");
+        p2.addTag("Todo");
         contactos.addLast(p2);
         
         for(Contacto contacto: contactos){

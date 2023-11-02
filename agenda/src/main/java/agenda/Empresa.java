@@ -15,7 +15,7 @@ public class Empresa extends Contacto{
     }
     
     public String getDireccion(){
-        return super.getValor("direccion");
+        return super.getValorAtributte("direccion");
     }
     
     public boolean setDireccion(String direccion){

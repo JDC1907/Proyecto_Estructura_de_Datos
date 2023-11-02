@@ -38,10 +38,10 @@ public abstract class Contacto implements Serializable {
         return false;
     }
     public boolean setTag(String oldTag, String newTag){
-        if(removeTag(oldTag)){
-            return addTag(newTag);
+        if(!removeTag(oldTag)){
+            return false;
         }
-        return false;
+        return addTag(newTag);
     }
     
     public HashSet getTags(){
@@ -69,10 +69,24 @@ public abstract class Contacto implements Serializable {
     }
     
     public boolean setAtributte(String key, String valor){
-        if(hasAtributte(key) || key.equals("") || key == null){
+        if(key.equals("") || key == null){
             return false;
         }
         if(valor.equals("") || valor == null){
+            return false;
+        }
+        if(atributos.containsKey(key)){
+            this.atributos.put(key, valor);
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean putAtributte(String key, String valor){
+        if(key.equals("") || key == null){
+            return false;
+        }
+        if( valor == null){
             return false;
         }
         
@@ -80,7 +94,16 @@ public abstract class Contacto implements Serializable {
         return true;
     }
     
-    public String getValor(String key){
+    public boolean updateKeyAtributte(String oldKey, String newKey){
+        if(this.hasAtributte(oldKey) && !this.hasAtributte(newKey)){
+            this.putAtributte(newKey, this.getValorAtributte(oldKey));
+            this.atributos.remove(oldKey);
+            return true;
+        }
+        return false;
+    }
+    
+    public String getValorAtributte(String key){
         if (hasAtributte(key)){
             return this.atributos.get(key);
         }
@@ -89,6 +112,14 @@ public abstract class Contacto implements Serializable {
     
     public Set<String> getKeysAtributtes(){
         return this.atributos.keySet();
+    }
+    
+    public boolean removeKeyAtributte(String key){
+        if(atributos.containsKey(key)){
+            atributos.remove(key);
+            return true;
+        }
+        return false;
     }
     
     public String getFirstPhoto(){
