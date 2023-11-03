@@ -72,11 +72,15 @@ public abstract class Contacto implements Serializable {
         if(key.equals("") || key == null){
             return false;
         }
-        if(valor.equals("") || valor == null){
+        if(valor == null){
             return false;
         }
+        System.out.println(atributos);
+        System.out.println("Fuera KEY: " + key + " valor: " + atributos.get(key));
         if(atributos.containsKey(key)){
             this.atributos.put(key, valor);
+            System.out.println(atributos);
+            System.out.println("Dentro KEY: " + key + " valor: " + atributos.get(key));
             return true;
         }
         return false;

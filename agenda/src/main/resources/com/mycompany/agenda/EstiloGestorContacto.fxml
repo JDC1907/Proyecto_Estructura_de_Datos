@@ -210,7 +210,21 @@
                               </HBox>
                            </children>
                         </VBox>
-                        <VBox fx:id="datosContactoAtributosVBox" alignment="TOP_CENTER" prefHeight="17.0" prefWidth="627.0" />
+                        <VBox fx:id="datosContactoAtributosVBox" alignment="TOP_CENTER" prefHeight="17.0" prefWidth="627.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label fx:id="nameLabel" text="Name" />
+                                    <TextField fx:id="nameTextField" disable="true" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label fx:id="numberLabel" text="Number" />
+                                    <TextField fx:id="numberTextField" disable="true" />
+                                 </children>
+                              </HBox>
+                           </children></VBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <Button fx:id="addAtributteButton" mnemonicParsing="false" onAction="#addAtributte" text="Agregar atributo">
