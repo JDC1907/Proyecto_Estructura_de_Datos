@@ -11,7 +11,7 @@ public interface CircularList<E> extends Iterable<E>, Serializable, List<E> {
     
     public CircularList<E> findIntersection (CircularList<E> anotherList, Comparator<E> cmp);
     
-    public ListIterator listIterator();
+    public ListIterator<E> listIterator();
     
 
 }

@@ -327,7 +327,7 @@ public class DoublyLinkedList<E> implements CircularList<E>{
         return it;
     }
     @Override
-    public ListIterator listIterator() {
+    public ListIterator<E> listIterator() {
         ListIterator<E> it = new ListIterator<E>() {
             private DoublyNode<E> cursor = first;
 

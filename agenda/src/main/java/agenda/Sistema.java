@@ -86,6 +86,7 @@ public class Sistema {
         p2.putAtributte("Usuario fb", "@Facebook");
         p2.putAtributte("Cumpleaños", "12/15/15");
         p2.addPhoto("/imgpersonas/persona5.jpg");
+        p2.addPhoto("/imgpersonas/persona6.jpg");
         p2.addTag("Familia");
         p2.addTag("Amigos");
         p2.addTag("Trabajo");
