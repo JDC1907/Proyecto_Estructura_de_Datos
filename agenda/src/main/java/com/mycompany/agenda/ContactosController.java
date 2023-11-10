@@ -2,7 +2,6 @@
 package com.mycompany.agenda;
 
 import agenda.Contacto;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.ListIterator;
@@ -359,8 +358,7 @@ public class ContactosController {
             labelNameFX = labelName;
             labelNumberFX = labelNumber;
             preCargarDatosContactoSeleccionado(contacto);
-            cargarDatosContacto(contacto);
-            
+            cargarDatosContacto(contacto);            
         });
         contactosVBox.getChildren().add(cajaContacto);
         

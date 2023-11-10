@@ -19,6 +19,7 @@ public abstract class Contacto implements Serializable {
     private String name, number;
     private List<Date> dates;
     private HashSet<Contacto> contactosRelacionados;
+    private boolean favorito;
 
     public Contacto(String name, String number) {
         this.tags = new HashSet<String>();
