@@ -21,7 +21,7 @@ public class Sistema {
     public static CircularList<Contacto> contactos = new DoublyLinkedList();
     
     //public static List<Contacto> contactos = new LinkedList();
-    public static HashSet<String> tags = new HashSet();
+
     
     public static void inicializarSistema(){
     usuarios.addLast(new Usuario("admin","12345678","Ädministrador","ädmin"));
@@ -30,47 +30,47 @@ public class Sistema {
     }
     public static void cargarContactos(Usuario usuario){
         contactos.addLast(new Persona("Nombre1", "123456"){
-            {addTag("Todo");
+            {addTag("Tag1");
             }
         });
         contactos.addLast(new Persona("Nombre2", "087555"){
-            {addTag("Todo");
+            {addTag("Tag2");
             }
         });
         contactos.addLast(new Persona("Nombre3", "023456"){
-            {addTag("Todo");
+            {addTag("Tag3");
             }
         });
         contactos.addLast(new Persona("Nombre4", "123456"){
-            {addTag("Todo");
+            {addTag("Tag4");
             }
         });
         contactos.addLast(new Persona("Nombre5", "123456"){
-            {addTag("Todo");
+            {addTag("Tag5");
             }
         });
         contactos.addLast(new Persona("Nombre6", "123456"){
-            {addTag("Todo");
+            {addTag("Tag6");
             }
         });
         contactos.addLast(new Persona("Nombre7", "123456"){
-            {addTag("Todo");
+            {addTag("Tag7");
             }
         });
         contactos.addLast(new Persona("Nombre8", "123456"){
-            {addTag("Todo");
+            {addTag("Tag8");
             }
         });
         contactos.addLast(new Persona("Nombre9", "123456"){
-            {addTag("Todo");
+            {addTag("Tag9");
             }
         });
         contactos.addLast(new Persona("Nombre10", "123456"){
-            {addTag("Todo");
+            {addTag("Tag10");
             }
         });
         contactos.addLast(new Persona("Nombre11", "123456"){
-            {addTag("Todo");
+            {addTag("Tag11");
             }
         });
         Persona p = new Persona("Juan Carlos", "095555555");
@@ -80,7 +80,6 @@ public class Sistema {
         p.addPhoto("/imgpersonas/persona7.jpg");
         p.addTag("Familia");
         p.addTag("Amigos");
-        p.addTag("Todo");
         contactos.addLast(p);
         
         Persona p2 = new Persona("Jean Carlos", "095555555");
@@ -93,16 +92,20 @@ public class Sistema {
         p2.addTag("Amigos");
         p2.addTag("Trabajo");
         p2.addTag("Escuella");
-        p2.addTag("Todo");
         contactos.addLast(p2);
         p2.addContactoRelacionado(p);
         p2.addContactoRelacionado(contactos.get(2));
+        
+        
+    }
+    
+    public static HashSet<String> getTags(){
+        HashSet<String> tags = new HashSet();
         for(Contacto contacto: contactos){
             tags.addAll(contacto.getTags());
         }
-        
+        return tags;
     }
-
 //    public static ArrayList<Usuario> getUsuarios() {
 //        return usuarios;
 //    }

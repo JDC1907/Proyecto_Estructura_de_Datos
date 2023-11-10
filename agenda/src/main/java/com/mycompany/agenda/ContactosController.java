@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -27,7 +28,9 @@ public class ContactosController {
     @FXML private ImageView contactoImg;
     @FXML private Button upContactsButton, downContactsButton, leftPhotos, rightPhotos;
     @FXML private HBox tagsHBox;
+    @FXML private FlowPane contactoTagsFlowPane;
     @FXML private ComboBox<Contacto> contactosRelacionadosComboBox;
+    @FXML private TextField nuevaTagTextField;
     
     private Contacto contactoSeleccionado; //Contacto seleccionado
     private List<ListIterator<Contacto>> iterators = new ArrayList<>();
@@ -65,7 +68,8 @@ public class ContactosController {
 }
     //Agrega botones en el area de los tag
     private void agregarButtonTagsEnElHBox(){//
-        for(String tag: agenda.Sistema.tags){
+        tagsHBox.getChildren().clear();
+        for(String tag: agenda.Sistema.getTags()){
             tagsHBox.getChildren().add(crearButtonTag(tag));
         }
     }
@@ -119,6 +123,9 @@ public class ContactosController {
         for(Contacto contactoRelacionado: contacto.getContactosRelacionados()){
             contactosRelacionados.remove(contactoRelacionado);
         }
+        
+        cargarTagsContactoSeleccionadoHBox();
+                
         contactoSeleccionado.getTags();
         contactosRelacionadosComboBox.getItems().addAll(contactosRelacionados);
         datosContactoVBox.setVisible(true);//Hace visible el vBox en donde estan los datos de los contacos
@@ -149,9 +156,36 @@ public class ContactosController {
         agregarContactosAcontactosRelacionadosVBox();
     }
     
+    private void cargarTagsContactoSeleccionadoHBox(){
+        contactoTagsFlowPane.getChildren().clear();
+        for(String tag: contactoSeleccionado.getTags()){
+            if(!tag.equals("Todo")){
+                HBox cajaTag = crearTagContactoSeleccionado(tag);
+                contactoTagsFlowPane.getChildren().add(cajaTag);
+            }
+        }
+    }
+    
+    private HBox crearTagContactoSeleccionado(String tag){
+        HBox cajaTag = new HBox();
+        cajaTag.getChildren().add(new Label(tag));
+                Button buttonBorrarTag = new Button();
+                buttonBorrarTag.setGraphic(new ImageView(new Image("/img/delette_atributte.png", 16,16,false,false)));
+                buttonBorrarTag.setCursor(Cursor.HAND);
+                buttonBorrarTag.setOnAction((e)->{
+                        contactoSeleccionado.removeTag(tag);
+                        contactoTagsFlowPane.getChildren().remove(cajaTag);
+                        agregarButtonTagsEnElHBox();
+                    }
+                );
+                cajaTag.getChildren().add(buttonBorrarTag);
+        return cajaTag;
+    }
+    
     private void agregarContactosAcontactosRelacionadosVBox(){
         contactosRelacionadosVBox.getChildren().clear();
         for(Contacto contacto: contactoSeleccionado.getContactosRelacionados()){
+            HBox cajaContactoRelacionado = new HBox();
             HBox contactoRelacionado = new HBox();
             contactoRelacionado.setAlignment(Pos.CENTER);
             String photo = PHOTO_DEFAULT;
@@ -164,7 +198,16 @@ public class ContactosController {
             Label labelName = new Label(contacto.getName());
             contactoRelacionado.getChildren().add(labelName);
             Label labelNumber = new Label(contacto.getNumber());
-            contactosRelacionadosVBox.getChildren().add(contactoRelacionado);
+            cajaContactoRelacionado.getChildren().add(contactoRelacionado);
+            
+            Button borrarContactoRelacionadoButton = new Button("X");
+            borrarContactoRelacionadoButton.setCursor(Cursor.HAND);
+            borrarContactoRelacionadoButton.setOnMouseClicked((e)->{
+                contactoSeleccionado.removeContactoRelacionado(contacto);
+                contactosRelacionadosVBox.getChildren().remove(cajaContactoRelacionado);
+            });
+            cajaContactoRelacionado.getChildren().add(borrarContactoRelacionadoButton);
+
             contactoRelacionado.setCursor(Cursor.HAND);
             contactoRelacionado.setOnMouseClicked((e)->{
                 labelNameFX = labelName;
@@ -172,6 +215,8 @@ public class ContactosController {
                 preCargarDatosContactoSeleccionado(contacto);
                 cargarDatosContacto(contacto);
             });
+            
+            contactosRelacionadosVBox.getChildren().add(cajaContactoRelacionado);
         }
     }
     
@@ -412,6 +457,16 @@ public class ContactosController {
     }
     
     @FXML
+    public void addTagContactoSeleccionado(){
+        String tag = nuevaTagTextField.getText();
+        if(!tag.equals("") && !contactoSeleccionado.getTags().contains(tag)){
+            contactoSeleccionado.addTag(tag);
+            contactoTagsFlowPane.getChildren().add(crearTagContactoSeleccionado(tag));
+            agregarButtonTagsEnElHBox();
+        }
+    }
+    
+    @FXML
     public void addContactoVinculado(){
         Contacto contacoParaAsociar = contactosRelacionadosComboBox.getSelectionModel().getSelectedItem();
         contacoParaAsociar.addContactoRelacionado(contactoSeleccionado);
@@ -421,6 +476,14 @@ public class ContactosController {
     
     @FXML
     public void deleteContact(){
+        List<Contacto> contactosVinculados = new ArrayList();
+        for(Contacto c: contactoSeleccionado.getContactosRelacionados()){
+            contactosVinculados.addLast(c);
+        }
+        
+        for(Contacto vinculado: contactosVinculados){
+            vinculado.removeContactoRelacionado(contactoSeleccionado);
+        }
         agenda.Sistema.contactos.remove(contactoSeleccionado);
         datosContactoAtributosVBox.getChildren().clear();
         datosContactoVBox.setVisible(false);

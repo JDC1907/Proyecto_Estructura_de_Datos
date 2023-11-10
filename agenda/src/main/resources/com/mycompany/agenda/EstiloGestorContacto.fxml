@@ -250,40 +250,41 @@
                            </cursor>
                         </Button>
                         <Label text="Etiquetas" />
-                        <ScrollPane>
-                           <content>
-                              <FlowPane>
+                        <FlowPane fx:id="contactoTagsFlowPane" alignment="CENTER" prefHeight="34.0" prefWidth="625.0">
+                           <children>
+                              <HBox fx:id="contactoTagsHBox" alignment="CENTER">
                                  <children>
-                                    <HBox alignment="CENTER">
-                                       <children>
-                                          <Label fx:id="nameLabel12" text="tag1" />
-                                          <Button mnemonicParsing="false">
-                                             <graphic>
-                                                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../../../img/delette_atributte.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </graphic>
-                                          </Button>
-                                       </children>
-                                    </HBox>
+                                    <Label fx:id="nameLabel12" text="tag1" />
+                                    <Button mnemonicParsing="false">
+                                       <graphic>
+                                          <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../img/delette_atributte.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
                                  </children>
-                              </FlowPane>
-                           </content>
-                        </ScrollPane>
-                        <Button fx:id="addAtributteButton11" mnemonicParsing="false" onAction="#addAtributte" text="Agregar etiqueta">
-                           <graphic>
-                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../img/add_atribute.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
+                              </HBox>
+                           </children>
+                        </FlowPane>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <TextField fx:id="nuevaTagTextField" promptText="Escriba la tag..." />
+                              <Button fx:id="addTagButton" mnemonicParsing="false" onAction="#addTagContactoSeleccionado" text="Agregar etiqueta">
+                                 <graphic>
+                                    <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../img/add_atribute.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                        </HBox>
                         <Label text="Contactos Relacionados" />
                         <VBox fx:id="contactosRelacionadosVBox" alignment="CENTER">
                            <children>

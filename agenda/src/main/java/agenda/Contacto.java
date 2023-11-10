@@ -23,6 +23,7 @@ public abstract class Contacto implements Serializable {
 
     public Contacto(String name, String number) {
         this.tags = new HashSet<String>();
+        this.tags.add("Todo");
         this.atributos = new HashMap<>();
         this.photos = new DoublyLinkedList();
         this.number = number;
