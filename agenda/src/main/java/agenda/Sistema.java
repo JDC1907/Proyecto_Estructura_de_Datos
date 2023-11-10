@@ -26,7 +26,9 @@ public class Sistema {
     public static void inicializarSistema(){
     usuarios.addLast(new Usuario("admin","12345678","Ädministrador","ädmin"));
 //    usuarios.addLast(new Usuario("Laura preciado","lau567","Persona","person"));
-    
+    cargarContactos(usuarios.get(0));
+    }
+    public static void cargarContactos(Usuario usuario){
         contactos.addLast(new Persona("Nombre1", "123456"){
             {addTag("Todo");
             }
@@ -93,7 +95,8 @@ public class Sistema {
         p2.addTag("Escuella");
         p2.addTag("Todo");
         contactos.addLast(p2);
-        
+        p2.addContactoRelacionado(p);
+        p2.addContactoRelacionado(contactos.get(2));
         for(Contacto contacto: contactos){
             tags.addAll(contacto.getTags());
         }

@@ -18,16 +18,34 @@ public abstract class Contacto implements Serializable {
     private CircularList<String> photos;
     private String name, number;
     private List<Date> dates;
-    private List<Contacto> contactosRelacionados;
+    private HashSet<Contacto> contactosRelacionados;
 
     public Contacto(String name, String number) {
-        tags = new HashSet<String>();
-        atributos = new HashMap<>();
-        photos = new DoublyLinkedList();
+        this.tags = new HashSet<String>();
+        this.atributos = new HashMap<>();
+        this.photos = new DoublyLinkedList();
         this.number = number;
         this.name = name;
-        contactosRelacionados = new LinkedList();
-        dates = new LinkedList();
+        this.contactosRelacionados = new HashSet();
+        this.dates = new LinkedList();
+    }
+    
+    public boolean addContactoRelacionado(Contacto contacto){
+        if(contacto == null || this.contactosRelacionados.contains(contacto)){
+            return false;
+        }
+        this.contactosRelacionados.add(contacto);
+        contacto.addContactoRelacionado(this);
+        return true;
+    }
+    
+    public boolean removeContactoRelacionado(Contacto contacto){
+        if(contacto == null || !this.contactosRelacionados.contains(contacto)){
+            return false;
+        }
+        this.contactosRelacionados.remove(contacto);
+        contacto.removeContactoRelacionado(this);
+        return true;
     }
     
     public boolean addTag(String tag){
@@ -52,7 +70,11 @@ public abstract class Contacto implements Serializable {
         return addTag(newTag);
     }
     
-    public HashSet getTags(){
+    public HashSet<Contacto> getContactosRelacionados(){
+        return contactosRelacionados;
+    }
+    
+    public HashSet<String> getTags(){
         return tags;
     }
     
@@ -157,6 +179,11 @@ public abstract class Contacto implements Serializable {
         }
         photos.remove(photo);
         return true;
+    }
+    
+    @Override
+    public String toString(){
+        return this.name;
     }
     
 }

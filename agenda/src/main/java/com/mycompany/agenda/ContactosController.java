@@ -3,12 +3,14 @@ package com.mycompany.agenda;
 
 import agenda.Contacto;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.ListIterator;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -21,15 +23,17 @@ import tda.CircularList;
 import tda.List;
 
 public class ContactosController {
-    private final int NUMERO_CONTACTOS_MOSTRADOS = 7;
-    @FXML private VBox contactosVBox, datosContactoAtributosVBox, datosContactoVBox, datosContactoNameNumberVBox;
+    private final int NUMERO_CONTACTOS_MOSTRADOS = 7;//Numero de contactos que van a ser mostrado en el panel izquierdo
+    @FXML private VBox contactosVBox, datosContactoAtributosVBox, datosContactoVBox, datosContactoNameNumberVBox, contactosRelacionadosVBox;
     @FXML private ImageView contactoImg;
     @FXML private Button upContactsButton, downContactsButton, leftPhotos, rightPhotos;
     @FXML private HBox tagsHBox;
-    private Contacto contactoSeleccionado;
-    private HBox cajaContactoSeleccionada;
+    @FXML private ComboBox<Contacto> contactosRelacionadosComboBox;
+    
+    private Contacto contactoSeleccionado; //Contacto seleccionado
     private List<ListIterator<Contacto>> iterators = new ArrayList<>();
     private ListIterator<String> photoIterator;
+    private final String PHOTO_DEFAULT = "/img/user.png";
     private String photoContacto = "/img/user.png";
     private boolean retrocedio, retrocedioPhoto = false; //usado para saber si avanzó  en la lista de contactos
     private boolean avanzo, avanzoPhoto = false; //usado para saber si retrocedio en la lista de contactos
@@ -38,7 +42,6 @@ public class ContactosController {
 
     @FXML
     private void initialize(){
-        prepararIteradores(agenda.Sistema.contactos, NUMERO_CONTACTOS_MOSTRADOS);//Prepara el uso de iteradores que se van a mostrar como contactos en el panel izquierdo
         cargarContactosPanelIzquierdo(agenda.Sistema.contactos);//cargar los contactos en el panel izquierdo
         agregarButtonTagsEnElHBox();//carga las tags que tengan todos los Contactos y los pone en los botones para filtrar por esas tags
     }
@@ -50,6 +53,7 @@ public class ContactosController {
         }
     }
     //Configura los iteradores que se mostraran en pantalla y los guarda en un ArrayList
+    //Prepara el uso de iteradores que se van a mostrar como contactos en el panel izquierdo
     private List<ListIterator<Contacto>> prepararIteradores(CircularList list, int numIterators){
         iterators = new ArrayList<>();
         for(int i = 0; i < numIterators; i++){
@@ -59,7 +63,7 @@ public class ContactosController {
         }
     return iterators;
 }
-    
+    //Agrega botones en el area de los tag
     private void agregarButtonTagsEnElHBox(){//
         for(String tag: agenda.Sistema.tags){
             tagsHBox.getChildren().add(crearButtonTag(tag));
@@ -82,13 +86,14 @@ public class ContactosController {
             );
         return buttonTag;
     }
-    
+    //Descativa los botoes de subir y bajar en el menu de contactos del panel izquierdo
     private void setDisableButtonsDownUp(boolean valor){
         upContactsButton.setDisable(valor);
         downContactsButton.setDisable(valor);
     }
-    
+    //Carga los contactos de una list y los pone en el panel izquierdo
     private void cargarContactosPanelIzquierdo(List lista){
+        prepararIteradores(agenda.Sistema.contactos, NUMERO_CONTACTOS_MOSTRADOS);
         Iterator<Contacto> it = lista.iterator();
         contactosVBox.getChildren().clear();
         setDisableButtonsDownUp(true);
@@ -102,21 +107,34 @@ public class ContactosController {
             numElementos++;
         }
     }
-    
-    private void cargarDatosContacto(Contacto contacto){
-        datosContactoVBox.setVisible(true);
 
-        if(contacto.hasPhotos()){
+    //Carga los datos del contacto y los coloca en el panel derecho en donde seran mostrados todos los datos del contacto seleccionado
+    private void cargarDatosContacto(Contacto contacto){
+        contactosRelacionadosComboBox.getItems().clear();
+        HashSet<Contacto> contactosRelacionados = new HashSet();
+        for(Contacto contactoRelacionado: agenda.Sistema.contactos){
+            contactosRelacionados.add(contactoRelacionado);
+        }
+        contactosRelacionados.remove(contacto);
+        for(Contacto contactoRelacionado: contacto.getContactosRelacionados()){
+            contactosRelacionados.remove(contactoRelacionado);
+        }
+        
+        
+        contactosRelacionadosComboBox.getItems().addAll(contactosRelacionados);
+        datosContactoVBox.setVisible(true);//Hace visible el vBox en donde estan los datos de los contacos
+        datosContactoNameNumberVBox.getChildren().clear();//Limpia el VBox en donde van guardado el nombre y numero del contaco
+        if(contacto.hasPhotos()){//Si hay fotos obtiene la primera foto
             photoContacto = photoIterator.next();
         }
         
-        if (contacto.getPhotos().size()>1){
+        if (contacto.getPhotos().size()>1){//Si hay mas de una foto activa los botones para navegar las fotografias
             leftPhotos.setDisable(false);
             rightPhotos.setDisable(false);
         }
 
         datosContactoAtributosVBox.setSpacing(10);
-        contactoImg.setImage(new Image(photoContacto, 64,64,false,false));
+        contactoImg.setImage(new Image(photoContacto, 64,64,false,false)); //carga la foto del contacto
         HBox datosContactoNombre = crearHBoxAtributteContacto();
         agregarLabelNameAndTextFieldNameToPane("Name", contacto.getName(), contacto, datosContactoNombre);
         
@@ -126,9 +144,35 @@ public class ContactosController {
         datosContactoNameNumberVBox.getChildren().add(datosContactoNombre);
         datosContactoNameNumberVBox.getChildren().add(datosContactoNumero);
         datosContactoAtributosVBox.getChildren().clear();
-        for(String key: contacto.getKeysAtributtes()){
-            agregarHBoxADatosContactoAtributosVBox(contacto, key);
+        for(String key: contacto.getKeysAtributtes()){ //Se agregan los atributos(key) junto a sus valores
+            agregarHBoxADatosContactoAtributosVBox(key);
+        }
+        agregarContactosAcontactosRelacionadosVBox();
+    }
+    
+    private void agregarContactosAcontactosRelacionadosVBox(){
+        contactosRelacionadosVBox.getChildren().clear();
+        for(Contacto contacto: contactoSeleccionado.getContactosRelacionados()){
+            HBox contactoRelacionado = new HBox();
+            contactoRelacionado.setAlignment(Pos.CENTER);
+            String photo = PHOTO_DEFAULT;
+            if(contacto.hasPhotos()){
+                photo = contacto.getFirstPhoto();
+            }
+            ImageView fotoContactoRelacionado = new ImageView(new Image(photo, 64,64,false,false));
             
+            contactoRelacionado.getChildren().add(fotoContactoRelacionado);
+            Label labelName = new Label(contacto.getName());
+            contactoRelacionado.getChildren().add(labelName);
+            Label labelNumber = new Label(contacto.getNumber());
+            contactosRelacionadosVBox.getChildren().add(contactoRelacionado);
+            contactoRelacionado.setCursor(Cursor.HAND);
+            contactoRelacionado.setOnMouseClicked((e)->{
+                labelNameFX = labelName;
+                labelNumberFX = labelNumber;
+                preCargarDatosContactoSeleccionado(contacto);
+                cargarDatosContacto(contacto);
+            });
         }
     }
     
@@ -157,16 +201,16 @@ public class ContactosController {
         label.textProperty().bind(textField.textProperty());//Enlaza el labelName que viene del panel Izquierdo con el name que se muestra en el lado derecho
     }
     
-    private void agregarHBoxADatosContactoAtributosVBox(Contacto contacto, String key){
+    private void agregarHBoxADatosContactoAtributosVBox(String key){
         HBox datosContacto = crearHBoxAtributteContacto();
-        Label label = crearLabelEditable(contacto, key, datosContacto);//Crea un label que se puede editar cuando se le da un click
+        Label label = crearLabelEditable(key, datosContacto);//Crea un label que se puede editar cuando se le da un click
         datosContacto.getChildren().add(label); //Agrega una Etiqueta con texto de la llave del diccionario
 
-        TextField campoTexto = crearTextField(contacto, key,datosContacto);
+        TextField campoTexto = crearTextField(key,datosContacto);
 
         datosContacto.getChildren().add(campoTexto);//agrega el campo de texto al lado del Label
 
-        Button borrarAtributoButton = crearButtonDeleteAtributte(contacto, key, "", datosContacto);
+        Button borrarAtributoButton = crearButtonDeleteAtributte(key, "", datosContacto);
 
         datosContacto.getChildren().add(borrarAtributoButton);//Agrega el boton para eliminar atributo al lado del Campo de texto
         datosContactoAtributosVBox.getChildren().add(datosContacto);//agrega ese reglon con datos del campo de texto, label e imagen en un VBOX
@@ -178,23 +222,23 @@ public class ContactosController {
         return new Button(textButton);
     }
     
-    private Button crearButtonDeleteAtributte(Contacto contacto, String key, String textButton, Pane pane){
+    private Button crearButtonDeleteAtributte(String key, String textButton, Pane pane){
         Button button = crearButton(textButton);
         button.setGraphic(new ImageView(new Image("/img/delette_atributte.png", 16,16,false,false)));
         button.setOnAction((e)->{
             datosContactoAtributosVBox.getChildren().remove(pane);
-            contacto.removeKeyAtributte(key);
+            contactoSeleccionado.removeKeyAtributte(key);
             }
         );
         return button;
     }
     
     //Recibe un contacto de donde se sacara guardara el Atributo que va en el label y un Pane que lo contiene
-    private Label crearLabelEditable(Contacto contacto, String key, Pane pane){
+    private Label crearLabelEditable(String key, Pane pane){
         Label label=  new Label(key);
+        label.setCursor(Cursor.HAND);
         label.setOnMouseClicked((e)->{
-                editarAtributteContacto(contacto, key, label, pane);
-                
+                editarAtributteContacto(contactoSeleccionado, key, label, pane);
             }
         );
         return label;
@@ -222,7 +266,8 @@ public class ContactosController {
         cargarDatosContacto(contacto);
     }
     
-    private TextField crearTextField(Contacto contacto, String key,Pane pane){
+    private TextField crearTextField(String key,Pane pane){
+        Contacto contacto = contactoSeleccionado;
         TextField campoTexto = new TextField(contacto.getValorAtributte(key));
         
         campoTexto.setDisable(true);//pone el campo de texto desactvado
@@ -293,7 +338,7 @@ public class ContactosController {
         campoTexto.setDisable(true);//Desabilita el campo de texto
     }
  
-    private void mostrarContacto(int indice, Contacto contacto){
+    private void mostrarContacto(Contacto contacto){
         HBox cajaContacto = new HBox();
         
         String photo = "/img/user.png";
@@ -311,29 +356,22 @@ public class ContactosController {
         
         cajaContacto.setCursor(Cursor.HAND);
         cajaContacto.setOnMouseClicked((e)->{
-            photoIterator = contacto.getPhotos().listIterator();
-            contactoSeleccionado = contacto;
-            cajaContactoSeleccionada = cajaContacto ;
             labelNameFX = labelName;
             labelNumberFX = labelNumber;
-            photoContacto = "/img/user.png";
-            this.leftPhotos.setDisable(true);
-            this.rightPhotos.setDisable(true);
-            datosContactoNameNumberVBox.getChildren().clear();
+            preCargarDatosContactoSeleccionado(contacto);
             cargarDatosContacto(contacto);
             
         });
-        contactosVBox.getChildren().add(indice,cajaContacto);
+        contactosVBox.getChildren().add(cajaContacto);
         
     }
     
-    private boolean mostrarContacto(Contacto contacto){
-        if(contacto == null){
-            return false;
-        }
-        mostrarContacto(contactosVBox.getChildren().size(), contacto);
-        return true;
-        
+    private void preCargarDatosContactoSeleccionado(Contacto contacto){
+        photoIterator = contacto.getPhotos().listIterator();
+        contactoSeleccionado = contacto;
+        photoContacto = PHOTO_DEFAULT;
+        this.leftPhotos.setDisable(true);
+        this.rightPhotos.setDisable(true);
     }
     
     @FXML
@@ -373,17 +411,23 @@ public class ContactosController {
     public void addAtributte(){
         contactoSeleccionado.putAtributte("Nuevo Atributo" + contactoSeleccionado.getKeysAtributtes().size(), "");
         photoIterator = contactoSeleccionado.getPhotos().listIterator();
-        datosContactoNameNumberVBox.getChildren().clear();
+        cargarDatosContacto(contactoSeleccionado);
+    }
+    
+    @FXML
+    public void addContactoVinculado(){
+        Contacto contacoParaAsociar = contactosRelacionadosComboBox.getSelectionModel().getSelectedItem();
+        contacoParaAsociar.addContactoRelacionado(contactoSeleccionado);
+        photoIterator = contactoSeleccionado.getPhotos().listIterator();
         cargarDatosContacto(contactoSeleccionado);
     }
     
     @FXML
     public void deleteContact(){
         agenda.Sistema.contactos.remove(contactoSeleccionado);
-        contactosVBox.getChildren().remove(cajaContactoSeleccionada);
-        cargarContactosPanelIzquierdo(agenda.Sistema.contactos);
         datosContactoAtributosVBox.getChildren().clear();
         datosContactoVBox.setVisible(false);
+        cargarContactosPanelIzquierdo(agenda.Sistema.contactos);
     }
     
     @FXML
@@ -411,7 +455,8 @@ public class ContactosController {
         contactoImg.setImage(new Image(photoContacto, 64,64,false,false));
     }
     
-    @FXML void scrollMouseContacts(){
+    @FXML 
+    public void scrollMouseContacts(){
         contactosVBox.setOnScroll(event -> {
             double deltaY = event.getDeltaY();
             if (deltaY > 0) {
