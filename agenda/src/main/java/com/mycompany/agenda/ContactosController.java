@@ -55,6 +55,7 @@ public class ContactosController {
     //Prepara el uso de iteradores que se van a mostrar como contactos en el panel izquierdo
     private List<ListIterator<Contacto>> prepararIteradores(CircularList list, int numIterators){
         iterators = new ArrayList<>();
+        avanzo = true;
         for(int i = 0; i < numIterators; i++){
             ListIterator<Contacto> it = list.listIterator();
             avanzarIterator(i+2, it);//Hace que los elementos avancen la posicion
