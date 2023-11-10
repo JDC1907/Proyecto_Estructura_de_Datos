@@ -103,7 +103,7 @@ public class ContactosController {
         int numElementos = 0;
         while(it.hasNext() && numElementos<NUMERO_CONTACTOS_MOSTRADOS){
             Contacto contacto = it.next();
-            mostrarContacto(contacto);
+            mostrarContacto(contacto);//
             numElementos++;
         }
     }
@@ -119,8 +119,7 @@ public class ContactosController {
         for(Contacto contactoRelacionado: contacto.getContactosRelacionados()){
             contactosRelacionados.remove(contactoRelacionado);
         }
-        
-        
+        contactoSeleccionado.getTags();
         contactosRelacionadosComboBox.getItems().addAll(contactosRelacionados);
         datosContactoVBox.setVisible(true);//Hace visible el vBox en donde estan los datos de los contacos
         datosContactoNameNumberVBox.getChildren().clear();//Limpia el VBox en donde van guardado el nombre y numero del contaco
@@ -362,7 +361,6 @@ public class ContactosController {
             cargarDatosContacto(contacto);            
         });
         contactosVBox.getChildren().add(cajaContacto);
-        
     }
     
     private void preCargarDatosContactoSeleccionado(Contacto contacto){
