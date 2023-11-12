@@ -204,7 +204,7 @@
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor></Button>
-                                    <Button fx:id="deletePhoto" disable="true" mnemonicParsing="false" text="Eliminar foto">
+                                    <Button fx:id="deletePhoto" disable="true" mnemonicParsing="false" onAction="#eliminarPhoto" text="Eliminar foto">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor></Button>
