@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="600.0" style="-fx-background-color: C6C5BA;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.agenda.ContactosController">
+   <children>
+      <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="48.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="347.0" prefWidth="310.0">
+         <children>
+            <ImageView fitHeight="321.0" fitWidth="310.0">
+               <image>
+                  <Image url="@../../../img/Img2Login.png" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
+      <VBox alignment="TOP_CENTER" layoutX="328.0" layoutY="14.0" prefHeight="120.0" prefWidth="258.0">
+         <children>
+            <ImageView fitHeight="154.0" fitWidth="173.0">
+               <image>
+                  <Image url="@../../../img/Img1Login.png" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
+      <VBox alignment="TOP_CENTER" layoutX="394.0" layoutY="158.0" prefHeight="27.0" prefWidth="117.0">
+         <children>
+            <Label text="Inicio de sesión">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" layoutX="323.0" layoutY="188.0" prefHeight="215.0" prefWidth="268.0">
+         <children>
+            <HBox alignment="BOTTOM_LEFT" prefHeight="20.0" prefWidth="292.0">
+               <children>
+                  <Label text="Usuario">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <VBox prefHeight="15.0" prefWidth="258.0">
+               <children>
+                  <TextField fx:id="TextUsuario" alignment="BASELINE_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="47.0" prefWidth="258.0" promptText="Ingrese su nombre de usuario" style="-fx-background-color: 000; -fx-border-color: 000;" stylesheets="@../../../../../../../../../../../../../4to%20SEMESTRE/MATERIAS/ESTRUCTURA/PROYECTO/RECURSOS/ProyectooPoo/Proyectoo2/POOGraficos/src/main/resources/grupo6/poograficosproject/files/estilos/login.css">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </TextField>
+                  <Separator nodeOrientation="LEFT_TO_RIGHT" prefHeight="22.0" prefWidth="258.0" />
+                  <Label fx:id="error1" textAlignment="CENTER" textFill="RED" />
+               </children>
+            </VBox>
+            <HBox alignment="BOTTOM_LEFT" prefHeight="19.0" prefWidth="258.0">
+               <children>
+                  <Label text="Contraseña">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <VBox prefHeight="15.0" prefWidth="258.0">
+               <children>
+                  <PasswordField fx:id="TextContra" prefHeight="14.0" prefWidth="258.0" promptText="Ingrese su contraseña" style="-fx-background-color: 000; -fx-border-color: 000;" stylesheets="@../../../../../../../../../../../../../4to%20SEMESTRE/MATERIAS/ESTRUCTURA/PROYECTO/RECURSOS/ProyectooPoo/Proyectoo2/POOGraficos/src/main/resources/grupo6/poograficosproject/files/estilos/login.css">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font></PasswordField>
+                  <Separator prefHeight="77.0" prefWidth="258.0" />
+                  <Label fx:id="error2" textAlignment="CENTER" textFill="RED" />
+               </children>
+            </VBox>
+            <HBox prefHeight="37.0" prefWidth="268.0">
+               <children>
+                  <Label fx:id="error32" prefHeight="17.0" prefWidth="36.0" textAlignment="CENTER" textFill="RED" />
+                  <Button fx:id="buttonEntrar" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="72.0" stylesheets="@../../../../../../../../../../../../../4to%20SEMESTRE/MATERIAS/ESTRUCTURA/PROYECTO/RECURSOS/ProyectooPoo/Proyectoo2/POOGraficos/src/main/resources/grupo6/poograficosproject/files/estilos/login.css" text="Entrar" textFill="#6c6bbc" textOverrun="CENTER_ELLIPSIS" />
+                  <Label fx:id="error3" prefHeight="17.0" prefWidth="73.0" textAlignment="CENTER" textFill="RED" />
+                  <Button fx:id="buttonCerrar" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" stylesheets="@../../../../../../../../../../../../../4to%20SEMESTRE/MATERIAS/ESTRUCTURA/PROYECTO/RECURSOS/ProyectooPoo/Proyectoo2/POOGraficos/src/main/resources/grupo6/poograficosproject/files/estilos/login.css" text="Cerrar" textFill="#6c6bbc" />
+                  <Label fx:id="error31" prefHeight="17.0" prefWidth="46.0" textAlignment="CENTER" textFill="RED" />
+               </children>
+            </HBox>
+            <VBox prefHeight="56.0" prefWidth="268.0" />
+            <Label fx:id="error" textAlignment="CENTER" textFill="RED" />
+         </children>
+      </VBox>
+   </children>
+</Pane>
