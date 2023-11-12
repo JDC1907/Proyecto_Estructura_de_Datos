@@ -177,8 +177,8 @@ public abstract class Contacto implements Serializable {
     }
     
     public boolean removePhoto(String photo){
-        System.out.println(photo);
-        System.out.println(photos);
+//        System.out.println(photo);
+//        System.out.println(photos);
 //        if(photo == null || !photos.contains(photo)){
 //            return false;
 //        }

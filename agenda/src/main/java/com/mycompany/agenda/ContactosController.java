@@ -430,28 +430,30 @@ public class ContactosController {
         //datosContacto.setAlignment(Pos.TOP_RIGHT);
         VBox favoritos = new VBox();
 
-        Button fav =new Button(contacto.isFavorite()?"✯":"✰");
+        Button fav =new Button();
         fav.setAlignment(Pos.CENTER);
         
         datosContacto.setAlignment(Pos.BASELINE_RIGHT);
-        //Image imagen = new Image("/img/estrelladark.png");
-//        // Crear un ImageView con la imagen
-        //ImageView imageView = new ImageView(imagen);
-//        // Establecer el ImageView como gráfico del botón
-        //imageView.setFitWidth(20);
-        //imageView.setFitHeight(20);
-//       // fav.setPrefSize(5, 5);
-        //fav.setGraphic(imageView);
+       Image imagen = new Image("/img/estrelladark.png");
+        if(contacto.isFavorite()){
+            imagen = new Image("/img/estrellalight.png");
+        }
+        // Crear un ImageView con la imagen
+        ImageView imageView = new ImageView(imagen);
+        // Establecer el ImageView como gráfico del botón
+        imageView.setFitWidth(20);
+        imageView.setFitHeight(20);
+       // fav.setPrefSize(5, 5);
+        fav.setGraphic(imageView);
         fav.setStyle("-fx-background-color: transparent;");
-        HBox.setMargin(fav, new Insets(0, 0, 0, 15));
+        HBox.setMargin(fav, new Insets(0, 0, 0, 20));
         fav.setOnAction(e->{
         if(contacto.isFavorite()){
-            fav.setText("✰");
+            imageView.setImage(new Image("/img/estrelladark.png"));
             contacto.setFavorito(false);
-//            
        }else{
+           imageView.setImage(new Image("/img/estrellalight.png"));
            contacto.setFavorito(true);
-           fav.setText("✯");
         }
         });
         favoritos.getChildren().add(fav);
@@ -696,17 +698,18 @@ public class ContactosController {
                 new FileChooser.ExtensionFilter("JPG", "*.jpg"),
                 new FileChooser.ExtensionFilter("PNG", "*.png")
         );
-        File imgFile = fileChooser.showOpenDialog(null);
-
-        if (imgFile != null) {
+        java.util.List<File> imgFiles =  fileChooser.showOpenMultipleDialog(null);
+        System.out.println(imgFiles);
+        for(int i=0;i<imgFiles.size();i++){
+        if (imgFiles.get(i) != null) {
             try {
-                String imagePath = imgFile.toURI().toURL().toExternalForm();
+                String imagePath = imgFiles.get(i).toURI().toURL().toExternalForm();
                 contactoSeleccionado.addPhoto(imagePath);
             } catch (Exception e) {
                 // Maneja la excepción si ocurre un error al cargar la imagen
                 e.printStackTrace();
             }
-            
+        }
             photoIterator = contactoSeleccionado.getPhotos().listIterator();
             cargarDatosContacto(contactoSeleccionado);
             cargarContactosPanelIzquierdo(agenda.Sistema.contactos);
