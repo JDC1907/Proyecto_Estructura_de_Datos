@@ -651,35 +651,27 @@ public class ContactosController {
     private void agregarPhoto(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Buscar Imagen");
-        // Agregar filtros para facilitar la busqueda
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("All Images", "*.*"),
                 new FileChooser.ExtensionFilter("JPG", "*.jpg"),
                 new FileChooser.ExtensionFilter("PNG", "*.png")
         );
-        // Obtener la imagen seleccionada
         File imgFile = fileChooser.showOpenDialog(null);
 
-        // Mostar la imagen
         if (imgFile != null) {
-            //Image image = new Image("file:" + imgFile.getPath());           
-            //contactoImg.setImage(image);
-            contactoSeleccionado.addPhoto("/imgpersonas/"+imgFile.getName());
-//            System.out.println(imgFile.getPath());
-//            System.out.println(imgFile.getAbsolutePath());
-//            System.out.println(imgFile.getParent());
-//            try {
-//                System.out.println(imgFile.getCanonicalPath());
-//            } catch (IOException ex) {
-//                ex.printStackTrace();
-//            }
-            //contactoSeleccionado.addPhoto(imgFile.getAbsolutePath());
+            try {
+                String imagePath = imgFile.toURI().toURL().toExternalForm();
+                contactoSeleccionado.addPhoto(imagePath);
+            } catch (Exception e) {
+                // Maneja la excepción si ocurre un error al cargar la imagen
+                e.printStackTrace();
+            }
             
             photoIterator = contactoSeleccionado.getPhotos().listIterator();
-        }
             cargarDatosContacto(contactoSeleccionado);
             cargarContactosPanelIzquierdo(agenda.Sistema.contactos);
-
+        }
+            
     }
 
     @FXML
