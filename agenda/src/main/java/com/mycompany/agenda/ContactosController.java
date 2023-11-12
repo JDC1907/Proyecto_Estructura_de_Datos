@@ -10,9 +10,16 @@ import java.util.Iterator;
 import java.util.ListIterator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+
 import javafx.geometry.Insets;
+
+import javafx.fxml.FXMLLoader;
+
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -21,6 +28,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -28,20 +36,26 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import tda.ArrayList;
 import tda.CircularList;
 import tda.DoublyLinkedList;
 import tda.List;
 
+
+
+
 public class ContactosController {
     private final int NUMERO_CONTACTOS_MOSTRADOS = 7;//Numero de contactos que van a ser mostrado en el panel izquierdo
-    @FXML private VBox contactosVBox, datosContactoAtributosVBox, datosContactoVBox, datosContactoNameNumberVBox, contactosRelacionadosVBox;
-    @FXML private ImageView contactoImg;
+    @FXML private VBox contactosVBox, datosContactoAtributosVBox, datosContactoVBox, datosContactoNameNumberVBox, contactosRelacionadosVBox, vBoxContatoMuestra;
+    @FXML private AnchorPane anchorPaneContac;
+    @FXML private ImageView contactoImg,imgBienvenida;
     @FXML private Button upContactsButton, downContactsButton, leftPhotos, rightPhotos;
     @FXML private HBox tagsHBox;
     @FXML private FlowPane contactoTagsFlowPane;
     @FXML private ComboBox<Contacto> contactosRelacionadosComboBox;
-    @FXML private TextField nuevaTagTextField;
+    @FXML private TextField nuevaTagTextField,textNombre,textNumero;
+    
     
     private Contacto contactoSeleccionado; //Contacto seleccionado
     private List<ListIterator<Contacto>> iterators = new ArrayList<>();
@@ -51,6 +65,8 @@ public class ContactosController {
     private String photoContacto = "/img/user.png";
     private boolean retrocedio, retrocedioPhoto = false; //usado para saber si avanzó  en la lista de contactos
     private boolean avanzo, avanzoPhoto = false; //usado para saber si retrocedio en la lista de contactos
+    private Node internal;
+    
 
     private Label labelNameFX, labelNumberFX;
    
@@ -415,6 +431,7 @@ public class ContactosController {
     private void mostrarContacto(Contacto contacto){
         HBox cajaContacto = new HBox();
         
+        
         String photo = "/img/user.png";
         if(contacto.hasPhotos()){
             photo = contacto.getFirstPhoto();
@@ -492,8 +509,13 @@ public class ContactosController {
 
         cajaContacto.setCursor(Cursor.HAND);
         cajaContacto.setOnMouseClicked((e)->{
+            if(internal!=null){
+                internal.setVisible(false);
+            }
+            datosContactoVBox.setVisible(true);
             labelNameFX = labelName;
             labelNumberFX = labelNumber;
+            imgBienvenida.setVisible(false);
             preCargarDatosContactoSeleccionado(contacto);
             cargarDatosContacto(contacto);            
         });
@@ -585,15 +607,52 @@ public class ContactosController {
     
     //Crear contacto
     
-    @FXML
-    public void crearcontacto(){
-        
-        cargarContactosPanelIzquierdo(agenda.Sistema.contactos);
-        
-        
-          
-    }
     
+    @FXML
+    public void crearcontacto(ActionEvent event) throws IOException{
+        
+        FXMLLoader internalLoader = new FXMLLoader(App.class.getResource("CrearContacto"+".fxml"));
+        internal = internalLoader.load();
+        anchorPaneContac.getChildren().add(internal);
+        datosContactoVBox.setVisible(false);
+
+        // Cargando la nueva escena desde el archivo FXML
+        /*Parent root = null;
+                    try {
+                        root = FXMLLoader.load(getClass().getResource("CrearContacto.fxml"));
+                    }catch (IOException e) {
+                    }
+                    
+                    Scene scene = new Scene(root, 900, 500);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.show();*/
+        
+        
+
+
+        /*
+        try{
+        FXMLLoader loader =new FXMLLoader(Stage secondStage);
+        loader.setLocation(getClass().getResource("CrearContacto"));
+        //imgBienvenida.setVisible(false);
+        //datosContactoVBox.setVisible(true);
+        Parent root = loader.load();
+        Scene s = new Scene(root);
+        secondStage.setScene(s);
+        ContactosController controller = loader.getController();
+        controller.setStage(secondStage);
+        secondStage.show();
+        }catch(IOException e){
+            e.printStackTrace();
+        }*/
+        
+    }
+    //Guardar contacto
+    public void guardarContacto(){
+        
+        
+    }
     
     //Ordena por Nombre, Apelldio, Fecha, Derecha
     @FXML
@@ -610,6 +669,7 @@ public class ContactosController {
         nombre.sort(cmp);
 
         datosContactoAtributosVBox.getChildren().clear();
+        imgBienvenida.setVisible(true);
         datosContactoVBox.setVisible(false);
         cargarContactosPanelIzquierdo(nombre);  
     }
@@ -629,6 +689,7 @@ public class ContactosController {
        apellido.sort(cmp);
 
         datosContactoAtributosVBox.getChildren().clear();
+        imgBienvenida.setVisible(true);
         datosContactoVBox.setVisible(false);
         cargarContactosPanelIzquierdo(apellido);  
     }
@@ -647,6 +708,7 @@ public class ContactosController {
         fecha.sort(cmp);
 
         datosContactoAtributosVBox.getChildren().clear();
+        imgBienvenida.setVisible(true);
         datosContactoVBox.setVisible(false);
         cargarContactosPanelIzquierdo(fecha);  
     }
@@ -665,6 +727,7 @@ public class ContactosController {
         direccion.sort(cmp);
 
         datosContactoAtributosVBox.getChildren().clear();
+        imgBienvenida.setVisible(true);
         datosContactoVBox.setVisible(false);
         cargarContactosPanelIzquierdo(direccion);  
     }
@@ -719,8 +782,9 @@ public class ContactosController {
             }
         });
     }
+    
 
-
+    //Agregar fotos a los contactos
     @FXML
     private void agregarPhoto(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -781,5 +845,9 @@ public class ContactosController {
         }
     return iterators1;
 }
+
+    /*private void setStage(Stage secondStage) {
+        
+        }*/
 
 }

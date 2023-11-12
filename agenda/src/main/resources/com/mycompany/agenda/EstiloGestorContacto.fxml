@@ -45,13 +45,14 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="720.0" maxWidth="900.0" minHeight="720.0" minWidth="900.0" prefHeight="720.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.agenda.ContactosController">
+<VBox fx:id="vBoxAgenda" maxHeight="720.0" maxWidth="900.0" minHeight="720.0" minWidth="900.0" prefHeight="720.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.agenda.ContactosController">
   <children>
       <VBox alignment="CENTER" prefHeight="32.0" prefWidth="900.0">
          <children>
@@ -171,21 +172,97 @@
             </VBox>
             <ScrollPane fitToHeight="true" fitToWidth="true">
                <content>
-                  <VBox fx:id="datosContactoVBox" alignment="TOP_CENTER" snapToPixel="false">
+                  <VBox fx:id="vBoxContatoMuestra" alignment="TOP_CENTER" prefHeight="790.0" prefWidth="663.0">
                      <children>
-                        <Label text="Usuario" />
-                        <VBox alignment="CENTER">
+                        <AnchorPane fx:id="anchorPaneContac">
                            <children>
-                              <HBox alignment="CENTER">
+                              <ImageView fx:id="imgBienvenida" fitHeight="430.0" fitWidth="494.0" layoutX="67.0" layoutY="110.0" opacity="0.28">
+                                 <image>
+                                    <Image url="@../../../img/Img1Login.png" />
+                                 </image>
+                              </ImageView>
+                              <VBox fx:id="datosContactoVBox" alignment="CENTER" snapToPixel="false" visible="false">
                                  <children>
-                                    <Button fx:id="leftPhotos" disable="true" mnemonicParsing="false" onAction="#previousContactPhoto">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
+                                    <Label text="Usuario" />
+                                    <VBox alignment="CENTER">
+                                       <children>
+                                          <HBox alignment="CENTER">
+                                             <children>
+                                                <Button fx:id="leftPhotos" disable="true" mnemonicParsing="false" onAction="#previousContactPhoto">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                   <graphic>
+                                                      <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../../../img/left.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </Button>
+                                                <ImageView fx:id="contactoImg" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../img/user.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Button fx:id="rightPhotos" disable="true" mnemonicParsing="false" onAction="#nextContactPhoto">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                   <graphic>
+                                                      <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../../../img/right.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </Button>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER">
+                                             <children>
+                                                <Button fx:id="addPhoto" mnemonicParsing="false" onAction="#agregarPhoto" text="Agregar foto">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </Button>
+                                                <Button fx:id="deletePhoto" disable="true" mnemonicParsing="false" onAction="#eliminarPhoto" text="Eliminar foto">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </Button>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <VBox fx:id="datosContactoNameNumberVBox" alignment="CENTER_RIGHT" prefHeight="76.0" prefWidth="625.0">
+                                       <children>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <Label text="Nombre" />
+                                                <TextField fx:id="textNombre" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <Label text="Numero" />
+                                                <TextField fx:id="textNumero" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <VBox fx:id="datosContactoAtributosVBox" alignment="TOP_CENTER" />
+                                    <Button fx:id="addAtributteButton" mnemonicParsing="false" onAction="#addAtributte" text="Agregar atributo">
                                        <graphic>
                                           <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../../../img/left.png" />
+                                                <Image url="@../../../img/add_atribute.png" />
                                              </image>
                                           </ImageView>
                                        </graphic>
@@ -193,19 +270,22 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <ImageView fx:id="contactoImg" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../img/user.png" />
-                                       </image>
-                                    </ImageView>
-                                    <Button fx:id="rightPhotos" disable="true" mnemonicParsing="false" onAction="#nextContactPhoto">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
+                                    <Label text="Fecha" />
+                                    <VBox fx:id="fechasVBox" alignment="CENTER">
+                                       <children>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <Label fx:id="nameLabel1" text="Fecha" />
+                                                <TextField fx:id="nameTextField1" disable="true" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <Button fx:id="addAtributteButton1" mnemonicParsing="false" onAction="#addAtributte" text="Agregar fecha">
                                        <graphic>
                                           <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../../../img/right.png" />
+                                                <Image url="@../../../img/add_atribute.png" />
                                              </image>
                                           </ImageView>
                                        </graphic>
@@ -213,146 +293,97 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER">
-                                 <children>
-                                    <Button fx:id="addPhoto" mnemonicParsing="false" onAction="#agregarPhoto" text="Agregar foto">
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor></Button>
-                                    <Button fx:id="deletePhoto" disable="true" mnemonicParsing="false" onAction="#eliminarPhoto" text="Eliminar foto">
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor></Button>
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                        <VBox fx:id="datosContactoNameNumberVBox" alignment="TOP_CENTER" />
-                        <VBox fx:id="datosContactoAtributosVBox" alignment="TOP_CENTER" />
-                        <Button fx:id="addAtributteButton" mnemonicParsing="false" onAction="#addAtributte" text="Agregar atributo">
-                           <graphic>
-                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../img/add_atribute.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Label text="Fecha" />
-                        <VBox fx:id="fechasVBox" alignment="CENTER">
-                           <children>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <Label fx:id="nameLabel1" text="Fecha" />
-                                    <TextField fx:id="nameTextField1" disable="true" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                        <Button fx:id="addAtributteButton1" mnemonicParsing="false" onAction="#addAtributte" text="Agregar fecha">
-                           <graphic>
-                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../img/add_atribute.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Label text="Etiquetas" />
-                        <FlowPane fx:id="contactoTagsFlowPane" alignment="CENTER" prefHeight="34.0" prefWidth="625.0">
-                           <children>
-                              <HBox fx:id="contactoTagsHBox" alignment="CENTER">
-                                 <children>
-                                    <Label fx:id="nameLabel12" text="tag1" />
-                                    <Button mnemonicParsing="false">
+                                    <Label text="Etiquetas" />
+                                    <FlowPane fx:id="contactoTagsFlowPane" alignment="CENTER" prefHeight="34.0" prefWidth="625.0">
+                                       <children>
+                                          <HBox fx:id="contactoTagsHBox" alignment="CENTER">
+                                             <children>
+                                                <Label fx:id="nameLabel12" text="tag1" />
+                                                <Button mnemonicParsing="false">
+                                                   <graphic>
+                                                      <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../../../img/delette_atributte.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </Button>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </FlowPane>
+                                    <HBox alignment="CENTER">
+                                       <children>
+                                          <TextField fx:id="nuevaTagTextField" promptText="Escriba la tag..." />
+                                          <Button fx:id="addTagButton" mnemonicParsing="false" onAction="#addTagContactoSeleccionado" text="Agregar etiqueta">
+                                             <graphic>
+                                                <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../img/add_atribute.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                    <Label text="Contactos Relacionados" />
+                                    <VBox fx:id="contactosRelacionadosVBox" alignment="CENTER">
+                                       <children>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../img/user.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Label fx:id="nameLabel11" text="Nombre" />
+                                                <Label fx:id="nameLabel111" text="Numero" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <ComboBox fx:id="contactosRelacionadosComboBox" prefWidth="150.0" />
+                                    <Button fx:id="addContactoVinculadoButton" mnemonicParsing="false" onAction="#addContactoVinculado" text="Vincular contacto">
                                        <graphic>
-                                          <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../../../img/delette_atributte.png" />
+                                                <Image url="@../../../img/add_atribute.png" />
                                              </image>
                                           </ImageView>
                                        </graphic>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </Button>
+                                    <Button fx:id="deleteContactButton" mnemonicParsing="false" onAction="#deleteContact" text="Eliminar contacto">
+                                       <graphic>
+                                          <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../img/deletex2.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <HBox alignment="CENTER">
+                                       <children>
+                                          <Button mnemonicParsing="false" text="&lt;" />
+                                          <Separator opacity="0.0" prefWidth="500.0" />
+                                          <Button mnemonicParsing="false" text="&gt;" />
+                                       </children>
+                                    </HBox>
                                  </children>
-                              </HBox>
+                              </VBox>
                            </children>
-                        </FlowPane>
-                        <HBox alignment="CENTER">
-                           <children>
-                              <TextField fx:id="nuevaTagTextField" promptText="Escriba la tag..." />
-                              <Button fx:id="addTagButton" mnemonicParsing="false" onAction="#addTagContactoSeleccionado" text="Agregar etiqueta">
-                                 <graphic>
-                                    <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../img/add_atribute.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </Button>
-                           </children>
-                        </HBox>
-                        <Label text="Contactos Relacionados" />
-                        <VBox fx:id="contactosRelacionadosVBox" alignment="CENTER">
-                           <children>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../img/user.png" />
-                                       </image>
-                                    </ImageView>
-                                    <Label fx:id="nameLabel11" text="Nombre" />
-                                    <Label fx:id="nameLabel111" text="Numero" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                        <ComboBox fx:id="contactosRelacionadosComboBox" prefWidth="150.0" />
-                        <Button fx:id="addContactoVinculadoButton" mnemonicParsing="false" onAction="#addContactoVinculado" text="Vincular contacto">
-                           <graphic>
-                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../img/add_atribute.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Button fx:id="deleteContactButton" mnemonicParsing="false" onAction="#deleteContact" text="Eliminar contacto">
-                           <graphic>
-                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../img/deletex2.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                        </Button>
-                        <HBox alignment="CENTER">
-                           <children>
-                              <Button mnemonicParsing="false" text="&lt;" />
-                              <Separator opacity="0.0" prefWidth="500.0" />
-                              <Button mnemonicParsing="false" text="&gt;" />
-                           </children>
-                        </HBox>
+                        </AnchorPane>
                      </children>
                   </VBox>
                </content>

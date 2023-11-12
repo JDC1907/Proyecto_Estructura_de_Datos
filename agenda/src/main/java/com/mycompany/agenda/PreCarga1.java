@@ -43,7 +43,7 @@ public class PreCarga1 implements Initializable {
                     stage.setResizable(false);
                     stage.setScene(scene);
                     stage.show();
-
+                    
                     body.getScene().getWindow().hide();
                 });
             } catch (InterruptedException e) {
