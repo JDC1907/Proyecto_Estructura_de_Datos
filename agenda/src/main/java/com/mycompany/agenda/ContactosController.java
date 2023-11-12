@@ -428,35 +428,34 @@ public class ContactosController {
         datosContacto.getChildren().add(labelNumber);
         cajaContacto.getChildren().add(datosContacto);
         //datosContacto.setAlignment(Pos.TOP_RIGHT);
-        //VBox favoritos = new VBox();
-//        Button fav =new Button();
-//        fav.setAlignment(Pos.CENTER);
-//        
-//        datosContacto.setAlignment(Pos.BASELINE_RIGHT);
-//        Image imagen = new Image("/img/estrelladark.png");
+        VBox favoritos = new VBox();
+
+        Button fav =new Button(contacto.isFavorite()?"✯":"✰");
+        fav.setAlignment(Pos.CENTER);
+        
+        datosContacto.setAlignment(Pos.BASELINE_RIGHT);
+        //Image imagen = new Image("/img/estrelladark.png");
 //        // Crear un ImageView con la imagen
-//        ImageView imageView = new ImageView(imagen);
+        //ImageView imageView = new ImageView(imagen);
 //        // Establecer el ImageView como gráfico del botón
-//        imageView.setFitWidth(20);
-//        imageView.setFitHeight(20);
+        //imageView.setFitWidth(20);
+        //imageView.setFitHeight(20);
 //       // fav.setPrefSize(5, 5);
-//        fav.setGraphic(imageView);
-//        fav.setStyle("-fx-background-color: transparent;");
-//        HBox.setMargin(fav, new Insets(0, 0, 0, 15));
-//        fav.setOnAction(e->{
-//        if(contacto.isFavorite()){
-//            imageView.setImage(new Image("/img/estrelladark.png"));
-//            System.out.println("cambio");
-//            contacto.setFavorito(false);
+        //fav.setGraphic(imageView);
+        fav.setStyle("-fx-background-color: transparent;");
+        HBox.setMargin(fav, new Insets(0, 0, 0, 15));
+        fav.setOnAction(e->{
+        if(contacto.isFavorite()){
+            fav.setText("✰");
+            contacto.setFavorito(false);
 //            
-//        }else{
-//            contacto.setFavorito(true);
-//            imageView.setImage(new Image("/img/estrellalight.png"));
-//            System.out.println("cambiooo");
-//        }
-       // });
-        //favoritos.getChildren().add(fav);
-        //cajaContacto.getChildren().add(fav);
+       }else{
+           contacto.setFavorito(true);
+           fav.setText("✯");
+        }
+        });
+        favoritos.getChildren().add(fav);
+        cajaContacto.getChildren().add(favoritos);
         cajaContacto.setCursor(Cursor.HAND);
         cajaContacto.setOnMouseClicked((e)->{
             labelNameFX = labelName;
