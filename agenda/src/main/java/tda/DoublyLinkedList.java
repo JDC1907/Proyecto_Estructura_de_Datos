@@ -399,4 +399,25 @@ public class DoublyLinkedList<E> implements CircularList<E>{
         }
         return salida.substring(0, salida.length()-2);
     }   
-}
+
+    @Override
+    public boolean sort(Comparator<E> comparator) {
+        if(isEmpty()){
+            return false;
+        }
+        for (int i = 0; i < this.size() ; i++) {
+            for (int j = 0; j < this.size() - i -1; j++) {
+                E element1 = this.get(j);
+                E element2 = this.get(j + 1);
+
+                if (comparator.compare(element1, element2) > 0) {
+                    this.set(j, element2);
+                    this.set(j + 1, element1);
+                }
+            }
+        } return true;
+        
+        
+       }
+        }
+

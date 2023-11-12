@@ -13,6 +13,9 @@ public interface CircularList<E> extends Iterable<E>, Serializable, List<E> {
     
     public ListIterator<E> listIterator();
     
+    //Ordenar
+    public boolean sort(Comparator<E> comparator);
+    
 
 }
 

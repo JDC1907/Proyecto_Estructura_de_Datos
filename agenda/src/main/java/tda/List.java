@@ -41,6 +41,9 @@ public interface List<E> extends Iterable<E>, Serializable {
     public List<E> findIntersection (List<E> anotherList, Comparator<E> cmp);
     
     public boolean contains (E element, Comparator<E> cmp);
+    
+    //Ordenar
+    public boolean sort(Comparator<E> comparator);
 
 }
 

@@ -2,6 +2,7 @@
 package com.mycompany.agenda;
 
 import agenda.Contacto;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.ListIterator;
@@ -11,6 +12,8 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,8 +21,11 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import tda.ArrayList;
 import tda.CircularList;
+import tda.DoublyLinkedList;
 import tda.List;
 
 public class ContactosController {
@@ -40,12 +46,13 @@ public class ContactosController {
     private boolean retrocedio, retrocedioPhoto = false; //usado para saber si avanzó  en la lista de contactos
     private boolean avanzo, avanzoPhoto = false; //usado para saber si retrocedio en la lista de contactos
     private Label labelNameFX, labelNumberFX;
+   
     
-
     @FXML
     private void initialize(){
         cargarContactosPanelIzquierdo(agenda.Sistema.contactos);//cargar los contactos en el panel izquierdo
         agregarButtonTagsEnElHBox();//carga las tags que tengan todos los Contactos y los pone en los botones para filtrar por esas tags
+        
     }
     
     //recibe un iterador y los avanza el numero de veces de STEP
@@ -490,6 +497,97 @@ public class ContactosController {
         cargarContactosPanelIzquierdo(agenda.Sistema.contactos);
     }
     
+    //Crear contacto
+    
+    @FXML
+    public void crearcontacto(){
+        
+        cargarContactosPanelIzquierdo(agenda.Sistema.contactos);
+        
+        
+          
+    }
+    
+    
+    //Ordena por Nombre, Apelldio, Fecha, Derecha
+    @FXML
+    public void OrdenarNombre(){
+        CircularList<Contacto> nombre = new DoublyLinkedList();
+        for(Contacto c: agenda.Sistema.contactos){
+            nombre.addLast(c);
+        }
+        
+        Comparator<Contacto> cmp = (Contacto c1, Contacto c2) -> {   
+           return c1.getName().compareTo(c2.getName());
+        };
+
+        nombre.sort(cmp);
+
+        datosContactoAtributosVBox.getChildren().clear();
+        datosContactoVBox.setVisible(false);
+        cargarContactosPanelIzquierdo(nombre);  
+    }
+    
+    @FXML
+    public void OrdenarApellido(){
+        CircularList<Contacto> apellido = new DoublyLinkedList();
+        for(Contacto c: agenda.Sistema.contactos){
+            if(c.getValorAtributte("Apellido") !=null){
+                apellido.addLast(c);
+            }
+        }
+        Comparator<Contacto> cmp = (Contacto c1, Contacto c2) -> {     
+            return c1.getValorAtributte("Apellido").compareTo(c2.getValorAtributte("Apellido")); 
+        };
+
+       apellido.sort(cmp);
+
+        datosContactoAtributosVBox.getChildren().clear();
+        datosContactoVBox.setVisible(false);
+        cargarContactosPanelIzquierdo(apellido);  
+    }
+    
+    @FXML
+    public void OrdenarFecha(){
+        CircularList<Contacto> fecha = new DoublyLinkedList();
+        for(Contacto c: agenda.Sistema.contactos){
+            if(c.getValorAtributte("Fecha") !=null){
+                fecha.addLast(c);
+            }
+        }
+        Comparator<Contacto> cmp = (Contacto c1, Contacto c2) -> {    
+           return c1.getValorAtributte("Fecha").compareTo(c2.getValorAtributte("Fecha"));
+        };
+        fecha.sort(cmp);
+
+        datosContactoAtributosVBox.getChildren().clear();
+        datosContactoVBox.setVisible(false);
+        cargarContactosPanelIzquierdo(fecha);  
+    }
+    
+    @FXML
+    public void OrdenarDireccion(){
+        CircularList<Contacto> direccion = new DoublyLinkedList();
+        for(Contacto c: agenda.Sistema.contactos){
+            if(c.getValorAtributte("Direccion") !=null){
+                direccion.addLast(c);
+            }
+        }
+        Comparator<Contacto> cmp = (Contacto c1, Contacto c2) -> {
+           return c1.getValorAtributte("Direccion").compareTo(c2.getValorAtributte("Direccion"));
+        };
+        direccion.sort(cmp);
+
+        datosContactoAtributosVBox.getChildren().clear();
+        datosContactoVBox.setVisible(false);
+        cargarContactosPanelIzquierdo(direccion);  
+    }
+    
+    
+   
+    
+    
+    
     @FXML
     public void nextContactPhoto(){
         if(avanzoPhoto){
@@ -526,4 +624,6 @@ public class ContactosController {
             }
         });
     }
+    
+    
 }
