@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.ListIterator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
@@ -151,11 +152,21 @@ public class ContactosController {
         datosContactoNameNumberVBox.getChildren().clear();//Limpia el VBox en donde van guardado el nombre y numero del contaco
         if(contacto.hasPhotos()){//Si hay fotos obtiene la primera foto
             photoContacto = photoIterator.next();
+        }else{
+            photoContacto = PHOTO_DEFAULT;
         }
         
         if (contacto.getPhotos().size()>1){//Si hay mas de una foto activa los botones para navegar las fotografias
             leftPhotos.setDisable(false);
             rightPhotos.setDisable(false);
+           
+        }else{
+            leftPhotos.setDisable(true);
+            rightPhotos.setDisable(true);
+            deletePhoto.setDisable(true);
+        }
+        if (contacto.getPhotos().size()>0){
+            deletePhoto.setDisable(false);
         }
 
         datosContactoAtributosVBox.setSpacing(10);
@@ -416,7 +427,36 @@ public class ContactosController {
         Label labelNumber = new Label(contacto.getNumber());
         datosContacto.getChildren().add(labelNumber);
         cajaContacto.getChildren().add(datosContacto);
-        
+        //datosContacto.setAlignment(Pos.TOP_RIGHT);
+        //VBox favoritos = new VBox();
+//        Button fav =new Button();
+//        fav.setAlignment(Pos.CENTER);
+//        
+//        datosContacto.setAlignment(Pos.BASELINE_RIGHT);
+//        Image imagen = new Image("/img/estrelladark.png");
+//        // Crear un ImageView con la imagen
+//        ImageView imageView = new ImageView(imagen);
+//        // Establecer el ImageView como gráfico del botón
+//        imageView.setFitWidth(20);
+//        imageView.setFitHeight(20);
+//       // fav.setPrefSize(5, 5);
+//        fav.setGraphic(imageView);
+//        fav.setStyle("-fx-background-color: transparent;");
+//        HBox.setMargin(fav, new Insets(0, 0, 0, 15));
+//        fav.setOnAction(e->{
+//        if(contacto.isFavorite()){
+//            imageView.setImage(new Image("/img/estrelladark.png"));
+//            System.out.println("cambio");
+//            contacto.setFavorito(false);
+//            
+//        }else{
+//            contacto.setFavorito(true);
+//            imageView.setImage(new Image("/img/estrellalight.png"));
+//            System.out.println("cambiooo");
+//        }
+       // });
+        //favoritos.getChildren().add(fav);
+        //cajaContacto.getChildren().add(fav);
         cajaContacto.setCursor(Cursor.HAND);
         cajaContacto.setOnMouseClicked((e)->{
             labelNameFX = labelName;
@@ -433,6 +473,7 @@ public class ContactosController {
         photoContacto = PHOTO_DEFAULT;
         this.leftPhotos.setDisable(true);
         this.rightPhotos.setDisable(true);
+        this.deletePhoto.setDisable(true);
     }
     
     @FXML
@@ -676,10 +717,18 @@ public class ContactosController {
 
     @FXML
     private void eliminarPhoto(ActionEvent event) {
-//        if(contactoSeleccionado.hasPhotos()){
-//            deletePhoto.setDisable(false);
-//            //contactoSeleccionado.removePhoto(PHOTO_DEFAULT);
-//        }
+        if (contactoSeleccionado.getPhotos().size()>0){
+            //photoContacto = photoIterator.next();
+            deletePhoto.setDisable(false);
+            contactoSeleccionado.removePhoto(photoContacto);
+            
+            photoIterator = contactoSeleccionado.getPhotos().listIterator();
+  //          cargarDatosContacto(contactoSeleccionado);
+//            cargarContactosPanelIzquierdo(agenda.Sistema.contactos);
+        }
+        cargarDatosContacto(contactoSeleccionado);
+        cargarContactosPanelIzquierdo(agenda.Sistema.contactos);
+          
     }
     
     private void avanzarIterator1(int steps, Iterator it){

@@ -30,6 +30,7 @@ public abstract class Contacto implements Serializable {
         this.name = name;
         this.contactosRelacionados = new HashSet();
         this.dates = new LinkedList();
+        this.favorito = false;
     }
     
     public boolean addContactoRelacionado(Contacto contacto){
@@ -176,10 +177,13 @@ public abstract class Contacto implements Serializable {
     }
     
     public boolean removePhoto(String photo){
-        if(photo == null || !photos.contains(photo)){
-            return false;
-        }
+        System.out.println(photo);
+        System.out.println(photos);
+//        if(photo == null || !photos.contains(photo)){
+//            return false;
+//        }
         photos.remove(photo);
+        
         return true;
     }
     
@@ -187,5 +191,14 @@ public abstract class Contacto implements Serializable {
     public String toString(){
         return this.name;
     }
+
+    public boolean isFavorite() {
+        return favorito;
+    }
+
+    public void setFavorito(boolean favorito) {
+        this.favorito = favorito;
+    }
+    
     
 }
