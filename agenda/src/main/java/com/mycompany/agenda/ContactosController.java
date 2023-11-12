@@ -2,9 +2,11 @@
 package com.mycompany.agenda;
 
 import agenda.Contacto;
+import java.io.File;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.ListIterator;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -18,6 +20,9 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
 import tda.ArrayList;
 import tda.CircularList;
 import tda.List;
@@ -40,8 +45,8 @@ public class ContactosController {
     private boolean retrocedio, retrocedioPhoto = false; //usado para saber si avanzó  en la lista de contactos
     private boolean avanzo, avanzoPhoto = false; //usado para saber si retrocedio en la lista de contactos
     private Label labelNameFX, labelNumberFX;
-    
 
+    
     @FXML
     private void initialize(){
         cargarContactosPanelIzquierdo(agenda.Sistema.contactos);//cargar los contactos en el panel izquierdo
@@ -525,5 +530,30 @@ public class ContactosController {
                 avanzarContactos();
             }
         });
+    }
+
+    @FXML
+    private void agregarPhoto(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Buscar Imagen");
+        // Agregar filtros para facilitar la busqueda
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("All Images", "*.*"),
+                new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+                new FileChooser.ExtensionFilter("PNG", "*.png")
+        );
+        // Obtener la imagen seleccionada
+        File imgFile = fileChooser.showOpenDialog(null);
+
+        // Mostar la imagen
+        if (imgFile != null) {
+            Image image = new Image("file:" + imgFile.getName());           
+            contactoImg.setImage(image);
+            contactoSeleccionado.addPhoto("/imgpersonas/"+imgFile.getName());           
+        }
+        photoIterator = contactoSeleccionado.getPhotos().listIterator();
+        cargarDatosContacto(contactoSeleccionado);
+        cargarContactosPanelIzquierdo(agenda.Sistema.contactos);
+
     }
 }

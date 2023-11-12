@@ -49,7 +49,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="720.0" maxWidth="900.0" minHeight="720.0" minWidth="900.0" prefHeight="720.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.agenda.ContactosController">
+<VBox maxHeight="720.0" maxWidth="900.0" minHeight="720.0" minWidth="900.0" prefHeight="720.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.agenda.ContactosController">
   <children>
       <VBox alignment="CENTER" prefHeight="32.0" prefWidth="900.0">
          <children>
@@ -200,7 +200,7 @@
                               </HBox>
                               <HBox alignment="CENTER">
                                  <children>
-                                    <Button fx:id="addPhoto" mnemonicParsing="false" text="Agregar foto">
+                                    <Button fx:id="addPhoto" mnemonicParsing="false" onAction="#agregarPhoto" text="Agregar foto">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor></Button>
