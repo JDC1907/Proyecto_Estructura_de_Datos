@@ -81,7 +81,7 @@ public class Sistema {
         p.addTag("Familia");
         p.addTag("Amigos");
         contactos.addLast(p);
-        
+        //crear otro contacto
         Persona p2 = new Persona("Jean Carlos", "095555555");
         p2.putAtributte("Usuario twitter", "@Twitter");
         p2.putAtributte("Usuario fb", "@Facebook");
