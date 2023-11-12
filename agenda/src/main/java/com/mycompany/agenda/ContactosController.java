@@ -3,9 +3,12 @@ package com.mycompany.agenda;
 
 import agenda.Contacto;
 import java.util.Comparator;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.ListIterator;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -23,6 +26,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
 import tda.ArrayList;
 import tda.CircularList;
 import tda.DoublyLinkedList;
@@ -40,14 +44,22 @@ public class ContactosController {
     
     private Contacto contactoSeleccionado; //Contacto seleccionado
     private List<ListIterator<Contacto>> iterators = new ArrayList<>();
+    private List<ListIterator<Contacto>> iterators1 = new ArrayList<>();
     private ListIterator<String> photoIterator;
     private final String PHOTO_DEFAULT = "/img/user.png";
     private String photoContacto = "/img/user.png";
     private boolean retrocedio, retrocedioPhoto = false; //usado para saber si avanzó  en la lista de contactos
     private boolean avanzo, avanzoPhoto = false; //usado para saber si retrocedio en la lista de contactos
+
     private Label labelNameFX, labelNumberFX;
    
+
     
+    @FXML
+    private Button deletePhoto;
+    
+   
+
     @FXML
     private void initialize(){
         cargarContactosPanelIzquierdo(agenda.Sistema.contactos);//cargar los contactos en el panel izquierdo
@@ -591,10 +603,14 @@ public class ContactosController {
     @FXML
     public void nextContactPhoto(){
         if(avanzoPhoto){
-            photoIterator.next();
-            photoIterator.next();
+            for(ListIterator<Contacto> itList: iterators1){
+                itList.next();
+                itList.next();
+            }
         }
-        
+        for(ListIterator<Contacto> itList: iterators1){
+            mostrarContacto(itList.next());
+        }
         photoContacto = photoIterator.next();
         avanzoPhoto = true;
         retrocedioPhoto = false;
@@ -604,8 +620,13 @@ public class ContactosController {
     @FXML
     public void previousContactPhoto(){
         if(retrocedioPhoto){
-            photoIterator.previous();
-            photoIterator.previous();
+            for(ListIterator<Contacto> itList: iterators1){
+                itList.previous();
+                itList.previous();
+            }
+        }
+        for(ListIterator<Contacto> itList: iterators1){
+            mostrarContacto(itList.previous());
         }
         photoContacto = photoIterator.previous();
         avanzoPhoto = false;
@@ -624,6 +645,66 @@ public class ContactosController {
             }
         });
     }
+
+
+    @FXML
+    private void agregarPhoto(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Buscar Imagen");
+        // Agregar filtros para facilitar la busqueda
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("All Images", "*.*"),
+                new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+                new FileChooser.ExtensionFilter("PNG", "*.png")
+        );
+        // Obtener la imagen seleccionada
+        File imgFile = fileChooser.showOpenDialog(null);
+
+        // Mostar la imagen
+        if (imgFile != null) {
+            //Image image = new Image("file:" + imgFile.getPath());           
+            //contactoImg.setImage(image);
+            contactoSeleccionado.addPhoto("/imgpersonas/"+imgFile.getName());
+//            System.out.println(imgFile.getPath());
+//            System.out.println(imgFile.getAbsolutePath());
+//            System.out.println(imgFile.getParent());
+//            try {
+//                System.out.println(imgFile.getCanonicalPath());
+//            } catch (IOException ex) {
+//                ex.printStackTrace();
+//            }
+            //contactoSeleccionado.addPhoto(imgFile.getAbsolutePath());
+            
+            photoIterator = contactoSeleccionado.getPhotos().listIterator();
+        }
+            cargarDatosContacto(contactoSeleccionado);
+            cargarContactosPanelIzquierdo(agenda.Sistema.contactos);
+
+    }
+
+    @FXML
+    private void eliminarPhoto(ActionEvent event) {
+//        if(contactoSeleccionado.hasPhotos()){
+//            deletePhoto.setDisable(false);
+//            //contactoSeleccionado.removePhoto(PHOTO_DEFAULT);
+//        }
+    }
     
+    private void avanzarIterator1(int steps, Iterator it){
+        for(int i=1;i<steps;i++){
+            it.next();
+        }
+    }
     
+    private List<ListIterator<Contacto>> prepararIteradores1(CircularList list, int numIterators){
+        iterators1 = new ArrayList<>();
+        avanzoPhoto = true;
+        for(int i = 0; i < numIterators; i++){
+            ListIterator<Contacto> it = list.listIterator();
+            avanzarIterator1(i+2, it);//Hace que los elementos avancen la posicion
+            iterators1.addLast(it);
+        }
+    return iterators1;
+}
+
 }
