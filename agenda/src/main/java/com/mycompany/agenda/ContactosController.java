@@ -55,7 +55,7 @@ public class ContactosController {
     @FXML private FlowPane contactoTagsFlowPane;
     @FXML private ComboBox<Contacto> contactosRelacionadosComboBox;
     @FXML private TextField nuevaTagTextField,textNombre,textNumero;
-    
+    @FXML private Button deletePhoto;
     
     private Contacto contactoSeleccionado; //Contacto seleccionado
     private List<ListIterator<Contacto>> iterators = new ArrayList<>();
@@ -66,14 +66,9 @@ public class ContactosController {
     private boolean retrocedio, retrocedioPhoto = false; //usado para saber si avanzó  en la lista de contactos
     private boolean avanzo, avanzoPhoto = false; //usado para saber si retrocedio en la lista de contactos
     private Node internal;
-    
-
     private Label labelNameFX, labelNumberFX;
-   
 
     
-    @FXML
-    private Button deletePhoto;
     
    
 
@@ -324,6 +319,7 @@ public class ContactosController {
     }
     
     //Recibe un contacto de donde se sacara guardara el Atributo que va en el label y un Pane que lo contiene
+    //------------------------------------------------------------------------------------------------------------------------------------------
     private Label crearLabelEditable(String key, Pane pane){
         Label label=  new Label(key);
         label.setCursor(Cursor.HAND);
@@ -486,36 +482,6 @@ public class ContactosController {
         favoritos.getChildren().add(fav);
         cajaContacto.getChildren().add(favoritos);
 
-        //VBox favoritos = new VBox();
-//        Button fav =new Button();
-//        fav.setAlignment(Pos.CENTER);
-//        
-//        datosContacto.setAlignment(Pos.BASELINE_RIGHT);
-//        Image imagen = new Image("/img/estrelladark.png");
-//        // Crear un ImageView con la imagen
-//        ImageView imageView = new ImageView(imagen);
-//        // Establecer el ImageView como gráfico del botón
-//        imageView.setFitWidth(20);
-//        imageView.setFitHeight(20);
-//       // fav.setPrefSize(5, 5);
-//        fav.setGraphic(imageView);
-//        fav.setStyle("-fx-background-color: transparent;");
-//        HBox.setMargin(fav, new Insets(0, 0, 0, 15));
-//        fav.setOnAction(e->{
-//        if(contacto.isFavorite()){
-//            imageView.setImage(new Image("/img/estrelladark.png"));
-//            System.out.println("cambio");
-//            contacto.setFavorito(false);
-//            
-//        }else{
-//            contacto.setFavorito(true);
-//            imageView.setImage(new Image("/img/estrellalight.png"));
-//            System.out.println("cambiooo");
-//        }
-       // });
-        //favoritos.getChildren().add(fav);
-        //cajaContacto.getChildren().add(fav);
-
         cajaContacto.setCursor(Cursor.HAND);
         cajaContacto.setOnMouseClicked((e)->{
             if(internal!=null){
@@ -612,58 +578,24 @@ public class ContactosController {
         datosContactoAtributosVBox.getChildren().clear();
         datosContactoVBox.setVisible(false);
         cargarContactosPanelIzquierdo(agenda.Sistema.contactos);
+        imgBienvenida.setVisible(true);
     }
     
     //Crear contacto
-    
-    
+    //
     @FXML
     public void crearcontacto(ActionEvent event) throws IOException{
         
         FXMLLoader internalLoader = new FXMLLoader(App.class.getResource("CrearContacto"+".fxml"));
         internal = internalLoader.load();
+        
         anchorPaneContac.getChildren().add(internal);
         datosContactoVBox.setVisible(false);
-
-        // Cargando la nueva escena desde el archivo FXML
-        /*Parent root = null;
-                    try {
-                        root = FXMLLoader.load(getClass().getResource("CrearContacto.fxml"));
-                    }catch (IOException e) {
-                    }
-                    
-                    Scene scene = new Scene(root, 900, 500);
-                    Stage stage = new Stage();
-                    stage.setScene(scene);
-                    stage.show();*/
-        
-        
-
-
-        /*
-        try{
-        FXMLLoader loader =new FXMLLoader(Stage secondStage);
-        loader.setLocation(getClass().getResource("CrearContacto"));
-        //imgBienvenida.setVisible(false);
-        //datosContactoVBox.setVisible(true);
-        Parent root = loader.load();
-        Scene s = new Scene(root);
-        secondStage.setScene(s);
-        ContactosController controller = loader.getController();
-        controller.setStage(secondStage);
-        secondStage.show();
-        }catch(IOException e){
-            e.printStackTrace();
-        }*/
-        
+        imgBienvenida.setVisible(false);
+  
     }
-    //Guardar contacto
-    public void guardarContacto(){
-        
-        
-    }
-    
-    //Ordena por Nombre, Apelldio, Fecha, Derecha
+
+    //Ordena por Nombre, Apelldio, Fecha, Direccion
     @FXML
     public void OrdenarNombre(){
         CircularList<Contacto> nombre = new DoublyLinkedList();
@@ -680,7 +612,11 @@ public class ContactosController {
         datosContactoAtributosVBox.getChildren().clear();
         imgBienvenida.setVisible(true);
         datosContactoVBox.setVisible(false);
-        cargarContactosPanelIzquierdo(nombre);  
+        cargarContactosPanelIzquierdo(nombre);
+        if(internal!=null){
+                internal.setVisible(false);
+            }
+        
     }
     
     @FXML
@@ -700,7 +636,10 @@ public class ContactosController {
         datosContactoAtributosVBox.getChildren().clear();
         imgBienvenida.setVisible(true);
         datosContactoVBox.setVisible(false);
-        cargarContactosPanelIzquierdo(apellido);  
+        cargarContactosPanelIzquierdo(apellido); 
+        if(internal!=null){
+                internal.setVisible(false);
+            }
     }
     
     @FXML
@@ -720,6 +659,9 @@ public class ContactosController {
         imgBienvenida.setVisible(true);
         datosContactoVBox.setVisible(false);
         cargarContactosPanelIzquierdo(fecha);  
+        if(internal!=null){
+                internal.setVisible(false);
+            }
     }
     
     @FXML
@@ -738,13 +680,12 @@ public class ContactosController {
         datosContactoAtributosVBox.getChildren().clear();
         imgBienvenida.setVisible(true);
         datosContactoVBox.setVisible(false);
-        cargarContactosPanelIzquierdo(direccion);  
+        cargarContactosPanelIzquierdo(direccion); 
+        if(internal!=null){
+                internal.setVisible(false);
+            }
     }
-    
-    
-   
-    
-    
+
     
     @FXML
     public void nextContactPhoto(){
@@ -779,7 +720,7 @@ public class ContactosController {
         retrocedioPhoto = true;
         contactoImg.setImage(new Image(photoContacto, 64,64,false,false));
     }
-    
+    //Recorrelos elementos del lado izquier
     @FXML 
     public void scrollMouseContacts(){
         contactosVBox.setOnScroll(event -> {
@@ -821,7 +762,7 @@ public class ContactosController {
         }
             
     }
-
+   
     @FXML
     private void eliminarPhoto(ActionEvent event) {
         if (contactoSeleccionado.getPhotos().size()>0){

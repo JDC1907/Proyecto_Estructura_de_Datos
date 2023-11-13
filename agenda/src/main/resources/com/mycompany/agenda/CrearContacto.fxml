@@ -5,6 +5,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -28,6 +30,11 @@
             <Separator orientation="VERTICAL" prefHeight="64.0" prefWidth="306.0" visible="false" />
             <AnchorPane>
                <children>
+                  <ImageView fx:id="imgBienvenida" disable="true" fitHeight="430.0" fitWidth="494.0" layoutX="-26.0" layoutY="168.0" nodeOrientation="INHERIT" opacity="0.28" visible="false" x="100.0" AnchorPane.rightAnchor="74.0">
+                     <image>
+                        <Image url="@../../../img/Img1Login.png" />
+                     </image>
+                  </ImageView>
                   <VBox fx:id="datosContactoVBox" alignment="CENTER" layoutY="15.0" prefHeight="798.0" prefWidth="627.0" snapToPixel="false">
                      <children>
                         <Label text="Usuario" />
@@ -74,7 +81,8 @@
                               </HBox>
                               <HBox alignment="CENTER">
                                  <children>
-                                    <Button fx:id="addPhoto" mnemonicParsing="false" onAction="#agregarPhoto" text="Agregar foto">
+                                    <Label prefHeight="17.0" prefWidth="142.0" />
+                                    <Button fx:id="addPhoto" disable="true" mnemonicParsing="false" onAction="#agregarPhoto" text="Agregar foto">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
@@ -84,6 +92,13 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
+                                    <Label prefHeight="17.0" prefWidth="80.0" />
+                                    <MenuButton fx:id="menuTipoContacto" mnemonicParsing="false" text="Tipo">
+                                      <items>
+                                        <MenuItem fx:id="itemPersona" mnemonicParsing="false" onAction="#selecionarPersona" text="Persona" />
+                                        <MenuItem fx:id="itemEmpresa" mnemonicParsing="false" onAction="#selecionarEmpresa" text="Empresa" />
+                                      </items>
+                                    </MenuButton>
                                  </children>
                               </HBox>
                            </children>
@@ -93,19 +108,19 @@
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                  <children>
                                     <Label text="Nombre" />
-                                    <TextField fx:id="textNombre" />
+                                    <TextField fx:id="textNombre" disable="true" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
                                  <children>
                                     <Label text="Numero" />
-                                    <TextField fx:id="textNumero" />
+                                    <TextField fx:id="textNumero" disable="true" />
                                  </children>
                               </HBox>
                            </children>
                         </VBox>
                         <VBox fx:id="datosContactoAtributosVBox" alignment="TOP_CENTER" />
-                        <Button fx:id="addAtributteButton" mnemonicParsing="false" onAction="#addAtributte" text="Agregar atributo">
+                        <Button fx:id="addAtributteButton" disable="true" mnemonicParsing="false" onAction="#addAtributte" text="Agregar atributo">
                            <graphic>
                               <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -117,10 +132,10 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Label text="Fecha" />
+                        <Label text="Fecha" visible="false" />
                         <VBox fx:id="fechasVBox" alignment="CENTER">
                            <children>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                              <HBox alignment="CENTER" prefHeight="17.0" prefWidth="627.0" visible="false">
                                  <children>
                                     <Label fx:id="nameLabel1" text="Fecha" />
                                     <TextField fx:id="nameTextField1" disable="true" />
@@ -128,9 +143,9 @@
                               </HBox>
                            </children>
                         </VBox>
-                        <Button fx:id="addAtributteButton1" mnemonicParsing="false" onAction="#addAtributte" text="Agregar fecha">
+                        <Button fx:id="addAtributteButton1" disable="true" mnemonicParsing="false" onAction="#addAtributte" prefHeight="3.0" prefWidth="126.0" text="Agregar fecha" visible="false">
                            <graphic>
-                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../img/add_atribute.png" />
                                  </image>
@@ -143,26 +158,13 @@
                         <Label text="Etiquetas" />
                         <FlowPane fx:id="contactoTagsFlowPane" alignment="CENTER" prefHeight="34.0" prefWidth="625.0">
                            <children>
-                              <HBox fx:id="contactoTagsHBox" alignment="CENTER">
-                                 <children>
-                                    <Label fx:id="nameLabel12" text="tag1" />
-                                    <Button mnemonicParsing="false">
-                                       <graphic>
-                                          <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../img/delette_atributte.png" />
-                                             </image>
-                                          </ImageView>
-                                       </graphic>
-                                    </Button>
-                                 </children>
-                              </HBox>
+                              <HBox fx:id="contactoTagsHBox" alignment="CENTER" />
                            </children>
                         </FlowPane>
                         <HBox alignment="CENTER">
                            <children>
-                              <TextField fx:id="nuevaTagTextField" promptText="Escriba la tag..." />
-                              <Button fx:id="addTagButton" mnemonicParsing="false" onAction="#addTagContactoSeleccionado" text="Agregar etiqueta">
+                              <TextField fx:id="nuevaTagTextField" disable="true" promptText="Escriba la tag..." />
+                              <Button fx:id="addTagButton" disable="true" mnemonicParsing="false" onAction="#addTagContactoSeleccionado" text="Agregar etiqueta">
                                  <graphic>
                                     <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -176,24 +178,10 @@
                               </Button>
                            </children>
                         </HBox>
-                        <Label text="Contactos Relacionados" />
-                        <VBox fx:id="contactosRelacionadosVBox" alignment="CENTER">
-                           <children>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../img/user.png" />
-                                       </image>
-                                    </ImageView>
-                                    <Label fx:id="nameLabel11" text="Nombre" />
-                                    <Label fx:id="nameLabel111" text="Numero" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                        <ComboBox fx:id="contactosRelacionadosComboBox" prefWidth="150.0" />
-                        <Button fx:id="addContactoVinculadoButton" mnemonicParsing="false" onAction="#addContactoVinculado" text="Vincular contacto">
+                        <Label text="Contactos Relacionados" visible="false" />
+                        <VBox fx:id="contactosRelacionadosVBox" alignment="CENTER" visible="false" />
+                        <ComboBox fx:id="contactosRelacionadosComboBox" prefWidth="150.0" visible="false" />
+                        <Button fx:id="addContactoVinculadoButton" mnemonicParsing="false" onAction="#addContactoVinculado" text="Vincular contacto" visible="false">
                            <graphic>
                               <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -205,7 +193,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#guardarContacto" text="Guardar">
+                        <Button fx:id="buttonGuardar" disable="true" mnemonicParsing="false" onAction="#guardarContacto" text="Guardar">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -220,13 +208,6 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <HBox alignment="CENTER">
-                           <children>
-                              <Button mnemonicParsing="false" text="&lt;" />
-                              <Separator opacity="0.0" prefWidth="500.0" />
-                              <Button mnemonicParsing="false" text="&gt;" />
-                           </children>
-                        </HBox>
                      </children>
                   </VBox>
                </children>
