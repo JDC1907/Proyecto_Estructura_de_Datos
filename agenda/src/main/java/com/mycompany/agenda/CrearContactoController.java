@@ -84,7 +84,7 @@ public class CrearContactoController  {
     //Guardar contacto
     @FXML
     public void guardarContacto(ActionEvent event) throws IOException{
-        agenda.Sistema.contactos.addFirst(contactoSeleccionado);
+        agenda.Sistema.contactos.addLast(contactoSeleccionado);
         
         FXMLLoader internalLoader = new FXMLLoader(App.class.getResource("EstiloGestorContacto"+".fxml"));
         internal = internalLoader.load();
@@ -92,7 +92,6 @@ public class CrearContactoController  {
         imgBienvenida.setVisible(true);
         vBoxCrear.getChildren().clear();
         vBoxCrear.setVisible(false);
-        System.out.println("Hola");
         vBoxCrear.setDisable(true);
 
         System.out.println(agenda.Sistema.contactos);
@@ -167,14 +166,16 @@ public class CrearContactoController  {
             labelNameFX = labelName;
             labelNumberFX = labelNumber;
             imgBienvenida.setVisible(false);
-            preCargarDatosContactoSeleccionado(contacto);           
+            preCargarDatosContactoSeleccionado(contacto);  
+            
+            
         });
         contactosVBox.getChildren().add(cajaContacto);
     }
      
      //carga todos los datos que se mostrará en este panel, en especial los que nos interesan en esta clase son lo textFile de cada uno de los atributos
     private void cargarDatosContacto(Contacto contacto){
-        contactosRelacionadosComboBox.getItems().clear();
+        contactosRelacionadosComboBox.getItems().clear();//Este metodo que llamamos no importa en esta clase
         HashSet<Contacto> contactosRelacionados = new HashSet();
         for(Contacto contactoRelacionado: agenda.Sistema.contactos){
             contactosRelacionados.add(contactoRelacionado);
@@ -184,12 +185,15 @@ public class CrearContactoController  {
             contactosRelacionados.remove(contactoRelacionado);
         }
         
-        //cargarTagsContactoSeleccionadoHBox();
-                
+        //cargarTagsContactoSeleccionadoHBox();      
         contactoSeleccionado.getTags();
         contactosRelacionadosComboBox.getItems().addAll(contactosRelacionados);
+        
+        
         datosContactoVBox.setVisible(true);//Hace visible el vBox en donde estan los datos de los contacos
         datosContactoNameNumberVBox.getChildren().clear();//Limpia el VBox en donde van guardado el nombre y numero del contaco
+        
+        
         if(contacto.hasPhotos()){//Si hay fotos obtiene la primera foto
             photoContacto = photoIterator.next();
         }else{
@@ -208,6 +212,8 @@ public class CrearContactoController  {
         if (contacto.getPhotos().size()>0){
             deletePhoto.setDisable(false);
         }
+        //--------------------------------------------------------------------------------------------------------------------------------
+        //Agregacion de atributos
 
         datosContactoAtributosVBox.setSpacing(10);
         contactoImg.setImage(new Image(photoContacto, 64,64,false,false)); //carga la foto del contacto
@@ -311,14 +317,14 @@ public class CrearContactoController  {
         Label label = new Label(textLabel);
         TextField textField = crearTextFieldName(contacto, stringTextField, label, pane);
         pane.getChildren().add(label);
-        pane.getChildren().add( textField);
+        pane.getChildren().add( textNombre);
     }
     
     private void agregarLabelNumberAndTextFieldNumberToPane(String textLabel, String stringTextField, Contacto contacto, Pane pane){
         Label label = new Label(textLabel);
         TextField textField = crearTextFieldNumber(contacto, stringTextField, label, pane);
         pane.getChildren().add(label);
-        pane.getChildren().add( textField);
+        pane.getChildren().add( textNumero);
     }
     
     

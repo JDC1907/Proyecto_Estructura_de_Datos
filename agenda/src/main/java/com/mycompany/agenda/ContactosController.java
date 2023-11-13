@@ -191,6 +191,7 @@ public class ContactosController {
         datosContactoNameNumberVBox.getChildren().add(datosContactoNombre);
         datosContactoNameNumberVBox.getChildren().add(datosContactoNumero);
         datosContactoAtributosVBox.getChildren().clear();
+        
         for(String key: contacto.getKeysAtributtes()){ //Se agregan los atributos(key) junto a sus valores
             agregarHBoxADatosContactoAtributosVBox(key);
         }
@@ -265,6 +266,7 @@ public class ContactosController {
         Label label = new Label(textLabel);
         TextField textField = crearTextFieldName(contacto, stringTextField, label, pane);
         pane.getChildren().add(label);
+        //pane.getChildren().add( textNombre);
         pane.getChildren().add( textField);
     }
     
@@ -272,6 +274,7 @@ public class ContactosController {
         Label label = new Label(textLabel);
         TextField textField = crearTextFieldNumber(contacto, stringTextField, label, pane);
         pane.getChildren().add(label);
+        //pane.getChildren().add( textNumero);
         pane.getChildren().add( textField);
     }
     
@@ -322,25 +325,30 @@ public class ContactosController {
     //------------------------------------------------------------------------------------------------------------------------------------------
     private Label crearLabelEditable(String key, Pane pane){
         Label label=  new Label(key);
+        TextField txtfield = new TextField();//---------------------------------------------------
         label.setCursor(Cursor.HAND);
         label.setOnMouseClicked((e)->{
                 editarAtributteContacto(contactoSeleccionado, key, label, pane);
+                //editarNombreNumeroContacto(contactoSeleccionado, txtfield);//---------------
             }
         );
         return label;
     }
-    
+
     private void editarAtributteContacto(Contacto contacto, String key,Label label, Pane pane){
         pane.getChildren().remove(label);
         TextField txtLabel = new TextField(label.getText());
         pane.getChildren().add(0, txtLabel);
         
         txtLabel.setOnAction((e2)->{
+            
             updateAtributteContacto(contacto, key, label, txtLabel, pane);
+            
         });
         
         txtLabel.setOnMouseExited((e2)->{
             updateAtributteContacto(contacto, key, label, txtLabel, pane);
+            
         });
     }
     
@@ -425,9 +433,12 @@ public class ContactosController {
     private void editarValueAtributte(Contacto contacto, String key, String oldTxt, TextField campoTexto){
         if(!campoTexto.getText().equals(oldTxt)){
             contacto.setAtributte(key, campoTexto.getText());//actualiza los datos del contacto en el campo de texto 
+
         }
         campoTexto.setDisable(true);//Desabilita el campo de texto
     }
+    
+    
  
     private void mostrarContacto(Contacto contacto){
         HBox cajaContacto = new HBox();
@@ -553,6 +564,7 @@ public class ContactosController {
         contactoSeleccionado.putAtributte("Nuevo Atributo" + contactoSeleccionado.getKeysAtributtes().size(), "");
         photoIterator = contactoSeleccionado.getPhotos().listIterator();
         cargarDatosContacto(contactoSeleccionado);
+        
     }
     
     @FXML
