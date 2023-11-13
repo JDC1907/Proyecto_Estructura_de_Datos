@@ -453,9 +453,13 @@ public class ContactosController {
         
         datosContacto.setAlignment(Pos.BASELINE_RIGHT);
        Image imagen = new Image("/img/estrelladark.png");
-        if(contacto.isFavorite()){
+        
+       if(contacto.isFavorite()){
             imagen = new Image("/img/estrellalight.png");
-        }
+            contacto.addTag("Favoritos");
+        }else{
+           contacto.removeTag("Favoritos");
+       }
         // Crear un ImageView con la imagen
         ImageView imageView = new ImageView(imagen);
         // Establecer el ImageView como gráfico del botón
@@ -464,14 +468,19 @@ public class ContactosController {
        // fav.setPrefSize(5, 5);
         fav.setGraphic(imageView);
         fav.setStyle("-fx-background-color: transparent;");
-        HBox.setMargin(fav, new Insets(0, 0, 0, 30));
+        HBox.setMargin(fav, new Insets(0, 0, 0, 50));
         fav.setOnAction(e->{
         if(contacto.isFavorite()){
             imageView.setImage(new Image("/img/estrelladark.png"));
             contacto.setFavorito(false);
+            contacto.removeTag("Favoritos");
+            agregarButtonTagsEnElHBox();
+            
        }else{
            imageView.setImage(new Image("/img/estrellalight.png"));
            contacto.setFavorito(true);
+            contacto.addTag("Favoritos");
+            agregarButtonTagsEnElHBox();
         }
         });
         favoritos.getChildren().add(fav);
