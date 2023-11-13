@@ -16,15 +16,40 @@ import tda.List;
  * @author nhale
  */
 public class Sistema {
+    static private String usr;
     static private ArrayList<Usuario> usuarios = new ArrayList<>();
 
     public static CircularList<Contacto> contactos = new DoublyLinkedList();
     
     //public static List<Contacto> contactos = new LinkedList();
+public static int comprobarUsuario(String usuario, String contrasena){
+        int indice = 0;
+        for (int i = 0; i<usuarios.size(); i++) {
+            if (usuarios.get(i).nombreUsr.equals(usuario) && usuarios.get(i).contrasena.equals(contrasena)) {
+                //System.out.println("Bienvenido " + usuarios.get(i).getNombreUsr() + " usted ha ingresado como: " + usuarios.get(i).tipo);
+                usr = usuarios.get(i).getNombreUsr();
+                indice = i;
+                switch (usuarios.get(indice).tipo) {
+                    case "admin":
+                       
+                        return 1;
+                        
+                    case "persona":
+                        
+                        return 2;
+                        
+                    case "empresa":
+                        
+                        return 3;
+                        
 
-    
+                }
+            }
+        }
+        return 0;
+}
     public static void inicializarSistema(){
-    usuarios.addLast(new Usuario("admin","12345678","Ädministrador","ädmin"));
+    usuarios.addLast(new Usuario("admin1","123","Ädministrador","admin"));
 //    usuarios.addLast(new Usuario("Laura preciado","lau567","Persona","person"));
     cargarContactos(usuarios.get(0));
         

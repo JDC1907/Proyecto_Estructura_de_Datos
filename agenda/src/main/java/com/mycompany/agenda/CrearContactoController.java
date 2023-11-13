@@ -236,7 +236,7 @@ public class CrearContactoController  {
 
     private void setDisabelCampos(boolean activarCampos){
         addPhoto.setDisable(activarCampos);
-        deletePhoto.setDisable(activarCampos);
+        //deletePhoto.setDisable(activarCampos);
         textNombre.setDisable(activarCampos);
         textNumero.setDisable(activarCampos);
         addAtributteButton.setDisable(activarCampos);

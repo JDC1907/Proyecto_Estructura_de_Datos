@@ -378,13 +378,16 @@ public class ContactosController {
         pane.setOnMouseEntered(e->{campoTexto.setDisable(false);});//Cuando el mouse pasa encima del HBox el Campo de texto se activa
         campoTexto.setOnAction(e->{//Cuando el usuario da enter en el txtField entonces guarda los datos del Campo de texto
             campoTexto.setDisable(true);
-            contacto.setName(name);
+            contacto.setName(campoTexto.getText());
+            
+            
         }
         );
         
         pane.setOnMouseExited(e->{//Cuando el mouse sale del HBox entonces guarda los datos del Campo de texto
             campoTexto.setDisable(true);
-            contacto.setName(name);
+            contacto.setName(campoTexto.getText());
+            
         }
         );
         
@@ -400,14 +403,16 @@ public class ContactosController {
         campoTexto.setDisable(true);//pone el campo de texto desactvado
         pane.setOnMouseEntered(e->{campoTexto.setDisable(false);});//Cuando el mouse pasa encima del HBox el Campo de texto se activa
         campoTexto.setOnAction(e->{//Cuando el usuario da enter en el txtField entonces guarda los datos del Campo de texto
-            contacto.setNumber(number);
+            contacto.setNumber(campoTexto.getText());
             campoTexto.setDisable(true);
+            
         }
         );
         
         pane.setOnMouseExited(e->{//Cuando el mouse sale del HBox entonces guarda los datos del Campo de texto
-            contacto.setNumber(number);
+            contacto.setNumber(campoTexto.getText());
             campoTexto.setDisable(true);
+            
         }
         );
         
@@ -471,12 +476,16 @@ public class ContactosController {
             contacto.setFavorito(false);
             contacto.removeTag("Favoritos");
             agregarButtonTagsEnElHBox();
+            cargarContactosPanelIzquierdo(agenda.Sistema.contactos);
             
        }else{
            imageView.setImage(new Image("/img/estrellalight.png"));
            contacto.setFavorito(true);
             contacto.addTag("Favoritos");
             agregarButtonTagsEnElHBox();
+            cargarContactosPanelIzquierdo(agenda.Sistema.contactos);
+            
+            
         }
         });
         favoritos.getChildren().add(fav);

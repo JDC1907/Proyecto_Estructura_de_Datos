@@ -37,6 +37,7 @@ public class PreCarga1 implements Initializable {
                     }catch (IOException e) {
                     }
                     scene = new Scene(root, 900, 720);
+                    //scene = new Scene(root, 600, 500); //cuando le habilitemos el login descomentamos esto y borrarmos la de arriba
                     stage = new Stage();
                     stage.setTitle("ContactYou");
                     stage.getIcons().add(new Image(icon) );
