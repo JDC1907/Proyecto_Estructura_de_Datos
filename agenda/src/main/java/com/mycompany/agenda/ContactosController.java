@@ -49,7 +49,8 @@ public class ContactosController {
     private final int NUMERO_CONTACTOS_MOSTRADOS = 7;//Numero de contactos que van a ser mostrado en el panel izquierdo
     @FXML private VBox contactosVBox, datosContactoAtributosVBox, datosContactoVBox, datosContactoNameNumberVBox, contactosRelacionadosVBox, vBoxContatoMuestra;
     @FXML private AnchorPane anchorPaneContac;
-    @FXML private ImageView contactoImg,imgBienvenida;
+    @FXML private ImageView contactoImg;
+    @FXML private ImageView imgBienvenida;
     @FXML private Button upContactsButton, downContactsButton, leftPhotos, rightPhotos;
     @FXML private HBox tagsHBox;
     @FXML private FlowPane contactoTagsFlowPane;
@@ -66,7 +67,7 @@ public class ContactosController {
     private boolean retrocedio, retrocedioPhoto = false; //usado para saber si avanzó  en la lista de contactos
     private boolean avanzo, avanzoPhoto = false; //usado para saber si retrocedio en la lista de contactos
     private Node internal;
-    private Label labelNameFX, labelNumberFX;
+    public Label labelNameFX, labelNumberFX;
 
     
     
@@ -127,6 +128,9 @@ public class ContactosController {
         downContactsButton.setDisable(valor);
     }
     //Carga los contactos de una list y los pone en el panel izquierdo
+    public void actualizarPanelIzquierdo(List lista){
+        cargarContactosPanelIzquierdo(lista);
+    }
     private void cargarContactosPanelIzquierdo(List lista){
         prepararIteradores(agenda.Sistema.contactos, NUMERO_CONTACTOS_MOSTRADOS);
         Iterator<Contacto> it = lista.iterator();
@@ -606,10 +610,10 @@ public class ContactosController {
     //
     @FXML
     public void crearcontacto(ActionEvent event) throws IOException{
-        
         FXMLLoader internalLoader = new FXMLLoader(App.class.getResource("CrearContacto"+".fxml"));
         internal = internalLoader.load();
-        
+        CrearContactoController controller = internalLoader.getController();
+        controller.cargarImagenBienvenida(imgBienvenida);
         anchorPaneContac.getChildren().add(internal);
         datosContactoVBox.setVisible(false);
         imgBienvenida.setVisible(false);
@@ -766,7 +770,6 @@ public class ContactosController {
                 new FileChooser.ExtensionFilter("PNG", "*.png")
         );
         java.util.List<File> imgFiles =  fileChooser.showOpenMultipleDialog(null);
-        System.out.println(imgFiles);
         for(int i=0;i<imgFiles.size();i++){
         if (imgFiles.get(i) != null) {
             try {

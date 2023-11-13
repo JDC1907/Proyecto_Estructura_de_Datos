@@ -1,31 +1,22 @@
 
 package com.mycompany.agenda;
-import com.mycompany.agenda.ContactosController;
 import agenda.Contacto;
 import agenda.Empresa;
 import agenda.Persona;
-import java.util.Comparator;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.ListIterator;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -34,13 +25,8 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import tda.ArrayList;
-import tda.CircularList;
-import tda.DoublyLinkedList;
 import tda.List;
 
 
@@ -50,51 +36,40 @@ import tda.List;
  * @author JDC_1
  */
 public class CrearContactoController  {
-    private final int NUMERO_CONTACTOS_MOSTRADOS = 7;//Numero de contactos que van a ser mostrado en el panel izquierdo
-    @FXML private VBox contactosVBox, datosContactoAtributosVBox, datosContactoVBox, datosContactoNameNumberVBox, contactosRelacionadosVBox, vBoxContatoMuestra,vBoxCrear;
-    @FXML private AnchorPane anchorPaneContac;
-    @FXML private ImageView contactoImg,imgBienvenida;
-    @FXML private Button upContactsButton, downContactsButton, leftPhotos, rightPhotos, addPhoto,deletePhoto, addAtributteButton,addTagButton, addContactoVinculadoButton, buttonGuardar ;
+    @FXML private VBox datosContactoAtributosVBox, datosContactoVBox, datosContactoNameNumberVBox, contactosRelacionadosVBox, vBoxContatoMuestra,vBoxCrear;
+    @FXML private ImageView contactoImg;
+    @FXML private Button leftPhotos, rightPhotos, addPhoto,deletePhoto, addAtributteButton,addTagButton, addContactoVinculadoButton, buttonGuardar ;
     @FXML private HBox tagsHBox;
     @FXML private FlowPane contactoTagsFlowPane;
     @FXML private ComboBox<Contacto> contactosRelacionadosComboBox;
     @FXML private TextField nuevaTagTextField,textNombre,textNumero;
-    @FXML private MenuButton menuTipoContacto;
     
     private static Contacto contactoSeleccionado; //Contacto seleccionado
-    private List<ListIterator<Contacto>> iterators = new ArrayList<>();
-    private List<ListIterator<Contacto>> iterators1 = new ArrayList<>();
     private ListIterator<String> photoIterator;
     private final String PHOTO_DEFAULT = "/img/user.png";
     private String photoContacto = "/img/user.png";
-    private boolean retrocedio, retrocedioPhoto = false; //usado para saber si avanzó  en la lista de contactos
-    private boolean avanzo, avanzoPhoto = false; //usado para saber si retrocedio en la lista de contactos
-    private Node internal;
-    private Label labelNameFX, labelNumberFX;
+    private boolean retrocedioPhoto = false; //usado para saber si avanzó  en la lista de contactos
+    private boolean avanzoPhoto = false; //usado para saber si retrocedio en la lista de contactos
+    private ContactosController contactosController;
     
-    private ContactosController contacController;
+    private ImageView imgBienvenida;
     
-    
-    private void initialize(){  
-        
-       
-       
+    @FXML
+    private void initialize(){
+        FXMLLoader internalLoader = new FXMLLoader(App.class.getResource("EstiloGestorContacto"+".fxml"));
+        contactosController = internalLoader.getController();
     }
     
+    public void cargarImagenBienvenida(ImageView imgBienvenida){
+        this.imgBienvenida = imgBienvenida;
+    }
     //Guardar contacto
     @FXML
     public void guardarContacto(ActionEvent event) throws IOException{
-        agenda.Sistema.contactos.addLast(contactoSeleccionado);
-        
-        FXMLLoader internalLoader = new FXMLLoader(App.class.getResource("EstiloGestorContacto"+".fxml"));
-        internal = internalLoader.load();
-        
-        imgBienvenida.setVisible(true);
+        agenda.Sistema.contactos.addLast(contactoSeleccionado);       
         vBoxCrear.getChildren().clear();
         vBoxCrear.setVisible(false);
         vBoxCrear.setDisable(true);
-
-        System.out.println(agenda.Sistema.contactos);
         
         /*vBoxCrear.getChildren().clear();
         internal = null;
@@ -105,76 +80,15 @@ public class CrearContactoController  {
         /*Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();*/
+       // contactosController.actualizarPanelIzquierdo(agenda.Sistema.contactos);
+        imgBienvenida.setVisible(true);
         
-    }
-    
-     private void mostrarContacto(Contacto contacto){
-        HBox cajaContacto = new HBox();
-        
-        
-        String photo = "/img/user.png";
-        if(contacto.hasPhotos()){
-            photo = contacto.getFirstPhoto();
-        }
-        cajaContacto.getChildren().add(new ImageView(new Image(photo, 64,64,false,false)));
-        VBox datosContacto = new VBox();
-        datosContacto.setAlignment(Pos.CENTER);
-        Label labelName = new Label(contacto.getName());
-        datosContacto.getChildren().add(labelName);
-        Label labelNumber = new Label(contacto.getNumber());
-        datosContacto.getChildren().add(labelNumber);
-        cajaContacto.getChildren().add(datosContacto);
-        //datosContacto.setAlignment(Pos.TOP_RIGHT);
-
-        VBox favoritos = new VBox();
-
-        Button fav =new Button();
-        fav.setAlignment(Pos.CENTER);
-        
-        datosContacto.setAlignment(Pos.BASELINE_RIGHT);
-       Image imagen = new Image("/img/estrelladark.png");
-        if(contacto.isFavorite()){
-            imagen = new Image("/img/estrellalight.png");
-        }
-        // Crear un ImageView con la imagen
-        ImageView imageView = new ImageView(imagen);
-        // Establecer el ImageView como gráfico del botón
-        imageView.setFitWidth(20);
-        imageView.setFitHeight(20);
-       // fav.setPrefSize(5, 5);
-        fav.setGraphic(imageView);
-        fav.setStyle("-fx-background-color: transparent;");
-        HBox.setMargin(fav, new Insets(0, 0, 0, 30));
-        fav.setOnAction(e->{
-        if(contacto.isFavorite()){
-            imageView.setImage(new Image("/img/estrelladark.png"));
-            contacto.setFavorito(false);
-       }else{
-           imageView.setImage(new Image("/img/estrellalight.png"));
-           contacto.setFavorito(true);
-        }
-        });
-        favoritos.getChildren().add(fav);
-        cajaContacto.getChildren().add(favoritos);
-
-        cajaContacto.setCursor(Cursor.HAND);
-        cajaContacto.setOnMouseClicked((e)->{
-            if(internal!=null){
-                internal.setVisible(false);
-            }
-            datosContactoVBox.setVisible(true);
-            labelNameFX = labelName;
-            labelNumberFX = labelNumber;
-            imgBienvenida.setVisible(false);
-            preCargarDatosContactoSeleccionado(contacto);  
-            
-            
-        });
-        contactosVBox.getChildren().add(cajaContacto);
     }
      
      //carga todos los datos que se mostrará en este panel, en especial los que nos interesan en esta clase son lo textFile de cada uno de los atributos
-    private void cargarDatosContacto(Contacto contacto){
+    private void cargarDatosContacto(){
+        Contacto contacto = contactoSeleccionado;
+        
         contactosRelacionadosComboBox.getItems().clear();//Este metodo que llamamos no importa en esta clase
         HashSet<Contacto> contactosRelacionados = new HashSet();
         for(Contacto contactoRelacionado: agenda.Sistema.contactos){
@@ -186,9 +100,8 @@ public class CrearContactoController  {
         }
         
         //cargarTagsContactoSeleccionadoHBox();      
-        contactoSeleccionado.getTags();
+        contacto.getTags();
         contactosRelacionadosComboBox.getItems().addAll(contactosRelacionados);
-        
         
         datosContactoVBox.setVisible(true);//Hace visible el vBox en donde estan los datos de los contacos
         datosContactoNameNumberVBox.getChildren().clear();//Limpia el VBox en donde van guardado el nombre y numero del contaco
@@ -219,10 +132,10 @@ public class CrearContactoController  {
         contactoImg.setImage(new Image(photoContacto, 64,64,false,false)); //carga la foto del contacto
         //Esto es donde la informacion que queremos guardar o mostrar en el textNombre y textNumero
         HBox datosContactoNombre = crearHBoxAtributteContacto();
-        agregarLabelNameAndTextFieldNameToPane("Name", textNombre.getText(), contacto, datosContactoNombre);
+        agregarLabelNameAndTextFieldNameToPane("Name", contacto.getName(), contacto, datosContactoNombre);
         
         HBox datosContactoNumero = crearHBoxAtributteContacto();
-        agregarLabelNumberAndTextFieldNumberToPane("Number", textNumero.getText(), contacto, datosContactoNumero);
+        agregarLabelNumberAndTextFieldNumberToPane("Number", contacto.getNumber(), contacto, datosContactoNumero);
         
         datosContactoNameNumberVBox.getChildren().add(datosContactoNombre);
         datosContactoNameNumberVBox.getChildren().add(datosContactoNumero);
@@ -230,7 +143,7 @@ public class CrearContactoController  {
         for(String key: contacto.getKeysAtributtes()){ //Se agregan los atributos(key) junto a sus valores
             agregarHBoxADatosContactoAtributosVBox(key);
         }
-        agregarContactosAcontactosRelacionadosVBox();
+        agregarContactosAcontactosRelacionadosVBox();       
     }
     
 
@@ -259,12 +172,14 @@ public class CrearContactoController  {
     private void selecionarPersona(){
         contactoSeleccionado = new Persona("","");
         setDisabelCampos(false);
+        cargarDatosContacto();
 
     }
     @FXML
     private void selecionarEmpresa(){
         contactoSeleccionado = new Empresa("","");
         setDisabelCampos(false);
+        cargarDatosContacto();
 
     }
 
@@ -273,11 +188,7 @@ public class CrearContactoController  {
         for(String tag: agenda.Sistema.getTags()){
             tagsHBox.getChildren().add(crearButtonTag(tag));
         }
-    }
-    
-    
-    
-    
+    }   
     //Crea botones con el texto que tiene la tag, ademas le añade un evento que cada que es presionado filtra los contactos que tengan esa tag
     //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -311,33 +222,28 @@ public class CrearContactoController  {
                 cajaTag.getChildren().add(buttonBorrarTag);
         return cajaTag;
     }
-    
 
     private void agregarLabelNameAndTextFieldNameToPane(String textLabel, String stringTextField, Contacto contacto, Pane pane){
         Label label = new Label(textLabel);
         TextField textField = crearTextFieldName(contacto, stringTextField, label, pane);
         pane.getChildren().add(label);
-        pane.getChildren().add( textNombre);
+        pane.getChildren().add( textField);
     }
     
     private void agregarLabelNumberAndTextFieldNumberToPane(String textLabel, String stringTextField, Contacto contacto, Pane pane){
         Label label = new Label(textLabel);
         TextField textField = crearTextFieldNumber(contacto, stringTextField, label, pane);
         pane.getChildren().add(label);
-        pane.getChildren().add( textNumero);
+        pane.getChildren().add( textField);
     }
-    
-    
-    
-    
+
     private HBox crearHBoxAtributteContacto(){
         HBox hBox = new HBox();//Crea un HBox en donde va a ir guardado un atributo y su valor
         hBox.setAlignment(Pos.CENTER);//Hace que los elementos dentro del HBox esten en el centro
         
         return hBox;
     }
-    
-    
+
     //El que se encargar d eponer todos lo texfile y los botones de eliminar atributo al momento de agregar un nuevo atributo
     private void agregarHBoxADatosContactoAtributosVBox(String key){ 
         HBox datosContacto = crearHBoxAtributteContacto();
@@ -353,15 +259,10 @@ public class CrearContactoController  {
         datosContacto.getChildren().add(borrarAtributoButton);//Agrega el boton para eliminar atributo al lado del Campo de texto
         datosContactoAtributosVBox.getChildren().add(datosContacto);//agrega ese reglon con datos del campo de texto, label e imagen en un VBOX
     }
-    
-    
-    
+
     private Button crearButton(String textButton){
         return new Button(textButton);
     }
-    
-    
-    
     //Recibe un contacto de donde se sacara guardara el Atributo que va en el label y un Pane que lo contiene
     //---------------------------------------------------------------------------------------------------------------------------------------------------
     
@@ -375,18 +276,13 @@ public class CrearContactoController  {
         return label;
     }
     
-    
-    
     private void updateAtributteContacto(Contacto contacto, String key, Label label, TextField txtLabel, Pane pane){
         label.setText(txtLabel.getText());
         pane.getChildren().remove(txtLabel);
         pane.getChildren().add(0, label);
         contacto.updateKeyAtributte(key, label.getText());
     }
-    
-    
 
-    
     //Crea los TextFile y ademas los de Name y Number 
     //---------------------------------------------------------------------------------------------------------------------------------------------------
     private TextField crearTextField(String key,Pane pane){
@@ -415,13 +311,13 @@ public class CrearContactoController  {
         pane.setOnMouseEntered(e->{campoTexto.setDisable(false);});//Cuando el mouse pasa encima del HBox el Campo de texto se activa
         campoTexto.setOnAction(e->{//Cuando el usuario da enter en el txtField entonces guarda los datos del Campo de texto
             campoTexto.setDisable(true);
-            contacto.setName(name);
+            contacto.setName(campoTexto.getText());
         }
         );
         
         pane.setOnMouseExited(e->{//Cuando el mouse sale del HBox entonces guarda los datos del Campo de texto
             campoTexto.setDisable(true);
-            contacto.setName(name);
+            contacto.setName(campoTexto.getText());
         }
         );
         
@@ -437,13 +333,14 @@ public class CrearContactoController  {
         campoTexto.setDisable(true);//pone el campo de texto desactvado
         pane.setOnMouseEntered(e->{campoTexto.setDisable(false);});//Cuando el mouse pasa encima del HBox el Campo de texto se activa
         campoTexto.setOnAction(e->{//Cuando el usuario da enter en el txtField entonces guarda los datos del Campo de texto
-            contacto.setNumber(number);
+            contacto.setNumber(campoTexto.getText());
             campoTexto.setDisable(true);
+            
         }
         );
         
         pane.setOnMouseExited(e->{//Cuando el mouse sale del HBox entonces guarda los datos del Campo de texto
-            contacto.setNumber(number);
+            contacto.setNumber(campoTexto.getText());
             campoTexto.setDisable(true);
         }
         );
@@ -453,22 +350,7 @@ public class CrearContactoController  {
         }
         return campoTexto;
     }
-    
-    
-    
-    //Carga los Conctactos Selecioandos
-    //---------------------------------------------------------------------------------------------------------------------------------------------------
-    
-    private void preCargarDatosContactoSeleccionado(Contacto contacto){
-        photoIterator = contacto.getPhotos().listIterator();
-        contactoSeleccionado = contacto;
-        photoContacto = PHOTO_DEFAULT;
-        this.leftPhotos.setDisable(true);
-        this.rightPhotos.setDisable(true);
-        this.deletePhoto.setDisable(true);
-  
-    }
-    
+   
     //Edita todos los atributos que esten lleno de datos
     //---------------------------------------------------------------------------------------------------------------------------------------------------
     private void editarValueAtributte(Contacto contacto, String key, String oldTxt, TextField campoTexto){
@@ -491,9 +373,7 @@ public class CrearContactoController  {
             updateAtributteContacto(contacto, key, label, txtLabel, pane);
         });
     }
-    
-    
-    
+
     //Agrega todos los Atributos,tag,ContactosVinculador del Contacto
     //---------------------------------------------------------------------------------------------------------------------------------------------------
     
@@ -501,9 +381,7 @@ public class CrearContactoController  {
     public void addAtributte(){
         contactoSeleccionado.putAtributte("Nuevo Atributo" + contactoSeleccionado.getKeysAtributtes().size(), "");
         photoIterator = contactoSeleccionado.getPhotos().listIterator();
-        cargarDatosContacto(contactoSeleccionado);
-        
-        
+        cargarDatosContacto(); 
     }
     
     @FXML
@@ -520,29 +398,14 @@ public class CrearContactoController  {
     public void addContactoVinculado(){
         Contacto contacoParaAsociar = contactosRelacionadosComboBox.getSelectionModel().getSelectedItem();
         contacoParaAsociar.addContactoRelacionado(contactoSeleccionado);
-        cargarDatosContacto(contactoSeleccionado);
+        cargarDatosContacto();
         photoIterator = contactoSeleccionado.getPhotos().listIterator();
  
     }
-    
-    
-    
-    
-    
-    
     //Fotos
     //---------------------------------------------------------------------------------------------------------------------------------------------------
     @FXML
     public void nextContactPhoto(){
-        if(avanzoPhoto){
-            for(ListIterator<Contacto> itList: iterators1){
-                itList.next();
-                itList.next();
-            }
-        }
-        for(ListIterator<Contacto> itList: iterators1){
-            mostrarContacto(itList.next());
-        }
         photoContacto = photoIterator.next();
         avanzoPhoto = true;
         retrocedioPhoto = false;
@@ -551,15 +414,6 @@ public class CrearContactoController  {
     
     @FXML
     public void previousContactPhoto(){
-        if(retrocedioPhoto){
-            for(ListIterator<Contacto> itList: iterators1){
-                itList.previous();
-                itList.previous();
-            }
-        }
-        for(ListIterator<Contacto> itList: iterators1){
-            mostrarContacto(itList.previous());
-        }
         photoContacto = photoIterator.previous();
         avanzoPhoto = false;
         retrocedioPhoto = true;
@@ -578,20 +432,19 @@ public class CrearContactoController  {
         
         java.util.List<File> imgFiles =  fileChooser.showOpenMultipleDialog(null);
         if(imgFiles!=null){
-            System.out.println(imgFiles);
-        for(int i=0;i<imgFiles.size();i++){
-            try {
-                String imagePath = imgFiles.get(i).toURI().toURL().toExternalForm();
-                contactoSeleccionado.addPhoto(imagePath);
-            } catch (Exception e) {
-                // Maneja la excepción si ocurre un error al cargar la imagen
-                e.printStackTrace();
+            for(int i=0;i<imgFiles.size();i++){
+                try {
+                    String imagePath = imgFiles.get(i).toURI().toURL().toExternalForm();
+                    contactoSeleccionado.addPhoto(imagePath);
+                } catch (Exception e) {
+                    // Maneja la excepción si ocurre un error al cargar la imagen
+                    e.printStackTrace();
+                }
+                photoIterator = contactoSeleccionado.getPhotos().listIterator();
+
+
             }
-            photoIterator = contactoSeleccionado.getPhotos().listIterator();
-            
-            
-        }
-        cargarDatosContacto(contactoSeleccionado);
+            cargarDatosContacto();
         }
             
     }
@@ -640,16 +493,12 @@ public class CrearContactoController  {
 
             contactoRelacionado.setCursor(Cursor.HAND);
             contactoRelacionado.setOnMouseClicked((e)->{
-                labelNameFX = labelName;
-                labelNumberFX = labelNumber;
+                contactosController.labelNameFX = labelName;
+                contactosController.labelNumberFX = labelNumber;
             });
             
             contactosRelacionadosVBox.getChildren().add(cajaContactoRelacionado);
         }
-    }
-    
-    private void bindLabelconTextField(Label label, TextField textField){
-        label.textProperty().bind(textField.textProperty());//Enlaza el labelName que viene del panel Izquierdo con el name que se muestra en el lado derecho
     }
     
     private Button crearButtonDeleteAtributte(String key, String textButton, Pane pane){
@@ -662,8 +511,4 @@ public class CrearContactoController  {
         );
         return button;
     }
-    
-    
- 
-
 }
