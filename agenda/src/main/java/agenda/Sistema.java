@@ -56,49 +56,114 @@ public static int comprobarUsuario(String usuario, String contrasena){
     }
     public static void cargarContactos(Usuario usuario){
         contactos.addLast(new Persona("Vicente Gómez", "+593 802-24-3198"){
-            {addTag("Tag1");
+            {addTag("Amigos");
+            addPhoto("/imgpersonas/persona8.jpg");
             }
         });
         contactos.addLast(new Persona("Hugo Muñoz", "+593 005-84-6765"){
-            {addTag("Tag2");
+            {addTag("Familia");
+            addPhoto("/imgpersonas/persona9.jpg");
             }
         });
         contactos.addLast(new Persona("Adrián Suárez", "+593 961-40-2387"){
-            {addTag("Tag3");
+            {//addTag("Tag3");
+                addPhoto("/imgpersonas/persona10.jpg");
             }
         });
-        contactos.addLast(new Persona("Nombre4", "+593 727-39-3931"){
-            {addTag("Tag4");
+        contactos.addLast(new Persona("Alaja Filo", "+593 727-39-3931"){
+            {//addTag("Tag4");
+                addPhoto("/imgpersonas/persona11.jpg");
             }
         });
-        contactos.addLast(new Persona("Alfonso Álvarez", "+593 567-84-4712"){
-            {addTag("Tag5");
+        contactos.addLast(new Persona("Clara Álvarez", "+593 567-84-4712"){
+            {//addTag("Tag5");
+                addPhoto("/imgpersonas/persona12.jpg");
             }
         });
-        contactos.addLast(new Persona("Vicente Gómez", "+593 557-95-1014"){
-            {addTag("Tag6");
+        contactos.addLast(new Persona("Cris Gómez", "+593 557-95-1014"){
+            {//addTag("Tag6");
+                addPhoto("/imgpersonas/persona13.jpg");
             }
         });
         contactos.addLast(new Persona("Mario Ruiz", "+593 969-34-1666"){
-            {addTag("Tag7");
+            {addTag("Amigos");
             }
         });
         contactos.addLast(new Persona("Santiago Gutiérrez", "+593 783-89-5317"){
-            {addTag("Tag8");
+            {addTag("Amigos");
             }
         });
         contactos.addLast(new Persona("Ricardo Ruiz", "+593 996-41-2072"){
-            {addTag("Tag9");
+            {addTag("Trabajo");
             }
         });
         contactos.addLast(new Persona("Daniel Álvarez", "+593 069-01-2194"){
-            {addTag("Tag10");
+            {addTag("Trabajo");
             }
         });
         contactos.addLast(new Persona("Manuel Martínez", "+593 293-40-4674"){
-            {addTag("Tag11");
+            {addTag("Escuela");
             }
         });
+        
+        contactos.addLast(new Empresa("NVidea", "+593 412-56-4455"){
+            {addTag("Empresa");
+            addTag("Todo");
+            }
+        });
+        
+        contactos.addLast(new Empresa("Dell", "+593 777-54-3265"){
+            {addTag("Empresa");
+            addTag("Todo");
+            }
+        });
+        
+        contactos.addLast(new Empresa("FaceBook", "+593 455-74-6837"){
+            {addTag("Empresa");
+            addTag("Todo");
+            }
+        });
+        
+        Empresa empre = new Empresa("CocaCola","+593 451-47-4521");
+        empre.putAtributte("Usuario twitter", "@CocaSA");
+        empre.putAtributte("Usuario fb", "CocaCola SA");
+        empre.putAtributte("Fecha", "05/01/98");
+        empre.putAtributte("Direccion", "Avda. Alameda Sundheim 59");
+        empre.addPhoto("/imgpersonas/Cocacola.jpg");
+        empre.addTag("Empresa");
+        empre.addTag("Todo");
+        contactos.addLast(empre);
+        
+        Empresa empre1 = new Empresa("Ferrari","+593 787-45-1445");
+        empre1.putAtributte("Usuario twitter", "@Ferrari");
+        empre1.putAtributte("Usuario fb", "FerrariSA");
+        empre1.putAtributte("Fecha", "15/07/75");
+        empre1.putAtributte("Direccion", "Rosa de los Vientos 9");
+        empre1.addPhoto("/imgpersonas/Ferrari-badge.jpg");
+        empre1.addTag("Empresa");
+        empre1.addTag("Todo");
+        contactos.addLast(empre1);
+        
+        Empresa empre2 = new Empresa("Samsung","+593 652-78-8541");
+        empre2.putAtributte("Usuario twitter", "@Samsung");
+        empre2.putAtributte("Usuario fb", "SamsungSa");
+        empre2.putAtributte("Fecha", "30/12/45");
+        empre2.putAtributte("Direccion", "Plaza de España 83");
+        empre2.addPhoto("/imgpersonas/Samsung.jpg");
+        empre2.addTag("Empresa");
+        empre2.addTag("Todo");
+        contactos.addLast(empre2);
+        
+        Empresa empre3 = new Empresa("iphone","+593 744-85-7456");
+        empre3.putAtributte("Usuario twitter", "@iphone");
+        empre3.putAtributte("Usuario fb", "iphoneSa");
+        empre3.putAtributte("Fecha", "04/12/45");
+        empre3.putAtributte("Direccion", "Herrería 94");
+        empre3.addPhoto("/imgpersonas/iPhone-logo.png");
+        empre3.addTag("Empresa");
+        empre3.addTag("Todo");
+        contactos.addLast(empre3);
+        
         
         
         Persona p = new Persona("Juan Carlos", "+593 605-07-8066");
@@ -127,7 +192,7 @@ public static int comprobarUsuario(String usuario, String contrasena){
         p2.addTag("Familia");
         p2.addTag("Amigos");
         p2.addTag("Trabajo");
-        p2.addTag("Escuella");
+        p2.addTag("Escuela");
         p2.addTag("Todo");
         contactos.addLast(p2);
         p2.addContactoRelacionado(p);
