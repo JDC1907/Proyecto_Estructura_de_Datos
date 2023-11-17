@@ -87,6 +87,7 @@ public class DoublyLinkedList<E> implements CircularList<E>{
             last.setNext(first);
             first.setPrevious(last);
         }
+        lenght--;
         return true;
     }
 
@@ -118,13 +119,14 @@ public class DoublyLinkedList<E> implements CircularList<E>{
         int indice = 0;
         boolean insertado = false;
         DoublyNode current = first;
-        while(insertado){
+        while(!insertado){
             if(indice == index){
                 newNode.setPrevious(current.getPrevious());
                 current.getPrevious().setNext(newNode);
                 
                 newNode.setNext(current);
                 current.setPrevious(newNode);
+                insertado = true;
             }
             current = current.getNext();
             indice++;
@@ -144,10 +146,9 @@ public class DoublyLinkedList<E> implements CircularList<E>{
                 }else{
                     fin = true;
                 }
-                
                 if(current.getContent().equals(element)){
                     fin = true;
-                    hallo = false;
+                    hallo = true;
                 }
             }
         }
@@ -202,19 +203,30 @@ public class DoublyLinkedList<E> implements CircularList<E>{
                     return this.removeLast();
             }
             else{
+                /*int i = 0;
                 while(!fin){
+
                     if(current.getContent().equals(element)){
                         current.getPrevious().setNext(current.getNext());
                         current.getNext().setPrevious(current.getPrevious());
                         return true;
                     }
-                    
+
                     if(current == last){
                         fin = true;
                     }
 
                     current = current.getNext();
+                }*/
+                
+                for (int i = 0; i < this.indexOf(element); i++) {
+                    current = current.getNext();
                 }
+
+                current.getPrevious().setNext(current.getNext());
+                current.getNext().setPrevious(current.getPrevious());
+                lenght--;
+                return true;
             }
         }
         return false;
@@ -385,19 +397,20 @@ public class DoublyLinkedList<E> implements CircularList<E>{
     @Override
     public String toString(){
         boolean isFinal = false;
-        String salida = "";
+        String salida = "[";
         DoublyNode<E> current = first;
         if(!isEmpty()){
-            while(!isFinal){
-                salida += current.getContent() + ", ";
+            do{
+                salida += current.getContent();
                 if(current != last){
-                    current = current.getNext();
-                }else{
-                    isFinal = true;
+                    salida += ", ";
                 }
+                current = current.getNext();
             }
+            while(current != first);
         }
-        return salida.substring(0, salida.length()-2);
+        salida += "]";
+        return salida;
     }   
 
     @Override
@@ -415,9 +428,8 @@ public class DoublyLinkedList<E> implements CircularList<E>{
                     this.set(j + 1, element1);
                 }
             }
-        } return true;
-        
-        
-       }
         }
+        return true;
+    }
+}
 

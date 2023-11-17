@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="vBoxCrear" maxHeight="842.0" maxWidth="901.0" minHeight="720.0" minWidth="622.0" prefHeight="842.0" prefWidth="642.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.agenda.CrearContactoController">
+<VBox fx:id="vBoxCrear" maxHeight="842.0" maxWidth="901.0" minHeight="720.0" minWidth="622.0" prefHeight="842.0" prefWidth="642.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.agenda.CrearContactoController">
    <children>
       <HBox>
          <children>
@@ -35,7 +35,7 @@
                         <Image url="@../../../img/Img1Login.png" />
                      </image>
                   </ImageView>
-                  <VBox fx:id="datosContactoVBox" alignment="CENTER" layoutY="15.0" prefHeight="798.0" prefWidth="627.0" snapToPixel="false">
+                  <VBox fx:id="datosContactoVBox" alignment="TOP_CENTER" layoutY="15.0" prefHeight="798.0" prefWidth="627.0" snapToPixel="false">
                      <children>
                         <Label text="Usuario" />
                         <VBox alignment="CENTER">
@@ -132,29 +132,6 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Label text="Fecha" visible="false" />
-                        <VBox fx:id="fechasVBox" alignment="CENTER">
-                           <children>
-                              <HBox alignment="CENTER" prefHeight="17.0" prefWidth="627.0" visible="false">
-                                 <children>
-                                    <Label fx:id="nameLabel1" text="Fecha" />
-                                    <TextField fx:id="nameTextField1" disable="true" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                        <Button fx:id="addAtributteButton1" disable="true" mnemonicParsing="false" onAction="#addAtributte" prefHeight="3.0" prefWidth="126.0" text="Agregar fecha" visible="false">
-                           <graphic>
-                              <ImageView fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../img/add_atribute.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
                         <Label text="Etiquetas" />
                         <FlowPane fx:id="contactoTagsFlowPane" alignment="CENTER" prefHeight="34.0" prefWidth="625.0">
                            <children>
@@ -181,18 +158,6 @@
                         <Label text="Contactos Relacionados" visible="false" />
                         <VBox fx:id="contactosRelacionadosVBox" alignment="CENTER" visible="false" />
                         <ComboBox fx:id="contactosRelacionadosComboBox" prefWidth="150.0" visible="false" />
-                        <Button fx:id="addContactoVinculadoButton" mnemonicParsing="false" onAction="#addContactoVinculado" text="Vincular contacto" visible="false">
-                           <graphic>
-                              <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../img/add_atribute.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
                         <Button fx:id="buttonGuardar" disable="true" mnemonicParsing="false" onAction="#guardarContacto" text="Guardar">
                            <cursor>
                               <Cursor fx:constant="HAND" />

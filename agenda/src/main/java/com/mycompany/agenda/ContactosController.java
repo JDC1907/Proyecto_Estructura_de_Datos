@@ -18,14 +18,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -33,10 +30,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import tda.ArrayList;
 import tda.CircularList;
 import tda.DoublyLinkedList;
@@ -47,12 +41,12 @@ import tda.List;
 
 public class ContactosController {
     private final int NUMERO_CONTACTOS_MOSTRADOS = 7;//Numero de contactos que van a ser mostrado en el panel izquierdo
-    @FXML private VBox contactosVBox, datosContactoAtributosVBox, datosContactoVBox, datosContactoNameNumberVBox, contactosRelacionadosVBox, vBoxContatoMuestra;
+    @FXML private VBox contactosVBox, datosContactoAtributosVBox, datosContactoVBox, datosContactoNameNumberVBox, vBoxContatoMuestra;
     @FXML private AnchorPane anchorPaneContac;
     @FXML private ImageView contactoImg;
     @FXML private ImageView imgBienvenida;
     @FXML private Button upContactsButton, downContactsButton, leftPhotos, rightPhotos;
-    @FXML private HBox tagsHBox;
+    @FXML private HBox tagsHBox, contactosRelacionadosHBox;
     @FXML private FlowPane contactoTagsFlowPane;
     @FXML private ComboBox<Contacto> contactosRelacionadosComboBox;
     @FXML private TextField nuevaTagTextField,textNombre,textNumero;
@@ -60,7 +54,6 @@ public class ContactosController {
     
     private Contacto contactoSeleccionado; //Contacto seleccionado
     private List<ListIterator<Contacto>> iterators = new ArrayList<>();
-    private List<ListIterator<Contacto>> iterators1 = new ArrayList<>();
     private ListIterator<String> photoIterator;
     private final String PHOTO_DEFAULT = "/img/user.png";
     private String photoContacto = "/img/user.png";
@@ -83,7 +76,9 @@ public class ContactosController {
     //recibe un iterador y los avanza el numero de veces de STEP
     private void avanzarIterator(int steps, Iterator it){
         for(int i=1;i<steps;i++){
-            it.next();
+            if(it.hasNext()){
+                it.next();
+            }
         }
     }
     //Configura los iteradores que se mostraran en pantalla y los guarda en un ArrayList
@@ -99,7 +94,7 @@ public class ContactosController {
     return iterators;
 }
     //Agrega botones en el area de los tag
-    private void agregarButtonTagsEnElHBox(){//
+    public void agregarButtonTagsEnElHBox(){//
         tagsHBox.getChildren().clear();
         for(String tag: agenda.Sistema.getTags()){
             tagsHBox.getChildren().add(crearButtonTag(tag));
@@ -109,17 +104,20 @@ public class ContactosController {
     //Crea botones con el texto que tiene la tag, ademas le añade un evento que cada que es presionado filtra los contactos que tengan esa tag
     private Button crearButtonTag(String tag){
         Button buttonTag = new Button(tag);
-            buttonTag.setCursor(Cursor.HAND);
-            buttonTag.setOnAction((e)->{
-                    List<Contacto> c = new ArrayList<>();
-                    for(Contacto contacto: agenda.Sistema.contactos){
-                        if(contacto.getTags().contains(tag)){
-                            c.addLast(contacto);
-                        }
+        buttonTag.setCursor(Cursor.HAND);
+        buttonTag.setOnAction((e)->{
+                List<Contacto> c = new ArrayList<>();
+                for(Contacto contacto: agenda.Sistema.contactos){
+                    if(contacto.getTags().contains(tag)){
+                        c.addLast(contacto);
                     }
-                    cargarContactosPanelIzquierdo(c);
                 }
-            );
+                cargarContactosPanelIzquierdo(c);
+            }
+        );
+        if(tag.equals("Favorito")){
+            buttonTag.setGraphic(new ImageView(new Image("/img/estrellalight.png",16, 16, false, false)));
+        }
         return buttonTag;
     }
     //Descativa los botoes de subir y bajar en el menu de contactos del panel izquierdo
@@ -132,18 +130,20 @@ public class ContactosController {
         cargarContactosPanelIzquierdo(lista);
     }
     private void cargarContactosPanelIzquierdo(List lista){
-        prepararIteradores(agenda.Sistema.contactos, NUMERO_CONTACTOS_MOSTRADOS);
-        Iterator<Contacto> it = lista.iterator();
-        contactosVBox.getChildren().clear();
-        setDisableButtonsDownUp(true);
-        if(lista.size()>NUMERO_CONTACTOS_MOSTRADOS){
-            setDisableButtonsDownUp(false);
-        }
-        int numElementos = 0;
-        while(it.hasNext() && numElementos<NUMERO_CONTACTOS_MOSTRADOS){
-            Contacto contacto = it.next();
-            mostrarContacto(contacto);//
-            numElementos++;
+        if(lista.size()>0){
+            prepararIteradores(agenda.Sistema.contactos, NUMERO_CONTACTOS_MOSTRADOS);
+            Iterator<Contacto> it = lista.iterator();
+            contactosVBox.getChildren().clear();
+            setDisableButtonsDownUp(true);
+            if(lista.size()>NUMERO_CONTACTOS_MOSTRADOS){
+                setDisableButtonsDownUp(false);
+            }
+            int numElementos = 0;
+            while(it.hasNext() && numElementos<NUMERO_CONTACTOS_MOSTRADOS){
+                Contacto contacto = it.next();
+                mostrarContacto(contacto);//
+                numElementos++;
+            }
         }
     }
 
@@ -229,7 +229,7 @@ public class ContactosController {
     }
     
     private void agregarContactosAcontactosRelacionadosVBox(){
-        contactosRelacionadosVBox.getChildren().clear();
+        contactosRelacionadosHBox.getChildren().clear();
         for(Contacto contacto: contactoSeleccionado.getContactosRelacionados()){
             HBox cajaContactoRelacionado = new HBox();
             HBox contactoRelacionado = new HBox();
@@ -250,10 +250,10 @@ public class ContactosController {
             borrarContactoRelacionadoButton.setCursor(Cursor.HAND);
             borrarContactoRelacionadoButton.setOnMouseClicked((e)->{
                 contactoSeleccionado.removeContactoRelacionado(contacto);
-                contactosRelacionadosVBox.getChildren().remove(cajaContactoRelacionado);
+                contactosRelacionadosHBox.getChildren().remove(cajaContactoRelacionado);
             });
             cajaContactoRelacionado.getChildren().add(borrarContactoRelacionadoButton);
-
+            cajaContactoRelacionado.setAlignment(Pos.CENTER);
             contactoRelacionado.setCursor(Cursor.HAND);
             contactoRelacionado.setOnMouseClicked((e)->{
                 labelNameFX = labelName;
@@ -261,8 +261,9 @@ public class ContactosController {
                 preCargarDatosContactoSeleccionado(contacto);
                 cargarDatosContacto(contacto);
             });
-            
-            contactosRelacionadosVBox.getChildren().add(cajaContactoRelacionado);
+            Tooltip tooltip = new Tooltip(contacto.getName());
+            Tooltip.install(cajaContactoRelacionado, tooltip);
+            contactosRelacionadosHBox.getChildren().add(cajaContactoRelacionado);
         }
     }
     
@@ -472,10 +473,8 @@ public class ContactosController {
         
        if(contacto.isFavorite()){
             imagen = new Image("/img/estrellalight.png");
-            contacto.addTag("Favoritos");
-        }else{
-           contacto.removeTag("Favoritos");
-       }
+        }
+       
         // Crear un ImageView con la imagen
         ImageView imageView = new ImageView(imagen);
         // Establecer el ImageView como gráfico del botón
@@ -486,22 +485,19 @@ public class ContactosController {
         fav.setStyle("-fx-background-color: transparent;");
         HBox.setMargin(fav, new Insets(0, 0, 0, 50));
         fav.setOnAction(e->{
-        if(contacto.isFavorite()){
-            imageView.setImage(new Image("/img/estrelladark.png"));
-            contacto.setFavorito(false);
-            contacto.removeTag("Favoritos");
-            agregarButtonTagsEnElHBox();
-            cargarContactosPanelIzquierdo(agenda.Sistema.contactos);
-            
-       }else{
-           imageView.setImage(new Image("/img/estrellalight.png"));
-           contacto.setFavorito(true);
-            contacto.addTag("Favoritos");
-            agregarButtonTagsEnElHBox();
-            cargarContactosPanelIzquierdo(agenda.Sistema.contactos);
-            
-            
-        }
+            if(contacto.isFavorite()){
+                imageView.setImage(new Image("/img/estrelladark.png"));
+                contacto.setFavorito(false);
+                contacto.removeTag("Favorito");
+                agregarButtonTagsEnElHBox();
+                cargarContactosPanelIzquierdo(agenda.Sistema.contactos);
+
+           }else{
+               imageView.setImage(new Image("/img/estrellalight.png"));
+               contacto.setFavorito(true);
+                contacto.addTag("Favorito");
+                agregarButtonTagsEnElHBox();
+            }
         });
         favoritos.getChildren().add(fav);
         cajaContacto.getChildren().add(favoritos);
@@ -614,6 +610,7 @@ public class ContactosController {
         internal = internalLoader.load();
         CrearContactoController controller = internalLoader.getController();
         controller.cargarImagenBienvenida(imgBienvenida);
+        controller.cargarParent(this);
         anchorPaneContac.getChildren().add(internal);
         datosContactoVBox.setVisible(false);
         imgBienvenida.setVisible(false);
@@ -714,14 +711,9 @@ public class ContactosController {
     
     @FXML
     public void nextContactPhoto(){
-        if(avanzoPhoto){
-            for(ListIterator<Contacto> itList: iterators1){
-                itList.next();
-                itList.next();
-            }
-        }
-        for(ListIterator<Contacto> itList: iterators1){
-            mostrarContacto(itList.next());
+        if(retrocedioPhoto){
+            photoIterator.next();
+            photoIterator.next();
         }
         photoContacto = photoIterator.next();
         avanzoPhoto = true;
@@ -731,14 +723,9 @@ public class ContactosController {
     
     @FXML
     public void previousContactPhoto(){
-        if(retrocedioPhoto){
-            for(ListIterator<Contacto> itList: iterators1){
-                itList.previous();
-                itList.previous();
-            }
-        }
-        for(ListIterator<Contacto> itList: iterators1){
-            mostrarContacto(itList.previous());
+        if(avanzoPhoto){
+            photoIterator.previous();
+            photoIterator.previous();
         }
         photoContacto = photoIterator.previous();
         avanzoPhoto = false;
@@ -770,58 +757,34 @@ public class ContactosController {
                 new FileChooser.ExtensionFilter("PNG", "*.png")
         );
         java.util.List<File> imgFiles =  fileChooser.showOpenMultipleDialog(null);
-        for(int i=0;i<imgFiles.size();i++){
-        if (imgFiles.get(i) != null) {
-            try {
-                String imagePath = imgFiles.get(i).toURI().toURL().toExternalForm();
-                contactoSeleccionado.addPhoto(imagePath);
-            } catch (Exception e) {
-                // Maneja la excepción si ocurre un error al cargar la imagen
-                e.printStackTrace();
+        if (imgFiles != null) {
+            for(int i=0;i<imgFiles.size();i++){
+                try {
+                    String imagePath = imgFiles.get(i).toURI().toURL().toExternalForm();
+                    contactoSeleccionado.addPhoto(imagePath);
+                } catch (Exception e) {
+                    // Maneja la excepción si ocurre un error al cargar la imagen
+                    e.printStackTrace();
+                }
             }
-        }
-            photoIterator = contactoSeleccionado.getPhotos().listIterator();
-            cargarDatosContacto(contactoSeleccionado);
-            cargarContactosPanelIzquierdo(agenda.Sistema.contactos);
-        }
+                photoIterator = contactoSeleccionado.getPhotos().listIterator();
+                cargarDatosContacto(contactoSeleccionado);
+                cargarContactosPanelIzquierdo(agenda.Sistema.contactos);
+            }
             
     }
    
     @FXML
     private void eliminarPhoto(ActionEvent event) {
+        System.out.println(contactoSeleccionado.getPhotos());
         if (contactoSeleccionado.getPhotos().size()>0){
-            //photoContacto = photoIterator.next();
-            deletePhoto.setDisable(false);
-            contactoSeleccionado.removePhoto(photoContacto);
-            
+            System.out.println(contactoSeleccionado.removePhoto(photoContacto));      
             photoIterator = contactoSeleccionado.getPhotos().listIterator();
   //          cargarDatosContacto(contactoSeleccionado);
 //            cargarContactosPanelIzquierdo(agenda.Sistema.contactos);
         }
-        cargarDatosContacto(contactoSeleccionado);
-        cargarContactosPanelIzquierdo(agenda.Sistema.contactos);
-          
-    }
-    
-    private void avanzarIterator1(int steps, Iterator it){
-        for(int i=1;i<steps;i++){
-            it.next();
-        }
-    }
-    
-    private List<ListIterator<Contacto>> prepararIteradores1(CircularList list, int numIterators){
-        iterators1 = new ArrayList<>();
-        avanzoPhoto = true;
-        for(int i = 0; i < numIterators; i++){
-            ListIterator<Contacto> it = list.listIterator();
-            avanzarIterator1(i+2, it);//Hace que los elementos avancen la posicion
-            iterators1.addLast(it);
-        }
-    return iterators1;
-}
-
-    /*private void setStage(Stage secondStage) {
         
-        }*/
-
+        cargarDatosContacto(contactoSeleccionado);
+        cargarContactosPanelIzquierdo(agenda.Sistema.contactos);          
+    }
 }

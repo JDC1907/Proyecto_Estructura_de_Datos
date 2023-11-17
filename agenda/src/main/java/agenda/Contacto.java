@@ -3,8 +3,8 @@ package agenda;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import tda.CircularList;
 import tda.DoublyLinkedList;
@@ -13,22 +13,22 @@ import tda.List;
 
 
 public abstract class Contacto implements Serializable {
-    private HashSet tags;
-    private HashMap<String, String> atributos;
+    private LinkedHashSet tags;
+    private LinkedHashMap<String, String> atributos;
     private CircularList<String> photos;
     private String name, number;
     private List<Date> dates;
-    private HashSet<Contacto> contactosRelacionados;
+    private LinkedHashSet<Contacto> contactosRelacionados;
     private boolean favorito;
 
     public Contacto(String name, String number) {
-        this.tags = new HashSet<String>();
+        this.tags = new LinkedHashSet<String>();
         this.tags.add("Todo");
-        this.atributos = new HashMap<>();
+        this.atributos = new LinkedHashMap<>();
         this.photos = new DoublyLinkedList();
         this.number = number;
         this.name = name;
-        this.contactosRelacionados = new HashSet();
+        this.contactosRelacionados = new LinkedHashSet();
         this.dates = new LinkedList();
         this.favorito = false;
     }
@@ -73,11 +73,11 @@ public abstract class Contacto implements Serializable {
         return addTag(newTag);
     }
     
-    public HashSet<Contacto> getContactosRelacionados(){
+    public LinkedHashSet<Contacto> getContactosRelacionados(){
         return contactosRelacionados;
     }
     
-    public HashSet<String> getTags(){
+    public LinkedHashSet<String> getTags(){
         return tags;
     }
     

@@ -5,6 +5,8 @@
 package agenda;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import tda.ArrayList;
 import tda.CircularList;
 import tda.DoublyLinkedList;
@@ -211,8 +213,10 @@ public static int comprobarUsuario(String usuario, String contrasena){
         
     }
     
-    public static HashSet<String> getTags(){
-        HashSet<String> tags = new HashSet();
+    public static Set<String> getTags(){
+        Set<String> tags = new LinkedHashSet();
+        tags.add("Todo");
+        tags.add("Favorito");
         for(Contacto contacto: contactos){
             tags.addAll(contacto.getTags());
         }

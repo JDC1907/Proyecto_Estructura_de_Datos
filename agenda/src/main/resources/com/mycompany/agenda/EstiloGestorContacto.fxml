@@ -52,7 +52,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="vBoxAgenda" maxHeight="720.0" maxWidth="900.0" minHeight="720.0" minWidth="900.0" prefHeight="720.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.agenda.ContactosController">
+<VBox fx:id="vBoxAgenda" maxHeight="720.0" maxWidth="900.0" minHeight="720.0" minWidth="900.0" prefHeight="720.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.agenda.ContactosController">
   <children>
       <VBox alignment="CENTER" prefHeight="32.0" prefWidth="900.0">
          <children>
@@ -270,46 +270,10 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Label text="Fecha" />
-                                    <VBox fx:id="fechasVBox" alignment="CENTER">
-                                       <children>
-                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                                             <children>
-                                                <Label fx:id="nameLabel1" text="Fecha" />
-                                                <TextField fx:id="nameTextField1" disable="true" />
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </VBox>
-                                    <Button fx:id="addAtributteButton1" mnemonicParsing="false" onAction="#addAtributte" text="Agregar fecha">
-                                       <graphic>
-                                          <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../img/add_atribute.png" />
-                                             </image>
-                                          </ImageView>
-                                       </graphic>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </Button>
                                     <Label text="Etiquetas" />
                                     <FlowPane fx:id="contactoTagsFlowPane" alignment="CENTER" prefHeight="34.0" prefWidth="625.0">
                                        <children>
-                                          <HBox fx:id="contactoTagsHBox" alignment="CENTER">
-                                             <children>
-                                                <Label fx:id="nameLabel12" text="tag1" />
-                                                <Button mnemonicParsing="false">
-                                                   <graphic>
-                                                      <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                                                         <image>
-                                                            <Image url="@../../../img/delette_atributte.png" />
-                                                         </image>
-                                                      </ImageView>
-                                                   </graphic>
-                                                </Button>
-                                             </children>
-                                          </HBox>
+                                          <HBox fx:id="contactoTagsHBox" alignment="CENTER" />
                                        </children>
                                     </FlowPane>
                                     <HBox alignment="CENTER">
@@ -332,17 +296,7 @@
                                     <Label text="Contactos Relacionados" />
                                     <VBox fx:id="contactosRelacionadosVBox" alignment="CENTER">
                                        <children>
-                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                                             <children>
-                                                <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../../../img/user.png" />
-                                                   </image>
-                                                </ImageView>
-                                                <Label fx:id="nameLabel11" text="Nombre" />
-                                                <Label fx:id="nameLabel111" text="Numero" />
-                                             </children>
-                                          </HBox>
+                                          <HBox fx:id="contactosRelacionadosHBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" />
                                        </children>
                                     </VBox>
                                     <ComboBox fx:id="contactosRelacionadosComboBox" prefWidth="150.0" />
@@ -373,7 +327,7 @@
                                           <Insets top="10.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <HBox alignment="CENTER">
+                                    <HBox alignment="CENTER" visible="false">
                                        <children>
                                           <Button mnemonicParsing="false" text="&lt;" />
                                           <Separator opacity="0.0" prefWidth="500.0" />
