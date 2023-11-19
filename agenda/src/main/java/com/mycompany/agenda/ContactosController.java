@@ -776,7 +776,8 @@ public class ContactosController {
    
     @FXML
     private void eliminarPhoto(ActionEvent event) {
-        if (contactoSeleccionado.getPhotos().size()>0){   
+        if (contactoSeleccionado.getPhotos().size()>0){ 
+            contactoSeleccionado.removePhoto(photoContacto);
             photoIterator = contactoSeleccionado.getPhotos().listIterator();
   //          cargarDatosContacto(contactoSeleccionado);
 //            cargarContactosPanelIzquierdo(agenda.Sistema.contactos);
