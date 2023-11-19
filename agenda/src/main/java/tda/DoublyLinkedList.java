@@ -401,13 +401,14 @@ public class DoublyLinkedList<E> implements CircularList<E>{
         DoublyNode<E> current = first;
         if(!isEmpty()){
             do{
-                salida += current.getContent();
-                if(current != last){
-                    salida += ", ";
+                if (current != null){
+                    salida += current.getContent();
+                    if(current != last){
+                        salida += ", ";
+                    }
                 }
-                current = current.getNext();
             }
-            while(current != first);
+             while(current != first);
         }
         salida += "]";
         return salida;
