@@ -4,7 +4,12 @@ package com.mycompany.agenda;
 import agenda.Contacto;
 import java.util.Comparator;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.System.Logger.Level;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.ListIterator;
@@ -149,6 +154,7 @@ public class ContactosController {
 
     //Carga los datos del contacto y los coloca en el panel derecho en donde seran mostrados todos los datos del contacto seleccionado
     private void cargarDatosContacto(Contacto contacto){
+        agenda.Sistema.guardarContactos(agenda.Sistema.usuario);
         contactosRelacionadosComboBox.getItems().clear();
         HashSet<Contacto> contactosRelacionados = new HashSet();
         for(Contacto contactoRelacionado: agenda.Sistema.contactos){
@@ -498,6 +504,7 @@ public class ContactosController {
                 contacto.addTag("Favorito");
                 agregarButtonTagsEnElHBox();
             }
+            agenda.Sistema.guardarContactos(agenda.Sistema.usuario);
         });
         favoritos.getChildren().add(fav);
         cajaContacto.getChildren().add(favoritos);
@@ -744,8 +751,35 @@ public class ContactosController {
             }
         });
     }
-    
 
+    public String CopiarArchivo(String origenArchivo) {
+        try {
+            int copyIndex = 1;
+            Path origenPath = Paths.get(origenArchivo);
+            String[] archivo = origenPath.getFileName().toString().split("\\.");
+
+            // Obtén el directorio actual
+            String directorioActual = System.getProperty("user.dir");
+            System.out.println(directorioActual);
+            // Construye la ruta relativa al directorio de trabajo y al subdirectorio imgpersonas
+            Path destinoPath = Paths.get(directorioActual, "imgpersonas", archivo[0] + "_copia" + copyIndex + "." + archivo[1]);
+
+            // Asegúrate de que el archivo no exista antes de copiar
+            while (Files.exists(destinoPath)) {
+                copyIndex++;
+                destinoPath = Paths.get(directorioActual, "imgpersonas", archivo[0] + "_copia" + copyIndex + "." + archivo[1]);
+            }
+
+            Files.copy(origenPath, destinoPath);
+
+            // Devuelve la ruta relativa al directorio de trabajo y al subdirectorio imgpersonas
+            return Paths.get(directorioActual).relativize(destinoPath).toString();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+    
     //Agregar fotos a los contactos
     @FXML
     private void agregarPhoto(ActionEvent event) {
@@ -758,22 +792,20 @@ public class ContactosController {
         );
         java.util.List<File> imgFiles =  fileChooser.showOpenMultipleDialog(null);
         if (imgFiles != null) {
-            for(int i=0;i<imgFiles.size();i++){
-                try {
-                    String imagePath = imgFiles.get(i).toURI().toURL().toExternalForm();
-                    contactoSeleccionado.addPhoto(imagePath);
-                } catch (Exception e) {
-                    // Maneja la excepción si ocurre un error al cargar la imagen
-                    e.printStackTrace();
+            for(File imgFile: imgFiles){
+                String ruta = "file:"+CopiarArchivo(imgFile.getPath());
+                if(ruta!=null){
+                    System.out.println(ruta);
+                    contactoSeleccionado.addPhoto(ruta);
                 }
             }
-                photoIterator = contactoSeleccionado.getPhotos().listIterator();
-                cargarDatosContacto(contactoSeleccionado);
-                cargarContactosPanelIzquierdo(agenda.Sistema.contactos);
-            }
-            
+        }
+        photoIterator = contactoSeleccionado.getPhotos().listIterator();
+        cargarDatosContacto(contactoSeleccionado);
+        cargarContactosPanelIzquierdo(agenda.Sistema.contactos);
     }
-   
+
+    
     @FXML
     private void eliminarPhoto(ActionEvent event) {
         if (contactoSeleccionado.getPhotos().size()>0){ 

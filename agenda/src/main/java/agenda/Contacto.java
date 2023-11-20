@@ -12,7 +12,7 @@ import tda.LinkedList;
 import tda.List;
 
 
-public abstract class Contacto implements Serializable {
+public abstract class Contacto{
     private LinkedHashSet tags;
     private LinkedHashMap<String, String> atributos;
     private CircularList<String> photos;
@@ -20,6 +20,10 @@ public abstract class Contacto implements Serializable {
     private List<Date> dates;
     private LinkedHashSet<Contacto> contactosRelacionados;
     private boolean favorito;
+    private static int id = 0;
+    private int idContacto;
+
+
 
     public Contacto(String name, String number) {
         this.tags = new LinkedHashSet<String>();
@@ -31,6 +35,12 @@ public abstract class Contacto implements Serializable {
         this.contactosRelacionados = new LinkedHashSet();
         this.dates = new LinkedList();
         this.favorito = false;
+        id++;
+        idContacto = id;
+    }
+    
+    public int getId() {
+        return idContacto;
     }
     
     public boolean addContactoRelacionado(Contacto contacto){

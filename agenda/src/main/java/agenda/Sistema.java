@@ -4,13 +4,21 @@
  */
 package agenda;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.StringJoiner;
 import tda.ArrayList;
 import tda.CircularList;
 import tda.DoublyLinkedList;
-import tda.LinkedList;
 import tda.List;
 
 /**
@@ -19,8 +27,9 @@ import tda.List;
  */
 public class Sistema {
     static private String usr;
-    static private ArrayList<Usuario> usuarios = new ArrayList<>();
-
+    static private List<Usuario> usuarios = new ArrayList<>();
+    
+    public static Usuario usuario;
     public static CircularList<Contacto> contactos = new DoublyLinkedList();
     
     //public static List<Contacto> contactos = new LinkedList();
@@ -33,18 +42,11 @@ public static int comprobarUsuario(String usuario, String contrasena){
                 indice = i;
                 switch (usuarios.get(indice).tipo) {
                     case "admin":
-                       
                         return 1;
-                        
                     case "persona":
-                        
                         return 2;
-                        
                     case "empresa":
-                        
                         return 3;
-                        
-
                 }
             }
         }
@@ -53,7 +55,24 @@ public static int comprobarUsuario(String usuario, String contrasena){
     public static void inicializarSistema(){
     usuarios.addLast(new Usuario("admin1","123","Ädministrador","admin"));
 //    usuarios.addLast(new Usuario("Laura preciado","lau567","Persona","person"));
-    cargarContactos(usuarios.get(0));
+    iniciarSesion("admin1","123");
+    //cargarContactos(usuario);
+    //contactos = new DoublyLinkedList();
+    cargarContactos();
+    //guardarContactos(usuario);
+    }
+    
+    public static void iniciarSesion(String nombreUsuario, String password){
+       String nombre = "Nombre";
+       String tipo = "tipo";
+       usuario = new Usuario(nombreUsuario, password, nombre, tipo);
+       
+       //cargarContactos();
+    }
+    
+    public static void cerrarSesion(String nombreUsuario){
+        usuario = null;
+        contactos = null;
         
     }
     public static void cargarContactos(Usuario usuario){
@@ -221,6 +240,140 @@ public static int comprobarUsuario(String usuario, String contrasena){
             tags.addAll(contacto.getTags());
         }
         return tags;
+    }
+    
+    public static void guardarContactos(Usuario usuario){
+        String nombreArchivo = usuario.getNombreUsr() + ".vCard";
+        File file = new File(nombreArchivo);
+        try{
+            FileWriter fw = new FileWriter(file);
+            String linea = "";
+            System.out.println(contactos.size());
+            for(Contacto contacto: contactos){
+                StringJoiner joinerLinea = new StringJoiner(",");
+                int tipo = 0; //Es 0 si contacto es Persona
+                if (contacto instanceof Empresa){
+                    tipo = 1; // 1 si es Empresa
+                }
+                joinerLinea.add(String.valueOf(tipo));
+                joinerLinea.add(String.valueOf(contacto.isFavorite()));
+                joinerLinea.add(contacto.getName());
+                joinerLinea.add(String.valueOf(contacto.getNumber()));
+                
+                StringJoiner joiner = new StringJoiner(";");
+                for (String tag : contacto.getTags()) {
+                    joiner.add(tag);
+                }
+                String tags = joiner.toString();
+                joinerLinea.add(tags);
+                
+                joiner = new StringJoiner(";");
+                for (String photo : contacto.getPhotos()) {
+                    joiner.add(photo);
+                }
+                String photos = joiner.toString();
+                joinerLinea.add(photos);
+                
+                joiner = new StringJoiner(";");
+                for (String key : contacto.getKeysAtributtes()) {
+                    joiner.add(key+":"+contacto.getValorAtributte(key));
+                }
+                String atributtes = joiner.toString();
+                joinerLinea.add(atributtes);
+                
+                joiner = new StringJoiner(";");
+                for (Contacto contactoRelacionado: contacto.getContactosRelacionados()) {
+                    joiner.add(String.valueOf(contactoRelacionado.getId()));
+                }
+                String contactosRelacionados = joiner.toString();
+                joinerLinea.add(contactosRelacionados+"\r\n");
+                linea += joinerLinea.toString();
+            }
+            fw.write(linea);
+            fw.close();
+            
+        }catch (Exception e){
+            System.out.println(e);
+        }
+    }
+    
+    public static void cargarContactos(){
+        File file = new File(usuario.getNombreUsr()+".vCard");
+        if(file.exists()){
+            try{
+                FileReader fr = new FileReader(file);
+                BufferedReader bf = new BufferedReader(fr);
+                String linea = bf.readLine();
+                Contacto contacto = null; 
+                HashMap<Contacto, List<Integer>> contactosDiccionario = new LinkedHashMap<>();
+                while(linea != null){
+                    if(linea != null){
+                        System.out.println(linea);
+                        String[] datos = linea.split(",",-1);
+                        int i = 0;
+                        int tipo = Integer.parseInt(datos[0]);
+                        boolean isFavorite = Boolean.parseBoolean(datos[1]);
+                        String nombre = datos[2];
+                        String numero = datos[3];
+                        String[] tagsString = datos[4].split(";");
+                        String[] photos = datos[5].split(";");
+
+                        String[] atributtes = datos[6].split(";");
+                        String[] contactosRelacionadosStringIDs = datos[7].split(";");
+
+                        List<Integer> contactosRelacionadosIDs = new ArrayList();
+                        for(String id: contactosRelacionadosStringIDs){
+                            if(!id.equals("")){
+                                contactosRelacionadosIDs.addLast(Integer.valueOf(id));
+                            }
+                        }
+                        if(tipo == 0){
+                            contacto = new Persona(nombre, numero);
+                        }else if(tipo == 1){
+                            contacto = new Empresa(nombre, numero);
+                        }
+                        contacto.setFavorito(isFavorite);
+                        for(String photo: photos){
+                            if(!photo.equals("")){
+                                if(Files.exists(Paths.get(photo.split(":")[1]))){
+                                    contacto.addPhoto(photo);
+                                }
+                            }
+                        }
+                        for(String tag: tagsString){
+                            if(!tag.equals("")){
+                                contacto.addTag(tag);
+                            }
+                        }
+                        for(String atributte: atributtes){
+                            if(!atributte.equals("")){
+                                String[] d = atributte.split(":");
+                                String key = d[0];
+                                String value = d[1];
+                                contacto.putAtributte(key, value);
+                            }
+                        }
+                        contactosDiccionario.put(contacto, contactosRelacionadosIDs);
+                        contactos.addLast(contacto);
+                    }
+                    linea = bf.readLine();
+                }
+
+                for (Contacto c1: contactosDiccionario.keySet()){
+                    for (Contacto c2: contactosDiccionario.keySet()){
+                        for(int id: contactosDiccionario.get(c1)){
+                            if(c2.getId() == id){
+                                c1.addContactoRelacionado(c2);
+                            }
+                        }
+                    }
+                }
+
+            }catch (Exception e){
+                System.out.println(e);
+                System.out.println("ERRRORRRRRRRRRRR");
+            }
+        }
     }
 //    public static ArrayList<Usuario> getUsuarios() {
 //        return usuarios;
