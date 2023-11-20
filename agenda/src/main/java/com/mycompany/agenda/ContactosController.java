@@ -607,6 +607,7 @@ public class ContactosController {
         datosContactoVBox.setVisible(false);
         cargarContactosPanelIzquierdo(agenda.Sistema.contactos);
         imgBienvenida.setVisible(true);
+        agenda.Sistema.guardarContactos(agenda.Sistema.usuario);
     }
     
     //Crear contacto

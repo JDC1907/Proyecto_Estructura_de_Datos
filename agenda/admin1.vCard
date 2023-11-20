@@ -1,10 +1,9 @@
-0,true,Emanuel Maclaren,+593 681-70-0726,Todo;Familia;Amigos;Favorito,,Apellido:Saslovi Rifo;Usuario twitter:@Twitter;Usuario fb:@Facebook;Cumpleaños:29/11/96,
 0,false,Vicente Gómez,+593 802-24-3198,Todo;Amigos,file:imgpersonas/persona8.jpg,,
-0,true,Hugo Muñoz,+593 005-84-6765,Todo;Familia;Favorito,file:imgpersonas/persona9.jpg,,21
-0,true,Adrián Suárez,+593 961-40-2387,Todo;Favorito,file:imgpersonas/persona10.jpg,,20
-0,true,Alaja Filo,+593 727-39-3931,Todo;Favorito,file:imgpersonas/persona11.jpg,,
-0,true,Clara Álvarez,+593 567-84-4712,Todo;Favorito,file:imgpersonas/persona12.jpg,,
-0,true,Cris Gómez,+593 557-95-1014,Todo;Favorito,file:imgpersonas/persona13.jpg,,
+0,false,Hugo Muñoz,+593 005-84-6765,Todo;Familia,file:imgpersonas/persona9.jpg,,
+0,false,Adrián Suárez,+593 961-40-2387,Todo,file:imgpersonas/persona10.jpg,,20
+0,false,Alaja Filo,+593 727-39-3931,Todo,file:imgpersonas/persona11.jpg,,
+0,false,Clara Álvarez,+593 567-84-4712,Todo,file:imgpersonas/persona12.jpg,,
+0,false,Cris Gómez,+593 557-95-1014,Todo,file:imgpersonas/persona13.jpg,,
 0,false,Mario Ruiz,+593 969-34-1666,Todo;Amigos,,,
 0,false,Santiago Gutiérrez,+593 783-89-5317,Todo;Amigos,,,
 0,false,Ricardo Ruiz,+593 996-41-2072,Todo;Trabajo,,,
@@ -16,6 +15,7 @@
 1,false,CocaCola,+593 451-47-4521,Todo;Empresa,file:imgpersonas/Cocacola.jpg,Usuario twitter:@CocaSA;Usuario fb:CocaCola SA;Fecha:05/01/98;Direccion:Avda. Alameda Sundheim 59,
 1,false,Ferrari,+593 787-45-1445,Todo;Empresa,file:imgpersonas/Ferrari-badge.jpg,Usuario twitter:@Ferrari;Usuario fb:FerrariSA;Fecha:15/07/75;Direccion:Rosa de los Vientos 9,
 1,false,Samsung,+593 652-78-8541,Todo;Empresa,file:imgpersonas/Samsung.jpg,Usuario twitter:@Samsung;Usuario fb:SamsungSa;Fecha:30/12/45;Direccion:Plaza de España 83,
-1,false,iphone,+593 744-85-7456,Todo;Empresa,file:imgpersonas/iPhone-logo.png,Usuario twitter:@iphone;Usuario fb:iphoneSa;Fecha:04/12/45;Direccion:Herrería 94,21
-0,false,Juan Carlos,+593 605-07-8066,Todo;Familia;Amigos,file:imgpersonas/persona7.jpg,Apellido:Carrazco Figo;Usuario twitter:@Twitter;Usuario fb:@Facebook;Cumpleaños:05/01/98,4;20
-0,false,Alex Felix,+593 772-74-8902,Todo;Familia;Amigos;Trabajo;Escuela,file:imgpersonas/persona5.jpg;file:imgpersonas/persona6.jpg;file:imgpersonas/persona2.jpg,Apellido:Sirelio Maximos;Usuario twitter:@Twitter;Usuario fb:@Facebook;Cumpleaños:15/06/99,3;19
+1,false,iphone,+593 744-85-7456,Todo;Empresa,file:imgpersonas/iPhone-logo.png,Usuario twitter:@iphone;Usuario fb:iphoneSa;Fecha:04/12/45;Direccion:Herrería 94,
+0,false,Juan Carlos,+593 605-07-8066,Todo;Familia;Amigos,file:imgpersonas/persona7.jpg,Apellido:Carrazco Figo;Usuario twitter:@Twitter;Usuario fb:@Facebook;Cumpleaños:05/01/98,20
+0,false,Alex Felix,+593 772-74-8902,Todo;Familia;Amigos;Trabajo;Escuela,file:imgpersonas/persona5.jpg;file:imgpersonas/persona6.jpg;file:imgpersonas/persona2.jpg,Apellido:Sirelio Maximos;Usuario twitter:@Twitter;Usuario fb:@Facebook;Cumpleaños:15/06/99,19;3
+0,false,Emanuel Maclaren,+593 681-70-0726,Todo;Familia;Amigos,,Apellido:Saslovi Rifo;Usuario twitter:@Twitter;Usuario fb:@Facebook;Cumpleaños:29/11/96,
