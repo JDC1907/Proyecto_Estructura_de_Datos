@@ -1,6 +1,8 @@
 package com.mycompany.agenda;
 
 
+import static agenda.Sistema.cargarContactos;
+import static agenda.Sistema.usuarios;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,6 +28,7 @@ public class Login {
     private int ingreso;
     private int intentos = 0;
     static private String usuario;
+    static private String nombre;
     private static Parent root = null;
     @FXML
     private void  cerrar(ActionEvent event) {
@@ -41,18 +44,24 @@ public class Login {
         usrPass.clear();
         switch(ingreso){
             case 1:
+                agenda.Sistema.usuario= usuarios.get(0);
+                cargarContactos(usuarios.get(0));
                 error.setText("");
-                ventana("EstiloGestorContacto");
+                ventana();
+                break;
                 
-                break;
             case 2:
+                agenda.Sistema.usuario= usuarios.get(1);
+                cargarContactos(usuarios.get(1));
                 error.setText("");
-                ventana("empresa");
-             
+                ventana();
                 break;
-            case 3:         
+                
+            case 3:
+                agenda.Sistema.usuario= usuarios.get(2);
+                cargarContactos(usuarios.get(2));
                 error.setText("");
-                 ventana("persona");
+                 ventana();
                 break;
             default:
                 intentos ++;
@@ -68,16 +77,15 @@ public class Login {
                 break;
         }
     }
-    public void ventana(String s){
+    public void ventana(){
          try {
-                         String x = s+".fxml";
-                        root = FXMLLoader.load(getClass().getResource(x));
+                       root = FXMLLoader.load(getClass().getResource("EstiloGestorContacto.fxml"));
                     }catch (IOException e) {
                     }
                 PreCarga1.getStage().setResizable(false);
                 PreCarga1.getStage().setMinWidth(900);
-                PreCarga1.getStage().setMinHeight(720);
-                PreCarga1.getStage().setTitle("Contactos de "+ Capitalizar(s));
+                PreCarga1.getStage().setMinHeight(740);
+                PreCarga1.getStage().setTitle("Contactos de "+ Capitalizar(usuario));
                 PreCarga1.getScene().setRoot(root);
                 
     

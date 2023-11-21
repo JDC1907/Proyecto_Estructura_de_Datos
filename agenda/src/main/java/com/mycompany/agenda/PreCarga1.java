@@ -33,11 +33,11 @@ public class PreCarga1 implements Initializable {
                 Platform.runLater(() -> {
                     Parent root = null;
                     try {
-                        root = FXMLLoader.load(getClass().getResource("EstiloGestorContacto.fxml"));
+                        root = FXMLLoader.load(getClass().getResource("LoginUser.fxml"));
                     }catch (IOException e) {
                     }
-                    scene = new Scene(root, 900, 720);
-                    //scene = new Scene(root, 600, 500); //cuando le habilitemos el login descomentamos esto y borrarmos la de arriba
+                    //scene = new Scene(root, 900, 720);
+                    scene = new Scene(root, 900, 700); //cuando le habilitemos el login descomentamos esto y borrarmos la de arriba
                     stage = new Stage();
                     stage.setTitle("ContactYou");
                     stage.getIcons().add(new Image(icon) );

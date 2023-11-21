@@ -52,11 +52,14 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="vBoxAgenda" maxHeight="720.0" maxWidth="900.0" minHeight="720.0" minWidth="900.0" prefHeight="720.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.agenda.ContactosController">
+<VBox fx:id="vBoxAgenda" maxHeight="720.0" maxWidth="900.0" minHeight="685.0" minWidth="900.0" prefHeight="685.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.agenda.ContactosController">
   <children>
       <VBox alignment="CENTER" prefHeight="32.0" prefWidth="900.0">
          <children>
-            <Label text="Agenda de contactos" />
+            <Label alignment="CENTER" prefHeight="14.0" prefWidth="106.0" text="Agenda de contactos">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="11.0" />
+               </font></Label>
          </children>
       </VBox>
     <SplitPane dividerPositions="0.2984409799554566" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0">
@@ -114,7 +117,7 @@
                   </Button>
             <Label alignment="CENTER" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Contactos" textAlignment="CENTER" wrapText="false">
               <font>
-                <Font size="18.0" fx:id="x1" />
+                <Font name="Gill Sans MT" size="18.0" fx:id="x1" />
               </font>
               <textFill>
                 <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
@@ -136,7 +139,6 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Separator opacity="0.0" orientation="VERTICAL" prefHeight="150.0" />
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <Button fx:id="addContactButton" mnemonicParsing="false" onAction="#crearcontacto" text="Agregar contacto">
@@ -347,5 +349,21 @@
             </ScrollPane>
       </items>
     </SplitPane>
+      <VBox alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="100.0" style="-fx-background-color: #0f4f75;">
+         <children>
+            <Button fx:id="btnSalir" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#cerrarSesion" style="-fx-background-color: transparent;" text="Cerrar Sesion" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="150.0" fitWidth="25.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/salirIcon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="Franklin Gothic Medium" size="13.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
   </children>
 </VBox>

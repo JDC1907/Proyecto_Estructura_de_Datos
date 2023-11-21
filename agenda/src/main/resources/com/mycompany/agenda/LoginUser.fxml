@@ -12,40 +12,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="600.0" style="-fx-background-color: C6C5BA;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.agenda.Login">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.agenda.Login">
    <children>
-      <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="48.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="347.0" prefWidth="310.0">
-         <children>
-            <ImageView fitHeight="321.0" fitWidth="310.0">
-               <image>
-                  <Image url="@../../../img/Img2Login.png" />
-               </image>
-            </ImageView>
-         </children>
-      </VBox>
-      <VBox alignment="TOP_CENTER" layoutX="328.0" layoutY="14.0" prefHeight="120.0" prefWidth="258.0">
-         <children>
-            <ImageView fitHeight="154.0" fitWidth="173.0">
-               <image>
-                  <Image url="@../../../img/Img1Login.png" />
-               </image>
-            </ImageView>
-         </children>
-      </VBox>
-      <VBox alignment="TOP_CENTER" layoutX="394.0" layoutY="158.0" prefHeight="27.0" prefWidth="117.0">
-         <children>
-            <Label text="Inicio de sesión">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </Label>
-         </children>
-      </VBox>
-      <VBox alignment="CENTER" layoutX="323.0" layoutY="188.0" prefHeight="232.0" prefWidth="268.0">
+      <VBox alignment="TOP_CENTER" layoutX="394.0" layoutY="158.0" prefHeight="27.0" prefWidth="117.0" />
+      <VBox alignment="CENTER" layoutX="530.0" layoutY="294.0" prefHeight="289.0" prefWidth="344.0">
          <children>
             <HBox alignment="BOTTOM_LEFT" prefHeight="20.0" prefWidth="292.0">
                <children>
-                  <Label text="Usuario">
+                  <Label prefHeight="49.0" prefWidth="63.0" text="Usuario">
                      <font>
                         <Font name="System Bold" size="17.0" />
                      </font>
@@ -54,7 +28,7 @@
             </HBox>
             <VBox prefHeight="15.0" prefWidth="258.0">
                <children>
-                  <TextField fx:id="usrName" alignment="BASELINE_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="47.0" prefWidth="258.0" promptText="Ingrese su nombre de usuario" style="-fx-background-color: 000; -fx-border-color: 000;" stylesheets="@../../../../../../../../../../../../../4to%20SEMESTRE/MATERIAS/ESTRUCTURA/PROYECTO/RECURSOS/ProyectooPoo/Proyectoo2/POOGraficos/src/main/resources/grupo6/poograficosproject/files/estilos/login.css">
+                  <TextField fx:id="usrName" alignment="BASELINE_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="47.0" prefWidth="258.0" promptText="Ingrese su nombre de usuario" style="-fx-background-color: 000; -fx-border-color: 000;" stylesheets="@../../../login.css">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
@@ -74,7 +48,7 @@
             </HBox>
             <VBox prefHeight="15.0" prefWidth="258.0">
                <children>
-                  <PasswordField fx:id="usrPass" prefHeight="14.0" prefWidth="258.0" promptText="Ingrese su contraseña" style="-fx-background-color: 000; -fx-border-color: 000;" stylesheets="@../../../../../../../../../../../../../4to%20SEMESTRE/MATERIAS/ESTRUCTURA/PROYECTO/RECURSOS/ProyectooPoo/Proyectoo2/POOGraficos/src/main/resources/grupo6/poograficosproject/files/estilos/login.css">
+                  <PasswordField fx:id="usrPass" prefHeight="14.0" prefWidth="258.0" promptText="Ingrese su contraseña" style="-fx-background-color: 000; -fx-border-color: 000;">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font></PasswordField>
@@ -82,12 +56,18 @@
                   <Label fx:id="error2" textAlignment="CENTER" textFill="RED" />
                </children>
             </VBox>
-            <HBox prefHeight="37.0" prefWidth="268.0">
+            <HBox alignment="CENTER" prefHeight="37.0" prefWidth="268.0">
                <children>
                   <Label fx:id="error32" prefHeight="17.0" prefWidth="36.0" textAlignment="CENTER" textFill="RED" />
-                  <Button fx:id="boton" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#Inicio" prefHeight="25.0" prefWidth="72.0" stylesheets="@../../../../../../../../../../../../../4to%20SEMESTRE/MATERIAS/ESTRUCTURA/PROYECTO/RECURSOS/ProyectooPoo/Proyectoo2/POOGraficos/src/main/resources/grupo6/poograficosproject/files/estilos/login.css" text="Entrar" textFill="#6c6bbc" textOverrun="CENTER_ELLIPSIS" />
+                  <Button fx:id="boton" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#Inicio" prefHeight="30.0" prefWidth="77.0" style="-fx-background-color: #156ea2;" text="Entrar" textFill="WHITE" textOverrun="CENTER_ELLIPSIS">
+                     <font>
+                        <Font size="13.0" />
+                     </font></Button>
                   <Label fx:id="error3" prefHeight="17.0" prefWidth="73.0" textAlignment="CENTER" textFill="RED" />
-                  <Button fx:id="buttonCerrar" mnemonicParsing="false" onAction="#cerrar" prefHeight="25.0" prefWidth="70.0" stylesheets="@../../../../../../../../../../../../../4to%20SEMESTRE/MATERIAS/ESTRUCTURA/PROYECTO/RECURSOS/ProyectooPoo/Proyectoo2/POOGraficos/src/main/resources/grupo6/poograficosproject/files/estilos/login.css" text="Cerrar" textFill="#6c6bbc" />
+                  <Button fx:id="buttonCerrar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cerrar" prefHeight="30.0" prefWidth="77.0" style="-fx-background-color: #156ea2;" text="Cerrar" textFill="WHITE">
+                     <font>
+                        <Font size="13.0" />
+                     </font></Button>
                   <Label fx:id="error31" prefHeight="17.0" prefWidth="46.0" textAlignment="CENTER" textFill="RED" />
                </children>
             </HBox>
@@ -98,5 +78,38 @@
                </children></VBox>
          </children>
       </VBox>
+      <ImageView fitHeight="173.0" fitWidth="210.0" layoutX="602.0" layoutY="33.0">
+         <image>
+            <Image url="@../../../img/Img1Login.png" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="644.0" layoutY="224.0" prefHeight="38.0" prefWidth="130.0" text="Inicio de sesión">
+         <font>
+            <Font name="Gill Sans MT Bold" size="18.0" />
+         </font>
+      </Label>
+      <HBox alignment="CENTER" layoutX="540.0" layoutY="599.0" prefHeight="79.0" prefWidth="338.0">
+         <children>
+            <Label text="ContactYou S.A | 2023 | Ecuador" textFill="#101010">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <VBox alignment="CENTER_RIGHT" layoutX="-3.0" layoutY="676.0" prefHeight="26.0" prefWidth="907.0" style="-fx-background-color: #156ea2;" />
+      <Pane layoutY="-4.0" prefHeight="680.0" prefWidth="498.0" style="-fx-background-color: #b8d3e3;">
+         <children>
+            <VBox alignment="TOP_CENTER" layoutX="8.0" layoutY="105.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="347.0" prefWidth="310.0">
+               <children>
+                  <ImageView fitHeight="464.0" fitWidth="483.0">
+                     <image>
+                        <Image url="@../../../img/Img2Login.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
    </children>
 </Pane>

@@ -22,7 +22,7 @@ public abstract class Contacto{
     private boolean favorito;
     private static int id = 0;
     private int idContacto;
-
+    private String userName;
 
 
     public Contacto(String name, String number) {

@@ -23,6 +23,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -56,7 +57,9 @@ public class ContactosController {
     @FXML private ComboBox<Contacto> contactosRelacionadosComboBox;
     @FXML private TextField nuevaTagTextField,textNombre,textNumero;
     @FXML private Button deletePhoto;
+    @FXML private Button btnSalir;
     
+    private static Parent root = null;
     private Contacto contactoSeleccionado; //Contacto seleccionado
     private List<ListIterator<Contacto>> iterators = new ArrayList<>();
     private ListIterator<String> photoIterator;
@@ -74,6 +77,10 @@ public class ContactosController {
     @FXML
     private void initialize(){
         cargarContactosPanelIzquierdo(agenda.Sistema.contactos);//cargar los contactos en el panel izquierdo
+        for(Contacto c: agenda.Sistema.contactos){
+            System.out.println(c);
+        }
+        //cargarContactosPanelIzquierdo(agenda.Sistema.usuarios.get(1).getContactos());
         agregarButtonTagsEnElHBox();//carga las tags que tengan todos los Contactos y los pone en los botones para filtrar por esas tags
         
     }
@@ -818,5 +825,22 @@ public class ContactosController {
         
         cargarDatosContacto(contactoSeleccionado);
         cargarContactosPanelIzquierdo(agenda.Sistema.contactos);          
+    }
+    
+    public void cerrarSesion(){
+        // try & catch para instanciar la ventana
+        for(Contacto c: agenda.Sistema.contactos){
+            agenda.Sistema.contactos.remove(c);
+        }
+         try {                    
+                    root = FXMLLoader.load(getClass().getResource("LoginUser.fxml"));
+                    }catch (IOException e) {
+                    }
+        PreCarga1.getScene().setRoot(root);
+        PreCarga1.getStage().setWidth(900);
+        PreCarga1.getStage().setHeight(740);
+        PreCarga1.getStage().setResizable(false);
+        PreCarga1.getStage().setTitle("ContactYou");
+       
     }
 }
