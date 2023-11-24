@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -32,8 +33,11 @@ public class PreCarga1 implements Initializable {
                 Thread.sleep(3000);
                 Platform.runLater(() -> {
                     Parent root = null;
+                    FXMLLoader internalLoader = null;
                     try {
-                        root = FXMLLoader.load(getClass().getResource("LoginUser.fxml"));
+                        //root = FXMLLoader.load(getClass().getResource("LoginUser.fxml"));
+                        internalLoader = new FXMLLoader(App.class.getResource("LoginUser"+".fxml"));
+                        root = internalLoader.load();
                     }catch (IOException e) {
                     }
                     //scene = new Scene(root, 900, 720);
@@ -44,8 +48,9 @@ public class PreCarga1 implements Initializable {
                     stage.setResizable(false);
                     stage.setScene(scene);
                     stage.show();
-                    
                     body.getScene().getWindow().hide();
+                    Login login = internalLoader.getController();
+                    login.cargarStage(stage);
                 });
             } catch (InterruptedException e) {
             }

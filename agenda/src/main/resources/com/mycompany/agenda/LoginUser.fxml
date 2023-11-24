@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -12,22 +14,21 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.agenda.Login">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.agenda.Login">
    <children>
-      <VBox alignment="TOP_CENTER" layoutX="394.0" layoutY="158.0" prefHeight="27.0" prefWidth="117.0" />
-      <VBox alignment="CENTER" layoutX="530.0" layoutY="294.0" prefHeight="289.0" prefWidth="344.0">
+      <VBox fx:id="vBoxIniciarSesion" alignment="CENTER" layoutX="530.0" layoutY="294.0" prefHeight="289.0" prefWidth="344.0">
          <children>
-            <HBox alignment="BOTTOM_LEFT" prefHeight="20.0" prefWidth="292.0">
-               <children>
-                  <Label prefHeight="49.0" prefWidth="63.0" text="Usuario">
-                     <font>
-                        <Font name="System Bold" size="17.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
             <VBox prefHeight="15.0" prefWidth="258.0">
                <children>
+                  <HBox alignment="BOTTOM_LEFT" prefHeight="20.0" prefWidth="292.0">
+                     <children>
+                        <Label prefHeight="49.0" prefWidth="63.0" text="Usuario">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
                   <TextField fx:id="usrName" alignment="BASELINE_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="47.0" prefWidth="258.0" promptText="Ingrese su nombre de usuario" style="-fx-background-color: 000; -fx-border-color: 000;" stylesheets="@../../../login.css">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
@@ -37,17 +38,17 @@
                   <Label fx:id="error1" textAlignment="CENTER" textFill="RED" />
                </children>
             </VBox>
-            <HBox alignment="BOTTOM_LEFT" prefHeight="19.0" prefWidth="258.0">
-               <children>
-                  <Label text="Contraseña">
-                     <font>
-                        <Font name="System Bold" size="17.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
             <VBox prefHeight="15.0" prefWidth="258.0">
                <children>
+                  <HBox alignment="BOTTOM_LEFT" prefHeight="19.0" prefWidth="258.0">
+                     <children>
+                        <Label text="Contraseña">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
                   <PasswordField fx:id="usrPass" prefHeight="14.0" prefWidth="258.0" promptText="Ingrese su contraseña" style="-fx-background-color: 000; -fx-border-color: 000;">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
@@ -56,26 +57,43 @@
                   <Label fx:id="error2" textAlignment="CENTER" textFill="RED" />
                </children>
             </VBox>
-            <HBox alignment="CENTER" prefHeight="37.0" prefWidth="268.0">
-               <children>
-                  <Label fx:id="error32" prefHeight="17.0" prefWidth="36.0" textAlignment="CENTER" textFill="RED" />
-                  <Button fx:id="boton" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#Inicio" prefHeight="30.0" prefWidth="77.0" style="-fx-background-color: #156ea2;" text="Entrar" textFill="WHITE" textOverrun="CENTER_ELLIPSIS">
-                     <font>
-                        <Font size="13.0" />
-                     </font></Button>
-                  <Label fx:id="error3" prefHeight="17.0" prefWidth="73.0" textAlignment="CENTER" textFill="RED" />
-                  <Button fx:id="buttonCerrar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cerrar" prefHeight="30.0" prefWidth="77.0" style="-fx-background-color: #156ea2;" text="Cerrar" textFill="WHITE">
-                     <font>
-                        <Font size="13.0" />
-                     </font></Button>
-                  <Label fx:id="error31" prefHeight="17.0" prefWidth="46.0" textAlignment="CENTER" textFill="RED" />
-               </children>
-            </HBox>
             <VBox prefHeight="49.0" prefWidth="268.0">
                <children>
+                  <HBox alignment="CENTER" prefHeight="37.0" prefWidth="268.0">
+                     <children>
+                        <Label fx:id="error32" prefHeight="17.0" prefWidth="36.0" textAlignment="CENTER" textFill="RED" />
+                        <Button fx:id="buttonEntrar" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#Inicio" prefHeight="30.0" prefWidth="77.0" style="-fx-background-color: #156ea2;" text="Entrar" textFill="WHITE" textOverrun="CENTER_ELLIPSIS">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Label fx:id="error3" prefHeight="17.0" prefWidth="73.0" textAlignment="CENTER" textFill="RED" />
+                        <Button fx:id="buttonCerrar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cerrar" prefHeight="30.0" prefWidth="77.0" style="-fx-background-color: #156ea2;" text="Cerrar" textFill="WHITE">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Label fx:id="error31" prefHeight="17.0" prefWidth="46.0" textAlignment="CENTER" textFill="RED" />
+                     </children>
+                  </HBox>
                   <Label prefHeight="14.0" prefWidth="268.0" />
                   <Label fx:id="error" prefHeight="31.0" prefWidth="268.0" textAlignment="CENTER" textFill="RED" />
-               </children></VBox>
+               </children>
+            </VBox>
+            <Button fx:id="buttonCrearUsuario" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#CrearUsuario" prefHeight="30.0" style="-fx-background-color: #156ea2;" text="Crear Usuario" textFill="WHITE" textOverrun="CENTER_ELLIPSIS">
+               <font>
+                  <Font size="13.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
          </children>
       </VBox>
       <ImageView fitHeight="173.0" fitWidth="210.0" layoutX="602.0" layoutY="33.0">
@@ -111,5 +129,119 @@
             </VBox>
          </children>
       </Pane>
+      <VBox fx:id="vBoxCrearUsuario" alignment="CENTER" layoutX="530.0" layoutY="294.0" prefHeight="289.0" prefWidth="344.0" visible="false">
+         <children>
+            <VBox prefHeight="15.0" prefWidth="258.0">
+               <children>
+                  <HBox alignment="BOTTOM_LEFT" prefHeight="20.0" prefWidth="292.0">
+                     <children>
+                        <Label prefHeight="49.0" prefWidth="63.0" text="Usuario">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <TextField fx:id="textFieldNuevoUsuario" alignment="BASELINE_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="47.0" prefWidth="258.0" promptText="Ingrese su nombre de usuario" style="-fx-background-color: 000; -fx-border-color: 000;" stylesheets="@../../../login.css">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </TextField>
+                  <Separator nodeOrientation="LEFT_TO_RIGHT" prefHeight="22.0" prefWidth="258.0" />
+                  <Label fx:id="error11" textAlignment="CENTER" textFill="RED" />
+               </children>
+            </VBox>
+            <VBox prefHeight="15.0" prefWidth="258.0">
+               <children>
+                  <HBox alignment="BOTTOM_LEFT" prefHeight="19.0" prefWidth="258.0">
+                     <children>
+                        <Label text="Nombre">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <TextField fx:id="textFieldNuevoNombre" alignment="BASELINE_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="47.0" prefWidth="258.0" promptText="Ingrese su nombre" style="-fx-background-color: 000; -fx-border-color: 000;" stylesheets="@../../../login.css">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </TextField>
+                  <Separator prefHeight="77.0" prefWidth="258.0" />
+                  <Label fx:id="error211" textAlignment="CENTER" textFill="RED" />
+               </children>
+            </VBox>
+            <VBox prefHeight="15.0" prefWidth="258.0">
+               <children>
+                  <HBox alignment="BOTTOM_LEFT" prefHeight="19.0" prefWidth="258.0">
+                     <children>
+                        <Label text="Contraseña">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <PasswordField fx:id="passwordFieldNuevo" prefHeight="14.0" prefWidth="258.0" promptText="Ingrese su contraseña" style="-fx-background-color: 000; -fx-border-color: 000;">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </PasswordField>
+                  <Separator prefHeight="77.0" prefWidth="258.0" />
+                  <Label fx:id="error21" textAlignment="CENTER" textFill="RED" />
+               </children>
+            </VBox>
+            <VBox prefHeight="15.0" prefWidth="258.0">
+               <children>
+                  <HBox alignment="BOTTOM_LEFT" prefHeight="19.0" prefWidth="258.0">
+                     <children>
+                        <Label text="Tipo">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" spacing="25.0">
+                     <children>
+                        <RadioButton fx:id="administradorRadioButton" mnemonicParsing="false" text="Administrador" />
+                        <RadioButton fx:id="normalRadioButton" mnemonicParsing="false" text="Normal" />
+                     </children>
+                  </HBox>
+                  <Separator prefHeight="77.0" prefWidth="258.0" />
+                  <Label fx:id="error212" textAlignment="CENTER" textFill="RED" />
+               </children>
+            </VBox>
+            <VBox prefHeight="49.0" prefWidth="268.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="37.0" prefWidth="268.0">
+                     <children>
+                        <Label fx:id="error321" prefHeight="17.0" prefWidth="36.0" textAlignment="CENTER" textFill="RED" />
+                        <Button fx:id="buttonCrear" contentDisplay="CENTER" maxHeight="30.0" maxWidth="77.0" minHeight="30.0" minWidth="77.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#crear" prefHeight="30.0" prefWidth="77.0" style="-fx-background-color: #156ea2;" text="Crear" textFill="WHITE" textOverrun="CENTER_ELLIPSIS">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Label fx:id="error31" prefHeight="17.0" prefWidth="73.0" textAlignment="CENTER" textFill="RED" />
+                        <Button fx:id="buttonCancelar" contentDisplay="CENTER" maxHeight="30.0" maxWidth="77.0" minHeight="30.0" minWidth="77.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#cancelar" prefHeight="30.0" prefWidth="77.0" style="-fx-background-color: #156ea2;" text="Cancelar" textFill="WHITE" textOverrun="CENTER_ELLIPSIS">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Label fx:id="error311" prefHeight="17.0" prefWidth="46.0" textAlignment="CENTER" textFill="RED" />
+                     </children>
+                  </HBox>
+                  <Label prefHeight="14.0" prefWidth="268.0" />
+                  <Label fx:id="errorCrearUsuario" prefHeight="31.0" prefWidth="268.0" textAlignment="CENTER" textFill="RED" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
    </children>
 </Pane>

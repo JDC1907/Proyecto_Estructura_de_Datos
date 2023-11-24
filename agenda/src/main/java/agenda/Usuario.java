@@ -16,18 +16,20 @@ public class Usuario {
   protected String contrasena;
   protected String nombre;
   protected String tipo;//enum
-  protected CircularList<Contacto> contactos;
   
-  public Usuario(String nombreUsr, String contrasena, String nombre, String tipo,CircularList<Contacto> contactos){
+  public Usuario(String nombreUsr, String contrasena, String nombre, String tipo){
     this.nombreUsr = nombreUsr;
     this.contrasena = contrasena;
     this.nombre = nombre;
     this.tipo = tipo;
-    this.contactos = contactos;
   }
 
   public String getNombreUsr() {
     return nombreUsr;
+  }
+
+  public String getContrasena() {
+        return contrasena;
   }
 
   public String getNombre() {
@@ -37,10 +39,9 @@ public class Usuario {
   public String getTipo() {
     return tipo;
   }
-
-    public CircularList<Contacto> getContactos() {
-        return contactos;
-    }
-
-   
+  
+  @Override
+  public String toString(){
+      return nombreUsr;
+  }
 }

@@ -202,23 +202,7 @@ public class DoublyLinkedList<E> implements CircularList<E>{
             }else if (this.indexOf(element) == this.size()-1){
                     return this.removeLast();
             }
-            else{
-                /*int i = 0;
-                while(!fin){
-
-                    if(current.getContent().equals(element)){
-                        current.getPrevious().setNext(current.getNext());
-                        current.getNext().setPrevious(current.getPrevious());
-                        return true;
-                    }
-
-                    if(current == last){
-                        fin = true;
-                    }
-
-                    current = current.getNext();
-                }*/
-                
+            else{               
                 for (int i = 0; i < this.indexOf(element); i++) {
                     current = current.getNext();
                 }

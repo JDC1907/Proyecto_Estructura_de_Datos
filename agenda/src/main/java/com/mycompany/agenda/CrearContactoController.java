@@ -80,6 +80,7 @@ public class CrearContactoController  {
         stage.close();*/
        // contactosController.actualizarPanelIzquierdo(agenda.Sistema.contactos);
         imgBienvenida.setVisible(true);
+        agenda.Sistema.guardarContactos(agenda.Sistema.usuario);
         contactosController.actualizarPanelIzquierdo(agenda.Sistema.contactos);
         contactosController.agregarButtonTagsEnElHBox();
     }
@@ -435,33 +436,23 @@ public class CrearContactoController  {
                     String imagePath = imgFiles.get(i).toURI().toURL().toExternalForm();
                     contactoSeleccionado.addPhoto(imagePath);
                 } catch (Exception e) {
-                    // Maneja la excepción si ocurre un error al cargar la imagen
                     e.printStackTrace();
                 }
                 photoIterator = contactoSeleccionado.getPhotos().listIterator();
-
-
             }
             cargarDatosContacto();
         }
-            
     }
 
     @FXML
-    private void eliminarPhoto(ActionEvent event) {
+    private void eliminarPhoto() {
         if (contactoSeleccionado.getPhotos().size()>0){
-            //photoContacto = photoIterator.next();
             deletePhoto.setDisable(false);
             contactoSeleccionado.removePhoto(photoContacto);
             
             photoIterator = contactoSeleccionado.getPhotos().listIterator();
-  //          cargarDatosContacto(contactoSeleccionado);
-//            cargarContactosPanelIzquierdo(agenda.Sistema.contactos);
         }       
     }
-    
-    //Metodos que no nos sirven por el momento
-    //---------------------------------------------------------------------------------------------------------------------------------------------------
     
     private Button crearButtonDeleteAtributte(String key, String textButton, Pane pane){
         Button button = crearButton(textButton);

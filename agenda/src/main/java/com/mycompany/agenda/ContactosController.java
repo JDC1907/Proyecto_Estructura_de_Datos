@@ -24,6 +24,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -35,8 +36,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import tda.ArrayList;
 import tda.CircularList;
 import tda.DoublyLinkedList;
@@ -47,7 +52,7 @@ import tda.List;
 
 public class ContactosController {
     private final int NUMERO_CONTACTOS_MOSTRADOS = 7;//Numero de contactos que van a ser mostrado en el panel izquierdo
-    @FXML private VBox contactosVBox, datosContactoAtributosVBox, datosContactoVBox, datosContactoNameNumberVBox, vBoxContatoMuestra;
+    @FXML private VBox vBoxAgenda, contactosVBox, datosContactoAtributosVBox, datosContactoVBox, datosContactoNameNumberVBox, vBoxContatoMuestra;
     @FXML private AnchorPane anchorPaneContac;
     @FXML private ImageView contactoImg;
     @FXML private ImageView imgBienvenida;
@@ -55,11 +60,9 @@ public class ContactosController {
     @FXML private HBox tagsHBox, contactosRelacionadosHBox;
     @FXML private FlowPane contactoTagsFlowPane;
     @FXML private ComboBox<Contacto> contactosRelacionadosComboBox;
-    @FXML private TextField nuevaTagTextField,textNombre,textNumero;
+    @FXML private TextField nuevaTagTextField;
     @FXML private Button deletePhoto;
-    @FXML private Button btnSalir;
     
-    private static Parent root = null;
     private Contacto contactoSeleccionado; //Contacto seleccionado
     private List<ListIterator<Contacto>> iterators = new ArrayList<>();
     private ListIterator<String> photoIterator;
@@ -142,14 +145,14 @@ public class ContactosController {
         cargarContactosPanelIzquierdo(lista);
     }
     private void cargarContactosPanelIzquierdo(List lista){
+        contactosVBox.getChildren().clear();
+        setDisableButtonsDownUp(true);
         if(lista.size()>0){
-            prepararIteradores(agenda.Sistema.contactos, NUMERO_CONTACTOS_MOSTRADOS);
-            Iterator<Contacto> it = lista.iterator();
-            contactosVBox.getChildren().clear();
-            setDisableButtonsDownUp(true);
             if(lista.size()>NUMERO_CONTACTOS_MOSTRADOS){
                 setDisableButtonsDownUp(false);
             }
+            prepararIteradores(agenda.Sistema.contactos, NUMERO_CONTACTOS_MOSTRADOS);
+            Iterator<Contacto> it = lista.iterator();
             int numElementos = 0;
             while(it.hasNext() && numElementos<NUMERO_CONTACTOS_MOSTRADOS){
                 Contacto contacto = it.next();
@@ -764,18 +767,20 @@ public class ContactosController {
         try {
             int copyIndex = 1;
             Path origenPath = Paths.get(origenArchivo);
-            String[] archivo = origenPath.getFileName().toString().split("\\.");
+            String fileName = origenPath.getFileName().toString();
+            String extension = fileName.substring(fileName.lastIndexOf(".")+1);
+            String nombreArchivo = fileName.substring(0,fileName.lastIndexOf("."));
 
             // Obtén el directorio actual
             String directorioActual = System.getProperty("user.dir");
             System.out.println(directorioActual);
             // Construye la ruta relativa al directorio de trabajo y al subdirectorio imgpersonas
-            Path destinoPath = Paths.get(directorioActual, "imgpersonas", archivo[0] + "_copia" + copyIndex + "." + archivo[1]);
-
+            Path destinoPath = Paths.get(directorioActual, "imgpersonas", nombreArchivo+ "." + extension);
+            System.out.println("d " + destinoPath.toString());
             // Asegúrate de que el archivo no exista antes de copiar
             while (Files.exists(destinoPath)) {
                 copyIndex++;
-                destinoPath = Paths.get(directorioActual, "imgpersonas", archivo[0] + "_copia" + copyIndex + "." + archivo[1]);
+                destinoPath = Paths.get(directorioActual, "imgpersonas", nombreArchivo + "_copia" + copyIndex + "." + extension);
             }
 
             Files.copy(origenPath, destinoPath);
@@ -827,20 +832,74 @@ public class ContactosController {
         cargarContactosPanelIzquierdo(agenda.Sistema.contactos);          
     }
     
+    @FXML
+    private void busquedaAvanzada(){
+        vBoxAgenda.setOpacity(0.5);
+        Stage popUpStage = new Stage();
+        popUpStage.initStyle(StageStyle.TRANSPARENT);
+        popUpStage.initModality(Modality.APPLICATION_MODAL);
+        popUpStage.setTitle("Busqueda avanzada");
+        popUpStage.setMinWidth(600);
+
+        VBox layout = new VBox();
+        Scene scene = new Scene(layout, 600, 550);
+        layout.setAlignment(Pos.CENTER);
+        Button closeButton = new Button("X");
+        closeButton.setOnAction(e -> {
+                popUpStage.close();
+                vBoxAgenda.setOpacity(1);}
+        );
+        Button addButton = new Button("+");
+        addButton.setOnAction(e -> {
+            agregarTextLabelButton(layout);
+        });
+        HBox botonesHBox = new HBox();
+        botonesHBox.setAlignment(Pos.CENTER);
+        botonesHBox.getChildren().add(addButton);
+        botonesHBox.getChildren().add(closeButton);
+        
+        layout.getChildren().add(botonesHBox);
+
+        popUpStage.setScene(scene);
+        popUpStage.showAndWait();
+    }
+    
+    private void agregarTextLabelButton(Pane pane){
+        Button borrarButton = new Button("X");
+        borrarButton.setPrefSize(8, 8);
+        TextField textField = new TextField();
+        textField.setPromptText("Escriba lo que quiere buscar...");
+        HBox fila = new HBox();
+        fila.getChildren().add(textField);
+        fila.getChildren().add(borrarButton);
+        fila.setAlignment(Pos.CENTER);
+        pane.getChildren().add(0,fila);
+        borrarButton.setOnAction(e -> {
+            pane.getChildren().remove(fila);
+        }
+        );
+    }
+    
     public void cerrarSesion(){
         // try & catch para instanciar la ventana
         for(Contacto c: agenda.Sistema.contactos){
             agenda.Sistema.contactos.remove(c);
         }
-         try {                    
-                    root = FXMLLoader.load(getClass().getResource("LoginUser.fxml"));
-                    }catch (IOException e) {
-                    }
+        Parent root = null;
+        FXMLLoader internalLoader = null;
+        try {
+                        //root = FXMLLoader.load(getClass().getResource("LoginUser.fxml"));
+            internalLoader = new FXMLLoader(App.class.getResource("LoginUser"+".fxml"));
+            root = internalLoader.load();
+        }
+        catch (IOException e) {
+        }
         PreCarga1.getScene().setRoot(root);
         PreCarga1.getStage().setWidth(900);
         PreCarga1.getStage().setHeight(740);
         PreCarga1.getStage().setResizable(false);
         PreCarga1.getStage().setTitle("ContactYou");
-       
+        Login login = internalLoader.getController();
+        login.cargarStage(PreCarga1.getStage());
     }
 }
