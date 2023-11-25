@@ -48,6 +48,7 @@ public class Login {
         normalRadioButton.setToggleGroup(tg);
         normalRadioButton.setUserData("normal");
         normalRadioButton.setSelected(true);
+        usrPass.setOnAction((e)->inicio());
     }
     
     @FXML
@@ -58,7 +59,7 @@ public class Login {
     }
     
     @FXML
-    private void Inicio(){
+    private void inicio(){
         ingreso = agenda.Sistema.comprobarUsuario(usrName.getText().strip(), usrPass.getText().strip());
         usrName.clear();
         usrPass.clear();
@@ -83,7 +84,7 @@ public class Login {
     }
     
     @FXML
-    private void CrearUsuario(){
+    private void crearUsuario(){
         vBoxIniciarSesion.setVisible(false);
         vBoxIniciarSesion.setDisable(true);
         vBoxCrearUsuario.setVisible(true);
@@ -95,7 +96,6 @@ public class Login {
         String userName = textFieldNuevoUsuario.getText().strip();
         String password = passwordFieldNuevo.getText().strip();
         String newName = textFieldNuevoNombre.getText().strip();
-        System.out.println(userName + " " + password + " " + newName);
         if(!userName.equals("") && !password.equals("") && !newName.equals("")){
             Usuario nuevoUsuario = new Usuario(userName, password, newName, tg.getSelectedToggle().getUserData().toString());
             agenda.Sistema.usuarios.addLast(nuevoUsuario);
@@ -132,12 +132,12 @@ public class Login {
         PreCarga1.getStage().setResizable(false);
         PreCarga1.getStage().setMinWidth(900);
         PreCarga1.getStage().setMinHeight(740);
-        PreCarga1.getStage().setTitle("Contactos de "+ Capitalizar(usuario));
+        PreCarga1.getStage().setTitle("Contactos de "+ capitalizar(usuario));
         PreCarga1.getScene().setRoot(root);
                 
     
     }
-    public static String Capitalizar(String str)
+    public static String capitalizar(String str)
     {
         if (str == null || str.length() == 0) {
             return str;

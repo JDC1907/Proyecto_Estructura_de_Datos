@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package agenda;
 
 import java.io.BufferedReader;
@@ -33,10 +29,7 @@ public class Sistema {
     //public static List<Contacto> contactos = new LinkedList();
 public static boolean comprobarUsuario(String nombreUsuario, String contrasena){
         for (int i = 0; i<usuarios.size(); i++) {
-            System.out.println(usuarios.get(i).getNombreUsr() + " :" + usuarios.get(i).getContrasena());
-            System.out.println(nombreUsuario + " :" + contrasena);
             if (usuarios.get(i).nombreUsr.equals(nombreUsuario) && usuarios.get(i).contrasena.equals(contrasena)) {
-                System.out.println("coinciden");
                 usuario = usuarios.get(i);
                 return true;
             }
@@ -45,9 +38,6 @@ public static boolean comprobarUsuario(String nombreUsuario, String contrasena){
 }
     public static void inicializarSistema(){
         cargarUsuarios();
-        System.out.println(usuarios);
-        System.out.println("se inicio");
-
     }
     
     public static Set<String> getTags(){
@@ -112,7 +102,7 @@ public static boolean comprobarUsuario(String nombreUsuario, String contrasena){
             fw.close();
             
         }catch (Exception e){
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
     
@@ -127,7 +117,6 @@ public static boolean comprobarUsuario(String nombreUsuario, String contrasena){
                 HashMap<Contacto, List<Integer>> contactosDiccionario = new LinkedHashMap<>();
                 while(linea != null){
                     if(linea != null){
-                        System.out.println(linea);
                         String[] datos = linea.split(",",-1);
                         int i = 0;
                         int tipo = Integer.parseInt(datos[0]);
@@ -166,7 +155,7 @@ public static boolean comprobarUsuario(String nombreUsuario, String contrasena){
                         }
                         for(String atributte: atributtes){
                             if(!atributte.equals("")){
-                                String[] d = atributte.split(":");
+                                String[] d = atributte.split(":",-1);
                                 String key = d[0];
                                 String value = d[1];
                                 contacto.putAtributte(key, value);
@@ -189,8 +178,7 @@ public static boolean comprobarUsuario(String nombreUsuario, String contrasena){
                 }
 
             }catch (Exception e){
-                System.out.println(e);
-                System.out.println("ERRRORRRRRRRRRRR");
+                e.printStackTrace();
             }
         }
     }
@@ -215,8 +203,7 @@ public static boolean comprobarUsuario(String nombreUsuario, String contrasena){
                     linea = bf.readLine();
                 }
             }catch (Exception e){
-                System.out.println(e);
-                System.out.println("ERRRORRRRRRRRRRR");
+                e.printStackTrace();
             }
         }
     }
@@ -243,7 +230,7 @@ public static boolean comprobarUsuario(String nombreUsuario, String contrasena){
             fw.close();
             
         }catch (Exception e){
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
   

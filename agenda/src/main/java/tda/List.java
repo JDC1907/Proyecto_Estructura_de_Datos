@@ -13,6 +13,8 @@ public interface List<E> extends Iterable<E>, Serializable {
     boolean removeFirst();
 
     boolean removeLast();
+    
+    boolean removeAll();
 
     E getFirst();
 
@@ -37,9 +39,7 @@ public interface List<E> extends Iterable<E>, Serializable {
     int size();
     
     public boolean addAll (List<E> l);
-    
-    public List<E> findIntersection (List<E> anotherList, Comparator<E> cmp);
-    
+          
     public boolean contains (E element, Comparator<E> cmp);
     
     //Ordenar

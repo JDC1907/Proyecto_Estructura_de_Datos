@@ -3,6 +3,7 @@ package tda;
 
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.ListIterator;
 
 public class DoublyLinkedList<E> implements CircularList<E>{
@@ -215,6 +216,18 @@ public class DoublyLinkedList<E> implements CircularList<E>{
         }
         return false;
     }
+    
+    @Override
+    public boolean removeAll(){
+        if(isEmpty()){
+            return false;
+        }else{
+            first = null;
+            last = null;
+            lenght = 0;
+            return true;
+        }
+    }
 
     @Override
     public E set(int index, E element) {
@@ -264,22 +277,9 @@ public class DoublyLinkedList<E> implements CircularList<E>{
         }
         return true;
     }
-
-    @Override
-    public List findIntersection(List<E> anotherList, Comparator<E> cmp) {
-        List<E> results = new LinkedList<>();
-        for (E e1 : this) {
-            for (E e2 : anotherList) {
-                if (cmp.compare(e1,e2) == 0) { // e1 es igual a e2
-                    results.addLast(e2);
-                }
-            }
-        }
-        return results;
-    }
     
     @Override
-    public CircularList findIntersection(CircularList<E> anotherList, Comparator<E> cmp) {
+    public CircularList<E> findIntersection(CircularList<E> anotherList, Comparator<E> cmp) {
         CircularList<E> results = new DoublyLinkedList<>();
         for (E e1 : this) {
             for (E e2 : anotherList) {
@@ -308,7 +308,6 @@ public class DoublyLinkedList<E> implements CircularList<E>{
             private boolean llegoFin = false;
             @Override
             public boolean hasNext() {
-                
                 return cursor != null && !llegoFin;
             }
 
@@ -387,9 +386,11 @@ public class DoublyLinkedList<E> implements CircularList<E>{
             do{
                 if (current != null){
                     salida += current.getContent();
+                    
                     if(current != last){
                         salida += ", ";
                     }
+                    current = current.getNext();
                 }
             }
              while(current != first);

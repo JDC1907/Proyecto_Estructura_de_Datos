@@ -68,8 +68,8 @@
                <children>
                   <HBox>
                      <children>
-                        <TextField maxHeight="32.0" minHeight="32.0" prefHeight="32.0" prefWidth="200.0" promptText="Buscar..." />
-                        <Button maxHeight="32.0" maxWidth="32.0" minHeight="32.0" minWidth="32.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="32.0">
+                        <TextField fx:id="buscarTextField" maxHeight="32.0" minHeight="32.0" onAction="#busquedaSimple" prefHeight="32.0" prefWidth="200.0" promptText="Buscar..." />
+                        <Button maxHeight="32.0" maxWidth="32.0" minHeight="32.0" minWidth="32.0" mnemonicParsing="false" onAction="#busquedaSimple" prefHeight="32.0" prefWidth="32.0">
                            <graphic>
                               <ImageView fx:id="buscarButton" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

@@ -62,7 +62,7 @@
                   <HBox alignment="CENTER" prefHeight="37.0" prefWidth="268.0">
                      <children>
                         <Label fx:id="error32" prefHeight="17.0" prefWidth="36.0" textAlignment="CENTER" textFill="RED" />
-                        <Button fx:id="buttonEntrar" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#Inicio" prefHeight="30.0" prefWidth="77.0" style="-fx-background-color: #156ea2;" text="Entrar" textFill="WHITE" textOverrun="CENTER_ELLIPSIS">
+                        <Button fx:id="buttonEntrar" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#inicio" prefHeight="30.0" prefWidth="77.0" style="-fx-background-color: #156ea2;" text="Entrar" textFill="WHITE" textOverrun="CENTER_ELLIPSIS">
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -86,7 +86,7 @@
                   <Label fx:id="error" prefHeight="31.0" prefWidth="268.0" textAlignment="CENTER" textFill="RED" />
                </children>
             </VBox>
-            <Button fx:id="buttonCrearUsuario" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#CrearUsuario" prefHeight="30.0" style="-fx-background-color: #156ea2;" text="Crear Usuario" textFill="WHITE" textOverrun="CENTER_ELLIPSIS">
+            <Button fx:id="buttonCrearUsuario" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#crearUsuario" prefHeight="30.0" style="-fx-background-color: #156ea2;" text="Crear Usuario" textFill="WHITE" textOverrun="CENTER_ELLIPSIS">
                <font>
                   <Font size="13.0" />
                </font>

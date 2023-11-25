@@ -199,7 +199,7 @@ public abstract class Contacto{
     
     @Override
     public String toString(){
-        return this.name;
+        return this.name + "  " + this.number;
     }
 
     public boolean isFavorite() {

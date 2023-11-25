@@ -1,7 +1,4 @@
 package com.mycompany.agenda;
-
-import agenda.Contacto;
-import agenda.Persona;
 import agenda.Sistema;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -12,15 +9,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.HashSet;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.StageStyle;
-import tda.LinkedList;
-import tda.List;
-
 /**
  * JavaFX App
  */

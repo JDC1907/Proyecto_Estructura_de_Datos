@@ -10,15 +10,12 @@ public class LinkedList<E> implements List<E> {
     public LinkedList() {
         first = last = null;
     }
-    
-    @Override
-    public List<E> findIntersection (List<E> anotherList, Comparator<E> cmp) {
+
+    public List<E> getSubList(E element, Comparator<E> cmp){
         List<E> results = new LinkedList<>();
         for (E e1 : this) {
-            for (E e2 : anotherList) {
-                if (cmp.compare(e1,e2) == 0) { // e1 es igual a e2
-                    results.addLast(e2);
-                }
+            if (cmp.compare(e1,element) == 0) { // e1 es igual a e2
+                results.addLast(e1);
             }
         }
         return results;
@@ -102,6 +99,17 @@ public class LinkedList<E> implements List<E> {
             }
             last = nodo;
             last.setNext(null);
+        }
+        return true;
+    }
+    
+    @Override
+    public boolean removeAll() {
+        if (this.isEmpty()) //si está vacío no se saca el nodo
+        {
+            return false;
+        } else{ 
+            first = last = null; //solo ese se remueve
         }
         return true;
     }

@@ -4,7 +4,7 @@
 0,false,Alaja Filo,+593 727-39-3931,Todo,file:imgpersonas/persona11.jpg,,
 0,false,Clara Álvarez,+593 567-84-4712,Todo,file:imgpersonas/persona12.jpg,,
 0,false,Cris Gómez,+593 557-95-1014,Todo,file:imgpersonas/persona13.jpg,,
-0,false,Mario Ruiz,+593 969-34-1666,Todo;Amigos,file:imgpersonas\vlcsnap-2023-10-14-23h19m23s122.png,,
+0,false,Mario Ruiz,+593 969-34-1666,Todo;Amigos,,,
 0,false,Santiago Gutiérrez,+593 783-89-5317,Todo;Amigos,,,
 0,false,Ricardo Ruiz,+593 996-41-2072,Todo;Trabajo,,,
 0,false,Daniel Álvarez,+593 069-01-2194,Todo;Trabajo,,,
@@ -17,5 +17,5 @@
 1,false,Samsung,+593 652-78-8541,Todo;Empresa,file:imgpersonas/Samsung.jpg,Usuario twitter:@Samsung;Usuario fb:SamsungSa;Fecha:30/12/45;Direccion:Plaza de España 83,
 1,false,iphone,+593 744-85-7456,Todo;Empresa,file:imgpersonas/iPhone-logo.png,Usuario twitter:@iphone;Usuario fb:iphoneSa;Fecha:04/12/45;Direccion:Herrería 94,
 0,false,Juan Carlos,+593 605-07-8066,Todo;Familia;Amigos,file:imgpersonas/persona7.jpg,Apellido:Carrazco Figo;Usuario twitter:@Twitter;Usuario fb:@Facebook;Cumpleaños:05/01/98,20
-0,false,Alex Felix,+593 772-74-8902,Todo;Familia;Amigos;Trabajo;Escuela,file:imgpersonas/persona5.jpg;file:imgpersonas/persona6.jpg;file:imgpersonas/persona2.jpg,Apellido:Sirelio Maximos;Usuario twitter:@Twitter;Usuario fb:@Facebook;Cumpleaños:15/06/99,3;19
+0,false,Alex Felix,+593 772-74-8902,Todo;Familia;Amigos;Trabajo;Escuela,,Apellido:Sirelio Maximos;Usuario twitter:@Twitter;Usuario fb:@Facebook;Cumpleaños:15/06/99,3;19
 0,false,Emanuel Maclaren,+593 681-70-0726,Todo;Familia;Amigos,,Apellido:Saslovi Rifo;Usuario twitter:@Twitter;Usuario fb:@Facebook;Cumpleaños:29/11/96,

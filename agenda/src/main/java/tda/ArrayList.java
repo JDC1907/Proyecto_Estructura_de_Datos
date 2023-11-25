@@ -108,6 +108,17 @@ public class ArrayList<E> implements List<E> {
     }
 
     @Override
+    public boolean removeAll(){
+        if(isEmpty()){
+            return false;
+        }else{
+            elements = (E[]) new Object[CAPACITY];
+            effectiveSize = 0;
+            return true;
+        }
+    }
+    
+    @Override
     public boolean isEmpty() {
         return effectiveSize == 0;
     }
@@ -275,20 +286,7 @@ public class ArrayList<E> implements List<E> {
         }
         return true;
     }
-
-    @Override
-    public List<E> findIntersection (List<E> anotherList, Comparator<E> cmp) {
-        List<E> results = new LinkedList<>();
-        for (E e1 : this) {
-            for (E e2 : anotherList) {
-                if (cmp.compare(e1,e2) == 0) { // e1 es igual a e2
-                    results.addLast(e2);
-                }
-            }
-        }
-        return results;
-    }
-    
+   
     @Override
     public boolean contains (E element, Comparator<E> cmp) {
         for (E e1 : this) {
