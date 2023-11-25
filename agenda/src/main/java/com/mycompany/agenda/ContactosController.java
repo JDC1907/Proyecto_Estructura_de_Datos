@@ -475,14 +475,14 @@ public class ContactosController {
         //datosContacto.setAlignment(Pos.TOP_RIGHT);
 
         VBox favoritos = new VBox();
-
+        
         Button fav =new Button();
         fav.setAlignment(Pos.CENTER);
         
         datosContacto.setAlignment(Pos.BASELINE_RIGHT);
-       Image imagen = new Image("/img/estrelladark.png");
+        Image imagen = new Image("/img/estrelladark.png");
         
-       if(contacto.isFavorite()){
+        if(contacto.isFavorite()){
             imagen = new Image("/img/estrellalight.png");
         }
        
@@ -511,7 +511,17 @@ public class ContactosController {
             }
             agenda.Sistema.guardarContactos(agenda.Sistema.usuario);
         });
+        
+        ImageView tipo = new ImageView();
+        
+        if (contacto instanceof agenda.Empresa){
+            tipo.setImage(new Image("/img/maletin.png",16,16,false,false));
+        }else{
+            tipo.setImage(new Image("/img/persona.png",16,16,false,false));
+        }
+        VBox.setMargin(tipo, new Insets(0, 0, 0, 10));
         favoritos.getChildren().add(fav);
+        favoritos.getChildren().add(tipo);
         cajaContacto.getChildren().add(favoritos);
 
         cajaContacto.setCursor(Cursor.HAND);
