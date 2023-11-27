@@ -62,6 +62,7 @@ public class ContactosController {
     
     private Contacto contactoSeleccionado; //Contacto seleccionado
     private List<ListIterator<Contacto>> iterators = new ArrayList<>();
+    private CircularList<Contacto> contac = new DoublyLinkedList<>(); //lista global para poder mostrar en los tags
     private ListIterator<String> photoIterator;
     private final String PHOTO_DEFAULT = "/img/user.png";
     private String photoContacto = "/img/user.png";
@@ -76,7 +77,9 @@ public class ContactosController {
 
     @FXML
     private void initialize(){
-        cargarContactosPanelIzquierdo(agenda.Sistema.contactos);//cargar los contactos en el panel izquierdo
+        contac.addAll(agenda.Sistema.contactos);
+        cargarContactosPanelIzquierdo(contac);//cargar los contactos en el panel izquierdo
+        
         //cargarContactosPanelIzquierdo(agenda.Sistema.usuarios.get(1).getContactos());
         agregarButtonTagsEnElHBox();//carga las tags que tengan todos los Contactos y los pone en los botones para filtrar por esas tags
         listTextField.addLast(buscarTextField);
@@ -115,13 +118,15 @@ public class ContactosController {
         Button buttonTag = new Button(tag);
         buttonTag.setCursor(Cursor.HAND);
         buttonTag.setOnAction((e)->{
-                List<Contacto> c = new ArrayList<>();
+                
+                contac.removeAll();
+                
                 for(Contacto contacto: agenda.Sistema.contactos){
                     if(contacto.getTags().contains(tag)){
-                        c.addLast(contacto);
+                        contac.addLast(contacto);
                     }
                 }
-                cargarContactosPanelIzquierdo(c);
+                cargarContactosPanelIzquierdo(contac);
             }
         );
         if(tag.equals("Favorito")){
@@ -141,11 +146,12 @@ public class ContactosController {
     private void cargarContactosPanelIzquierdo(List lista){
         contactosVBox.getChildren().clear();
         setDisableButtonsDownUp(true);
+        
         if(lista.size()>0){
             if(lista.size()>NUMERO_CONTACTOS_MOSTRADOS){
                 setDisableButtonsDownUp(false);
             }
-            prepararIteradores(agenda.Sistema.contactos, NUMERO_CONTACTOS_MOSTRADOS);
+            prepararIteradores(contac, NUMERO_CONTACTOS_MOSTRADOS);
             Iterator<Contacto> it = lista.iterator();
             int numElementos = 0;
             while(it.hasNext() && numElementos<NUMERO_CONTACTOS_MOSTRADOS){
@@ -757,11 +763,15 @@ public class ContactosController {
     public void scrollMouseContacts(){
         contactosVBox.setOnScroll(event -> {
             double deltaY = event.getDeltaY();
-            if (deltaY > 0) {
-                retrocederContactos();
-            } else {
-                avanzarContactos();
+            if(contac.size()>NUMERO_CONTACTOS_MOSTRADOS){
+                    if (deltaY > 0) {
+                    retrocederContactos();
+                } else {
+                    avanzarContactos();
             }
+                
+            }
+            
         });
     }
 
@@ -835,8 +845,6 @@ public class ContactosController {
         Stage popUpStage = new Stage();
         popUpStage.initStyle(StageStyle.TRANSPARENT);
         popUpStage.initModality(Modality.APPLICATION_MODAL);
-        popUpStage.setTitle("Busqueda avanzada");
-        popUpStage.setMinWidth(600);
 
         VBox layout = new VBox();
         Scene scene = new Scene(layout, 600, 550);
@@ -858,7 +866,7 @@ public class ContactosController {
         });
         Button buscarButton = new Button("Buscar");
         buscarButton.setOnAction(e -> {
-                cargarContactosPanelIzquierdo(filtrar(agenda.Sistema.contactos));
+                cargarContactosPanelIzquierdo(filtrar(contac));
                 cerrarPopUp(popUpStage);
                 System.out.println("BUSCANDO");
                 

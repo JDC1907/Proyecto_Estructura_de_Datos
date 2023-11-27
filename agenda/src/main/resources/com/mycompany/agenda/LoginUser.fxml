@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.agenda.Login">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.agenda.Login">
    <children>
       <VBox fx:id="vBoxIniciarSesion" alignment="CENTER" layoutX="530.0" layoutY="294.0" prefHeight="289.0" prefWidth="344.0">
          <children>
@@ -29,7 +29,7 @@
                         </Label>
                      </children>
                   </HBox>
-                  <TextField fx:id="usrName" alignment="BASELINE_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="47.0" prefWidth="258.0" promptText="Ingrese su nombre de usuario" style="-fx-background-color: 000; -fx-border-color: 000;" stylesheets="@../../../login.css">
+                  <TextField fx:id="usrName" alignment="BASELINE_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="47.0" prefWidth="258.0" promptText="Ingrese su nombre de usuario" style="-fx-background-color: #FFFFFF80; -fx-border-color: #FFFFFF80;" stylesheets="@../../../login.css">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
@@ -49,7 +49,7 @@
                         </Label>
                      </children>
                   </HBox>
-                  <PasswordField fx:id="usrPass" prefHeight="14.0" prefWidth="258.0" promptText="Ingrese su contraseña" style="-fx-background-color: 000; -fx-border-color: 000;">
+                  <PasswordField fx:id="usrPass" prefHeight="14.0" prefWidth="258.0" promptText="Ingrese su contraseña" style="-fx-background-color: #FFFFFF80; -fx-border-color: #FFFFFF80;">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font></PasswordField>
@@ -142,7 +142,7 @@
                         </Label>
                      </children>
                   </HBox>
-                  <TextField fx:id="textFieldNuevoUsuario" alignment="BASELINE_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="47.0" prefWidth="258.0" promptText="Ingrese su nombre de usuario" style="-fx-background-color: 000; -fx-border-color: 000;" stylesheets="@../../../login.css">
+                  <TextField fx:id="textFieldNuevoUsuario" alignment="BASELINE_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="47.0" prefWidth="258.0" promptText="Ingrese su nombre de usuario" style="-fx-background-color: #FFFFFF80; -fx-border-color: #FFFFFF80;" stylesheets="@../../../login.css">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
@@ -162,7 +162,7 @@
                         </Label>
                      </children>
                   </HBox>
-                  <TextField fx:id="textFieldNuevoNombre" alignment="BASELINE_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="47.0" prefWidth="258.0" promptText="Ingrese su nombre" style="-fx-background-color: 000; -fx-border-color: 000;" stylesheets="@../../../login.css">
+                  <TextField fx:id="textFieldNuevoNombre" alignment="BASELINE_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="47.0" prefWidth="258.0" promptText="Ingrese su nombre" style="-fx-background-color: #FFFFFF80; -fx-border-color: #FFFFFF80;" stylesheets="@../../../login.css">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
@@ -182,7 +182,7 @@
                         </Label>
                      </children>
                   </HBox>
-                  <PasswordField fx:id="passwordFieldNuevo" prefHeight="14.0" prefWidth="258.0" promptText="Ingrese su contraseña" style="-fx-background-color: 000; -fx-border-color: 000;">
+                  <PasswordField fx:id="passwordFieldNuevo" prefHeight="14.0" prefWidth="258.0" promptText="Ingrese su contraseña" style="-fx-background-color: #FFFFFF80; -fx-border-color: #FFFFFF80;">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font>

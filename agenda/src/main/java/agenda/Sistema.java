@@ -193,7 +193,6 @@ public static boolean comprobarUsuario(String nombreUsuario, String contrasena){
                 while(linea != null){
                     if(linea != null){
                         String[] datos = linea.split(",",-1);
-                        int i = 0;
                         String nombreUsuario = datos[0];
                         String password = datos[1];
                         String nombre = datos[2];
