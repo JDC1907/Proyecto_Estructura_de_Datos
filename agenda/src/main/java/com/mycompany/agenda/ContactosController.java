@@ -14,6 +14,7 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.ListIterator;
 import java.util.Set;
+import java.util.Stack;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -48,12 +49,12 @@ import tda.List;
 
 
 public class ContactosController {
-    private final int NUMERO_CONTACTOS_MOSTRADOS = 7;//Numero de contactos que van a ser mostrado en el panel izquierdo
+    private final int NUMERO_CONTACTOS_MOSTRADOS = 6;//Numero de contactos que van a ser mostrado en el panel izquierdo
     @FXML private VBox vBoxAgenda, contactosVBox, datosContactoAtributosVBox, datosContactoVBox, datosContactoNameNumberVBox, vBoxContatoMuestra;
     @FXML private AnchorPane anchorPaneContac;
     @FXML private ImageView contactoImg;
     @FXML private ImageView imgBienvenida;
-    @FXML private Button upContactsButton, downContactsButton, leftPhotos, rightPhotos;
+    @FXML private Button upContactsButton, downContactsButton, leftPhotos, rightPhotos, recuperarContactosButton;
     @FXML private HBox tagsHBox, contactosRelacionadosHBox;
     @FXML private FlowPane contactoTagsFlowPane;
     @FXML private ComboBox<Contacto> contactosRelacionadosComboBox;
@@ -71,6 +72,7 @@ public class ContactosController {
     private Node internal;
     public Label labelNameFX, labelNumberFX;
     private List<TextField> listTextField = new ArrayList<>();
+    private Stack<Contacto> contactosEliminados = new Stack<>();
     
     
    
@@ -143,7 +145,7 @@ public class ContactosController {
     public void actualizarPanelIzquierdo(List lista){
         cargarContactosPanelIzquierdo(lista);
     }
-    private void cargarContactosPanelIzquierdo(List lista){
+    private void cargarContactosPanelIzquierdo(List<Contacto> lista){
         contactosVBox.getChildren().clear();
         setDisableButtonsDownUp(true);
         
@@ -164,6 +166,11 @@ public class ContactosController {
 
     //Carga los datos del contacto y los coloca en el panel derecho en donde seran mostrados todos los datos del contacto seleccionado
     private void cargarDatosContacto(Contacto contacto){
+        
+        if(internal != null){
+            anchorPaneContac.getChildren().remove(internal);
+        }
+        
         photoIterator = contacto.getPhotos().listIterator();
         agenda.Sistema.guardarContactos(agenda.Sistema.usuario);
         contactosRelacionadosComboBox.getItems().clear();
@@ -464,8 +471,7 @@ public class ContactosController {
  
     private void mostrarContacto(Contacto contacto){
         HBox cajaContacto = new HBox();
-        
-        
+
         String photo = "/img/user.png";
         if(contacto.hasPhotos()){
             photo = contacto.getFirstPhoto();
@@ -474,8 +480,10 @@ public class ContactosController {
         VBox datosContacto = new VBox();
         datosContacto.setAlignment(Pos.CENTER);
         Label labelName = new Label(contacto.getName());
+        labelName.setId("labelCajaContacto");
         datosContacto.getChildren().add(labelName);
         Label labelNumber = new Label(contacto.getNumber());
+        labelNumber.setId("labelCajaContacto");
         datosContacto.getChildren().add(labelNumber);
         cajaContacto.getChildren().add(datosContacto);
         //datosContacto.setAlignment(Pos.TOP_RIGHT);
@@ -492,12 +500,9 @@ public class ContactosController {
             imagen = new Image("/img/estrellalight.png");
         }
        
-        // Crear un ImageView con la imagen
         ImageView imageView = new ImageView(imagen);
-        // Establecer el ImageView como gráfico del botón
         imageView.setFitWidth(20);
         imageView.setFitHeight(20);
-       // fav.setPrefSize(5, 5);
         fav.setGraphic(imageView);
         fav.setStyle("-fx-background-color: transparent;");
         HBox.setMargin(fav, new Insets(0, 0, 0, 50));
@@ -525,6 +530,7 @@ public class ContactosController {
         }else{
             tipo.setImage(new Image("/img/persona.png",16,16,false,false));
         }
+        tipo.setOpacity(0.5);
         VBox.setMargin(tipo, new Insets(0, 0, 0, 10));
         favoritos.getChildren().add(fav);
         favoritos.getChildren().add(tipo);
@@ -542,6 +548,7 @@ public class ContactosController {
             preCargarDatosContactoSeleccionado(contacto);
             cargarDatosContacto(contacto);            
         });
+        cajaContacto.setId("cajaContacto");
         contactosVBox.getChildren().add(cajaContacto);
     }
     
@@ -553,6 +560,128 @@ public class ContactosController {
         this.deletePhoto.setDisable(true);
     }
     
+    private CircularList<Contacto> filtrar(List<Contacto> lista){
+        System.out.println("FILTRANDO");
+        Set<Contacto> filtrado = new LinkedHashSet<>();
+        System.out.println("COpiando lista a filtrado");
+        for(Contacto c: lista){
+            filtrado.add(c);
+        }
+        System.out.println("Recorriendo textfield");
+        System.out.println(listTextField.size());
+        for(TextField tf: listTextField){
+            String filtrador = tf.getText();
+            System.out.println(tf.getText());
+            Set<Contacto> subFiltrado = new LinkedHashSet<>();
+            System.out.println(subFiltrado.toString());
+            if(!filtrador.equals("")){
+                subFiltrado.addAll(filtrarByNombre(filtrador, lista));
+                subFiltrado.addAll(filtrarByNumero(filtrador, lista));
+                subFiltrado.addAll(filtrarByAtributo(filtrador, lista));
+                subFiltrado.addAll(filtrarByTag(filtrador, lista));
+            }
+            filtrado.retainAll(subFiltrado);
+        }
+        CircularList<Contacto> cts = new DoublyLinkedList();
+        for(Contacto c: filtrado){
+            cts.addLast(c);
+        }
+        return cts;
+    }
+    
+    public String CopiarArchivo(String origenArchivo) {
+        try {
+            int copyIndex = 1;
+            Path origenPath = Paths.get(origenArchivo);
+            String fileName = origenPath.getFileName().toString();
+            String extension = fileName.substring(fileName.lastIndexOf(".")+1);
+            String nombreArchivo = fileName.substring(0,fileName.lastIndexOf("."));
+
+            // Obtén el directorio actual
+            String directorioActual = System.getProperty("user.dir");
+            // Construye la ruta relativa al directorio de trabajo y al subdirectorio imgpersonas
+            Path destinoPath = Paths.get(directorioActual, "imgpersonas", nombreArchivo+ "." + extension);
+            // Asegúrate de que el archivo no exista antes de copiar
+            while (Files.exists(destinoPath)) {
+                copyIndex++;
+                destinoPath = Paths.get(directorioActual, "imgpersonas", nombreArchivo + "_copia" + copyIndex + "." + extension);
+            }
+
+            Files.copy(origenPath, destinoPath);
+
+            // Devuelve la ruta relativa al directorio de trabajo y al subdirectorio imgpersonas
+            return Paths.get(directorioActual).relativize(destinoPath).toString();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+    
+    private Set<Contacto> filtrarByNombre(String filtrador, List<Contacto> lista){
+        Set<Contacto> filtrado = new LinkedHashSet<>();
+        for(Contacto c: lista){
+            if(c.getName().toLowerCase().contains(filtrador.toLowerCase())){
+                filtrado.add(c);
+            }
+        }
+        return filtrado;
+    }
+    
+    private Set<Contacto> filtrarByNumero(String filtrador, List<Contacto> lista){
+        Set<Contacto> filtrado = new LinkedHashSet<>();
+        for(Contacto c: lista){
+            if(c.getNumber().contains(filtrador)){
+                filtrado.add(c);
+            }
+        }
+        return filtrado;
+    }
+    
+    private Set<Contacto> filtrarByAtributo(String filtrador, List<Contacto> lista){
+        Set<Contacto> filtrado = new LinkedHashSet<>();
+        for(Contacto c: lista){
+            for(String key: c.getKeysAtributtes()){
+                System.out.println( c+" "+c.getValorAtributte(key));
+                if(c.getValorAtributte(key).toLowerCase().contains(filtrador.toLowerCase())){
+                    filtrado.add(c);
+                }
+            }
+        }
+        return filtrado;
+    }
+    
+    private Set<Contacto> filtrarByTag(String filtrador, List<Contacto> lista){
+        Set<Contacto> filtrado = new LinkedHashSet<>();
+        for(Contacto c: lista){
+            for(String tag: c.getTags()){
+                if(tag.toLowerCase().contains(filtrador.toLowerCase())){
+                    filtrado.add(c);
+                }
+            }
+        }
+        return filtrado;
+    }
+    
+    public void cerrarSesion(){
+        // try & catch para instanciar la ventana
+        agenda.Sistema.contactos.removeAll();
+        Parent root = null;
+        FXMLLoader internalLoader = null;
+        try {
+            internalLoader = new FXMLLoader(App.class.getResource("LoginUser.fxml"));
+            root = internalLoader.load();
+        }
+        catch (IOException e) {
+        }
+        PreCarga1.getScene().setRoot(root);
+        PreCarga1.getStage().setWidth(900);
+        PreCarga1.getStage().setHeight(740);
+        PreCarga1.getStage().setResizable(false);
+        PreCarga1.getStage().setTitle("ContactYou");
+        Login login = internalLoader.getController();
+        login.cargarStage(PreCarga1.getStage());
+    }
+    
     @FXML
     private void retrocederContactos(){
         contactosVBox.getChildren().clear();
@@ -560,7 +689,6 @@ public class ContactosController {
             for(ListIterator<Contacto> itList: iterators){
                 itList.previous();
                 itList.previous();
-
             }
         }
         for(ListIterator<Contacto> itList: iterators){
@@ -620,7 +748,11 @@ public class ContactosController {
         for(Contacto vinculado: contactosVinculados){
             vinculado.removeContactoRelacionado(contactoSeleccionado);
         }
-        agenda.Sistema.contactos.remove(contactoSeleccionado);
+        if(agenda.Sistema.contactos.remove(contactoSeleccionado)){
+            recuperarContactosButton.setDisable(false);
+            contactosEliminados.push(contactoSeleccionado);
+            contactoSeleccionado = null;
+        }
         datosContactoAtributosVBox.getChildren().clear();
         datosContactoVBox.setVisible(false);
         cargarContactosPanelIzquierdo(agenda.Sistema.contactos);
@@ -637,6 +769,7 @@ public class ContactosController {
         CrearContactoController controller = internalLoader.getController();
         controller.cargarImagenBienvenida(imgBienvenida);
         controller.cargarParent(this);
+        
         anchorPaneContac.getChildren().add(internal);
         datosContactoVBox.setVisible(false);
         imgBienvenida.setVisible(false);
@@ -764,45 +897,15 @@ public class ContactosController {
         contactosVBox.setOnScroll(event -> {
             double deltaY = event.getDeltaY();
             if(contac.size()>NUMERO_CONTACTOS_MOSTRADOS){
-                    if (deltaY > 0) {
+                if (deltaY > 0) {
                     retrocederContactos();
                 } else {
                     avanzarContactos();
+                } 
             }
-                
-            }
-            
         });
     }
 
-    public String CopiarArchivo(String origenArchivo) {
-        try {
-            int copyIndex = 1;
-            Path origenPath = Paths.get(origenArchivo);
-            String fileName = origenPath.getFileName().toString();
-            String extension = fileName.substring(fileName.lastIndexOf(".")+1);
-            String nombreArchivo = fileName.substring(0,fileName.lastIndexOf("."));
-
-            // Obtén el directorio actual
-            String directorioActual = System.getProperty("user.dir");
-            // Construye la ruta relativa al directorio de trabajo y al subdirectorio imgpersonas
-            Path destinoPath = Paths.get(directorioActual, "imgpersonas", nombreArchivo+ "." + extension);
-            // Asegúrate de que el archivo no exista antes de copiar
-            while (Files.exists(destinoPath)) {
-                copyIndex++;
-                destinoPath = Paths.get(directorioActual, "imgpersonas", nombreArchivo + "_copia" + copyIndex + "." + extension);
-            }
-
-            Files.copy(origenPath, destinoPath);
-
-            // Devuelve la ruta relativa al directorio de trabajo y al subdirectorio imgpersonas
-            return Paths.get(directorioActual).relativize(destinoPath).toString();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        return null;
-    }
-    
     //Agregar fotos a los contactos
     @FXML
     private void agregarPhoto(ActionEvent event) {
@@ -916,103 +1019,17 @@ public class ContactosController {
     @FXML
     private void busquedaSimple(){
         cargarContactosPanelIzquierdo(filtrar(agenda.Sistema.contactos));
-        
     }
     
-    private CircularList<Contacto> filtrar(List<Contacto> lista){
-        System.out.println("FILTRANDO");
-        Set<Contacto> filtrado = new LinkedHashSet<>();
-        System.out.println("COpiando lista a filtrado");
-        for(Contacto c: lista){
-            filtrado.add(c);
-        }
-        System.out.println("Recorriendo textfield");
-        System.out.println(listTextField.size());
-        for(TextField tf: listTextField){
-            String filtrador = tf.getText();
-            System.out.println(tf.getText());
-            Set<Contacto> subFiltrado = new LinkedHashSet<>();
-            System.out.println(subFiltrado.toString());
-            if(!filtrador.equals("")){
-                subFiltrado.addAll(filtrarByNombre(filtrador, lista));
-                subFiltrado.addAll(filtrarByNumero(filtrador, lista));
-                subFiltrado.addAll(filtrarByAtributo(filtrador, lista));
-                subFiltrado.addAll(filtrarByTag(filtrador, lista));
-            }
-            filtrado.retainAll(subFiltrado);
-        }
-        CircularList<Contacto> cts = new DoublyLinkedList();
-        for(Contacto c: filtrado){
-            cts.addLast(c);
-        }
-        return cts;
-    }
     
-    private Set<Contacto> filtrarByNombre(String filtrador, List<Contacto> lista){
-        Set<Contacto> filtrado = new LinkedHashSet<>();
-        for(Contacto c: lista){
-            if(c.getName().toLowerCase().contains(filtrador.toLowerCase())){
-                filtrado.add(c);
-            }
+    @FXML
+    private void recuperarContactoEliminado(){
+        agenda.Sistema.contactos.addLast(contactosEliminados.pop());
+        agenda.Sistema.guardarContactos();
+        contac = agenda.Sistema.contactos;
+        cargarContactosPanelIzquierdo(contac);
+        if(contactosEliminados.isEmpty()){
+            recuperarContactosButton.setDisable(true);
         }
-        return filtrado;
-    }
-    
-    private Set<Contacto> filtrarByNumero(String filtrador, List<Contacto> lista){
-        Set<Contacto> filtrado = new LinkedHashSet<>();
-        for(Contacto c: lista){
-            if(c.getNumber().contains(filtrador)){
-                filtrado.add(c);
-            }
-        }
-        return filtrado;
-    }
-    
-    private Set<Contacto> filtrarByAtributo(String filtrador, List<Contacto> lista){
-        Set<Contacto> filtrado = new LinkedHashSet<>();
-        for(Contacto c: lista){
-            for(String key: c.getKeysAtributtes()){
-                System.out.println( c+" "+c.getValorAtributte(key));
-                if(c.getValorAtributte(key).toLowerCase().contains(filtrador.toLowerCase())){
-                    filtrado.add(c);
-                }
-            }
-        }
-        return filtrado;
-    }
-    
-    private Set<Contacto> filtrarByTag(String filtrador, List<Contacto> lista){
-        Set<Contacto> filtrado = new LinkedHashSet<>();
-        for(Contacto c: lista){
-            for(String tag: c.getTags()){
-                if(tag.toLowerCase().contains(filtrador.toLowerCase())){
-                    filtrado.add(c);
-                }
-            }
-        }
-        return filtrado;
-    }
-    
-    public void cerrarSesion(){
-        // try & catch para instanciar la ventana
-        for(Contacto c: agenda.Sistema.contactos){
-            agenda.Sistema.contactos.remove(c);
-        }
-        Parent root = null;
-        FXMLLoader internalLoader = null;
-        try {
-                        //root = FXMLLoader.load(getClass().getResource("LoginUser.fxml"));
-            internalLoader = new FXMLLoader(App.class.getResource("LoginUser"+".fxml"));
-            root = internalLoader.load();
-        }
-        catch (IOException e) {
-        }
-        PreCarga1.getScene().setRoot(root);
-        PreCarga1.getStage().setWidth(900);
-        PreCarga1.getStage().setHeight(740);
-        PreCarga1.getStage().setResizable(false);
-        PreCarga1.getStage().setTitle("ContactYou");
-        Login login = internalLoader.getController();
-        login.cargarStage(PreCarga1.getStage());
     }
 }

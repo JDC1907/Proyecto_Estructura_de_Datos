@@ -161,14 +161,14 @@ public class CrearContactoController  {
     //Seleciona que tipo de contacto es (Persona y empresa)
     @FXML
     private void selecionarPersona(){
-        contactoSeleccionado = new Persona("","");
+        contactoSeleccionado = new Persona("","",agenda.Sistema.usuario.getNombreUsr());
         setDisabelCampos(false);
         cargarDatosContacto();
 
     }
     @FXML
     private void selecionarEmpresa(){
-        contactoSeleccionado = new Empresa("","");
+        contactoSeleccionado = new Empresa("","",agenda.Sistema.usuario.getNombreUsr());
         setDisabelCampos(false);
         cargarDatosContacto();
 

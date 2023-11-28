@@ -50,6 +50,10 @@ public static boolean comprobarUsuario(String nombreUsuario, String contrasena){
         return tags;
     }
     
+     public static void guardarContactos(){
+         guardarContactos(usuario);
+     }
+    
     public static void guardarContactos(Usuario usuario){
         String nombreArchivo = usuario.getNombreUsr() + ".vCard";
         File file = new File("usuarios/"+nombreArchivo);
@@ -59,44 +63,47 @@ public static boolean comprobarUsuario(String nombreUsuario, String contrasena){
             String linea = "";
             
             for(Contacto contacto: contactos){
-                StringJoiner joinerLinea = new StringJoiner(",");
-                int tipo = 0; //Es 0 si contacto es Persona
-                if (contacto instanceof Empresa){
-                    tipo = 1; // 1 si es Empresa
+                if(contacto.getUserName().equals(usuario.getNombreUsr())){
+                    StringJoiner joinerLinea = new StringJoiner(",");
+                    int tipo = 0; //Es 0 si contacto es Persona
+                    if (contacto instanceof Empresa){
+                        tipo = 1; // 1 si es Empresa
+                    }
+                    joinerLinea.add(String.valueOf(tipo));
+                    joinerLinea.add(String.valueOf(contacto.isFavorite()));
+                    joinerLinea.add(contacto.getName());
+                    joinerLinea.add(String.valueOf(contacto.getNumber()));
+
+                    StringJoiner joiner = new StringJoiner(";");
+                    for (String tag : contacto.getTags()) {
+                        joiner.add(tag);
+                    }
+                    String tags = joiner.toString();
+                    joinerLinea.add(tags);
+
+                    joiner = new StringJoiner(";");
+                    for (String photo : contacto.getPhotos()) {
+                        joiner.add(photo);
+                    }
+                    String photos = joiner.toString();
+                    joinerLinea.add(photos);
+
+                    joiner = new StringJoiner(";");
+                    for (String key : contacto.getKeysAtributtes()) {
+                        joiner.add(key+":"+contacto.getValorAtributte(key));
+                    }
+                    String atributtes = joiner.toString();
+                    joinerLinea.add(atributtes);
+
+                    joiner = new StringJoiner(";");
+                    for (Contacto contactoRelacionado: contacto.getContactosRelacionados()) {
+                        joiner.add(String.valueOf(contactoRelacionado.getId()));
+                    }
+                    String contactosRelacionados = joiner.toString();
+                    joinerLinea.add(contactosRelacionados);
+                    joinerLinea.add(contacto.getUserName()+"\r\n");
+                    linea += joinerLinea.toString();
                 }
-                joinerLinea.add(String.valueOf(tipo));
-                joinerLinea.add(String.valueOf(contacto.isFavorite()));
-                joinerLinea.add(contacto.getName());
-                joinerLinea.add(String.valueOf(contacto.getNumber()));
-                
-                StringJoiner joiner = new StringJoiner(";");
-                for (String tag : contacto.getTags()) {
-                    joiner.add(tag);
-                }
-                String tags = joiner.toString();
-                joinerLinea.add(tags);
-                
-                joiner = new StringJoiner(";");
-                for (String photo : contacto.getPhotos()) {
-                    joiner.add(photo);
-                }
-                String photos = joiner.toString();
-                joinerLinea.add(photos);
-                
-                joiner = new StringJoiner(";");
-                for (String key : contacto.getKeysAtributtes()) {
-                    joiner.add(key+":"+contacto.getValorAtributte(key));
-                }
-                String atributtes = joiner.toString();
-                joinerLinea.add(atributtes);
-                
-                joiner = new StringJoiner(";");
-                for (Contacto contactoRelacionado: contacto.getContactosRelacionados()) {
-                    joiner.add(String.valueOf(contactoRelacionado.getId()));
-                }
-                String contactosRelacionados = joiner.toString();
-                joinerLinea.add(contactosRelacionados+"\r\n");
-                linea += joinerLinea.toString();
             }
             fw.write(linea);
             fw.close();
@@ -128,7 +135,7 @@ public static boolean comprobarUsuario(String nombreUsuario, String contrasena){
 
                         String[] atributtes = datos[6].split(";");
                         String[] contactosRelacionadosStringIDs = datos[7].split(";");
-
+                        String userName = datos[8];
                         List<Integer> contactosRelacionadosIDs = new ArrayList();
                         for(String id: contactosRelacionadosStringIDs){
                             if(!id.equals("")){
@@ -136,9 +143,9 @@ public static boolean comprobarUsuario(String nombreUsuario, String contrasena){
                             }
                         }
                         if(tipo == 0){
-                            contacto = new Persona(nombre, numero);
+                            contacto = new Persona(nombre, numero, userName);
                         }else if(tipo == 1){
-                            contacto = new Empresa(nombre, numero);
+                            contacto = new Empresa(nombre, numero, userName);
                         }
                         contacto.setFavorito(isFavorite);
                         for(String photo: photos){
@@ -180,6 +187,12 @@ public static boolean comprobarUsuario(String nombreUsuario, String contrasena){
             }catch (Exception e){
                 e.printStackTrace();
             }
+        }
+    }
+    
+    public static void cargarContactosComoAdministrador(){
+        for(Usuario u: usuarios){
+            cargarContactos(u);
         }
     }
 

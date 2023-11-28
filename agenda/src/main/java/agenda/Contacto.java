@@ -25,7 +25,7 @@ public abstract class Contacto{
     private String userName;
 
 
-    public Contacto(String name, String number) {
+    public Contacto(String name, String number, String userName) {
         this.tags = new LinkedHashSet<String>();
         this.tags.add("Todo");
         this.atributos = new LinkedHashMap<>();
@@ -35,8 +35,12 @@ public abstract class Contacto{
         this.contactosRelacionados = new LinkedHashSet();
         this.dates = new LinkedList();
         this.favorito = false;
+        this.userName = userName;
         id++;
         idContacto = id;
+    }
+    public String getUserName() {
+        return userName;
     }
     
     public int getId() {

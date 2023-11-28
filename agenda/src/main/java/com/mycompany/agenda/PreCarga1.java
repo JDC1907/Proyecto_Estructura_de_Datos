@@ -43,6 +43,7 @@ public class PreCarga1 implements Initializable {
                     //scene = new Scene(root, 900, 720);
                     scene = new Scene(root, 900, 700); //cuando le habilitemos el login descomentamos esto y borrarmos la de arriba
                     stage = new Stage();
+                    scene.getStylesheets().add("estilo.css");
                     stage.setTitle("ContactYou");
                     stage.getIcons().add(new Image(icon) );
                     stage.setResizable(false);

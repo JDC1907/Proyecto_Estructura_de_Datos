@@ -1,34 +1,35 @@
-.label{
+.label {
     -fx-text-fill: #0a386e;
-    -fx-font-size: 15px;
 }
 
-.titulo{
-    -fx-font-weight: bold;
+#cajaContacto {
+    -fx-border-color: #b5d0e0;
+    -fx-border-radius: 2 2 2 2;
 }
 
-.respuesta-correcta{
-    -fx-font-weight: bold;
-    -fx-text-fill: #49b963;
-}
-
-.border-pane{
-    -fx-background-color: #eef4ff;
-}
-
-.button { 
-    -fx-background-color: #80a4d2;
-    -fx-border-color: #FFFFFF;
-    -fx-border-width: 0;
-    -fx-text-fill: #FFFFFF;
-    -fx-font-family: "Arial";
+#cajaContacto:hover {
+    -fx-background-color: #5a88be;
+    
     -fx-font-size: 16px;
     -fx-background-radius: 2 2 2 2;
     -fx-border-radius: 2 2 2 2;
 }
 
+#labelCajaContacto:hover{
+-fx-text-fill: #FFFFFF;
+}
+
+.button { 
+    -fx-background-color: #156ea2;
+    -fx-border-color: #FFFFFF;
+    -fx-border-width: 0;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-radius: 2 2 2 2;
+    -fx-border-radius: 2 2 2 2;
+}
+
 .button:hover { -fx-background-color: #5a88be;
-               -fx-font-size: 18px;
+               -fx-font-size: 16px;
 }
 
 .button:pressed { -fx-background-color: #517196;

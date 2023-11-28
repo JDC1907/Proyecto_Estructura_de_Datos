@@ -28,7 +28,7 @@ public class Login {
     @FXML
     private Label error, errorCrearUsuario ;
     @FXML
-    private Button buttonEntrar, buttonCerrar, buttonCrearUsuario, buttonCrear, buttonCancelar;
+    private Button buttonEntrar;
     @FXML
     private RadioButton administradorRadioButton, normalRadioButton;
     private ToggleGroup tg = new ToggleGroup();
@@ -65,7 +65,11 @@ public class Login {
         usrPass.clear();
         if(ingreso){
             usuario = agenda.Sistema.usuario.getNombre();
-            agenda.Sistema.cargarContactos(agenda.Sistema.usuario);
+            if(agenda.Sistema.usuario.getTipo().equals("admin")){
+                agenda.Sistema.cargarContactosComoAdministrador();
+            }else{
+                agenda.Sistema.cargarContactos(agenda.Sistema.usuario);
+            }
             ventana();
             error.setText("");
         }

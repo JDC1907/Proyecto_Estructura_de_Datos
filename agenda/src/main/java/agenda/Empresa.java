@@ -14,8 +14,8 @@ public class Empresa extends Contacto{
     
     private HashMap<String, Contacto> empleados;
     
-    public Empresa(String name, String number) {
-        super(name, number);
+    public Empresa(String name, String number, String userName) {
+        super(name, number, userName);
     }
     
     public String getDireccion(){
