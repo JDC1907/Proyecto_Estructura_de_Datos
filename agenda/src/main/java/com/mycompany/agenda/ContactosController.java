@@ -240,7 +240,9 @@ public class ContactosController {
         HBox cajaTag = new HBox();
         cajaTag.getChildren().add(new Label(tag));
                 Button buttonBorrarTag = new Button();
-                buttonBorrarTag.setGraphic(new ImageView(new Image("/img/delette_atributte.png", 16,16,false,false)));
+                buttonBorrarTag.setStyle("-fx-background-color: transparent;");
+                //buttonBorrarTag.setStyle("-fx-border-width: 0;");
+                buttonBorrarTag.setGraphic(new ImageView(new Image("/img/x.png", 16,16,false,false)));
                 buttonBorrarTag.setCursor(Cursor.HAND);
                 buttonBorrarTag.setOnAction((e)->{
                         contactoSeleccionado.removeTag(tag);
@@ -321,14 +323,16 @@ public class ContactosController {
     private void agregarHBoxADatosContactoAtributosVBox(String key){
         HBox datosContacto = crearHBoxAtributteContacto();
         Label label = crearLabelEditable(key, datosContacto);//Crea un label que se puede editar cuando se le da un click
+        
         datosContacto.getChildren().add(label); //Agrega una Etiqueta con texto de la llave del diccionario
 
         TextField campoTexto = crearTextField(key,datosContacto);
 
         datosContacto.getChildren().add(campoTexto);//agrega el campo de texto al lado del Label
-
+        
         Button borrarAtributoButton = crearButtonDeleteAtributte(key, "", datosContacto);
-
+        borrarAtributoButton.setStyle("-fx-background-color: transparent;");
+        
         datosContacto.getChildren().add(borrarAtributoButton);//Agrega el boton para eliminar atributo al lado del Campo de texto
         datosContactoAtributosVBox.getChildren().add(datosContacto);//agrega ese reglon con datos del campo de texto, label e imagen en un VBOX
     }
@@ -341,7 +345,8 @@ public class ContactosController {
     
     private Button crearButtonDeleteAtributte(String key, String textButton, Pane pane){
         Button button = crearButton(textButton);
-        button.setGraphic(new ImageView(new Image("/img/delette_atributte.png", 16,16,false,false)));
+        button.setGraphic(new ImageView(new Image("/img/tacho.png", 16,16,false,false)));
+        button.setStyle("-fx-background-color: transparent;");
         button.setOnAction((e)->{
             datosContactoAtributosVBox.getChildren().remove(pane);
             contactoSeleccionado.removeKeyAtributte(key);

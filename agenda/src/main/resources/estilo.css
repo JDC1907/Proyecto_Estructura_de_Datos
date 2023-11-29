@@ -3,7 +3,7 @@
 }
 
 #cajaContacto {
-    -fx-border-color: #b5d0e0;
+    -fx-border-color: #CBDFEA;
     -fx-border-radius: 2 2 2 2;
 }
 
@@ -24,6 +24,7 @@
     -fx-border-color: #FFFFFF;
     -fx-border-width: 0;
     -fx-text-fill: #FFFFFF;
+    -fx-font-family: "Franklin Gothic Medium";
     -fx-background-radius: 2 2 2 2;
     -fx-border-radius: 2 2 2 2;
 }
