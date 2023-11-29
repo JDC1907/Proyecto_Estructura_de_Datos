@@ -36,6 +36,8 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -241,8 +243,8 @@ public class ContactosController {
         cajaTag.getChildren().add(new Label(tag));
                 Button buttonBorrarTag = new Button();
                 buttonBorrarTag.setStyle("-fx-background-color: transparent;");
-                //buttonBorrarTag.setStyle("-fx-border-width: 0;");
-                buttonBorrarTag.setGraphic(new ImageView(new Image("/img/x.png", 16,16,false,false)));
+                //buttonBorrarTag.setStyle("-fx-border-width: black;");
+                buttonBorrarTag.setGraphic(new ImageView(new Image("/img/tacho.png", 16,16,false,false)));
                 buttonBorrarTag.setCursor(Cursor.HAND);
                 buttonBorrarTag.setOnAction((e)->{
                         contactoSeleccionado.removeTag(tag);
@@ -296,16 +298,24 @@ public class ContactosController {
     private void agregarLabelNameAndTextFieldNameToPane(String textLabel, String stringTextField, Contacto contacto, Pane pane){
         Label label = new Label(textLabel);
         TextField textField = crearTextFieldName(contacto, stringTextField, label, pane);
+        label.setPrefWidth(50);
+        label.setTextFill(Color.BLACK);
+        label.setFont(Font.font("Franklin Gothic Medium", 12));
         pane.getChildren().add(label);
         //pane.getChildren().add( textNombre);
+        textField.setPrefWidth(150);
         pane.getChildren().add( textField);
     }
     
     private void agregarLabelNumberAndTextFieldNumberToPane(String textLabel, String stringTextField, Contacto contacto, Pane pane){
         Label label = new Label(textLabel);
         TextField textField = crearTextFieldNumber(contacto, stringTextField, label, pane);
+        label.setPrefWidth(50);
+        label.setTextFill(Color.BLACK);
+        label.setFont(Font.font("Franklin Gothic Medium", 12));
         pane.getChildren().add(label);
         //pane.getChildren().add( textNumero);
+        textField.setPrefWidth(150);
         pane.getChildren().add( textField);
     }
     
@@ -322,18 +332,21 @@ public class ContactosController {
     
     private void agregarHBoxADatosContactoAtributosVBox(String key){
         HBox datosContacto = crearHBoxAtributteContacto();
+        
         Label label = crearLabelEditable(key, datosContacto);//Crea un label que se puede editar cuando se le da un click
-        
+        label.setPrefWidth(100);
         datosContacto.getChildren().add(label); //Agrega una Etiqueta con texto de la llave del diccionario
-
-        TextField campoTexto = crearTextField(key,datosContacto);
-
-        datosContacto.getChildren().add(campoTexto);//agrega el campo de texto al lado del Label
         
+        
+        TextField campoTexto = crearTextField(key,datosContacto);
+        campoTexto.setPrefWidth(150);
+        datosContacto.getChildren().add(campoTexto);//agrega el campo de texto al lado del Label
+        //HBox.setMargin(campoTexto,new Insets(0,0,0,30));
         Button borrarAtributoButton = crearButtonDeleteAtributte(key, "", datosContacto);
         borrarAtributoButton.setStyle("-fx-background-color: transparent;");
-        
+        borrarAtributoButton.setPrefWidth(30);
         datosContacto.getChildren().add(borrarAtributoButton);//Agrega el boton para eliminar atributo al lado del Campo de texto
+        //datosContacto.setMaxWidth(300);
         datosContactoAtributosVBox.getChildren().add(datosContacto);//agrega ese reglon con datos del campo de texto, label e imagen en un VBOX
     }
     
@@ -763,6 +776,7 @@ public class ContactosController {
         cargarContactosPanelIzquierdo(agenda.Sistema.contactos);
         imgBienvenida.setVisible(true);
         agenda.Sistema.guardarContactos(agenda.Sistema.usuario);
+        agregarButtonTagsEnElHBox();
     }
     
     //Crear contacto
@@ -1033,6 +1047,7 @@ public class ContactosController {
         agenda.Sistema.guardarContactos();
         contac = agenda.Sistema.contactos;
         cargarContactosPanelIzquierdo(contac);
+        agregarButtonTagsEnElHBox();
         if(contactosEliminados.isEmpty()){
             recuperarContactosButton.setDisable(true);
         }

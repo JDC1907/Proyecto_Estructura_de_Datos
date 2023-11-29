@@ -25,7 +25,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 //       cargarContactos(contactos);
-        scene = new Scene(loadFXML("precarga1"), 600, 390);
+        scene = new Scene(loadFXML("precarga1"), 600, 380);
         
         scene.setCursor(Cursor.WAIT);
         stage.setScene(scene);

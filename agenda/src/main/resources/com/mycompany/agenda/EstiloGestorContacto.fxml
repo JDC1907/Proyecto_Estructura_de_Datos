@@ -62,9 +62,9 @@
                </font></Label>
          </children>
       </VBox>
-    <SplitPane dividerPositions="0.29287305122494434" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #CBDFEA;">
+    <SplitPane dividerPositions="0.2796081923419412" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #CBDFEA;">
       <items>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #CBDFEA;">
                <children>
                   <HBox>
                      <children>
@@ -243,11 +243,14 @@
                                           </HBox>
                                        </children>
                                     </VBox>
-                                    <VBox fx:id="datosContactoNameNumberVBox" alignment="CENTER_RIGHT" prefHeight="76.0" prefWidth="625.0">
+                                    <VBox fx:id="datosContactoNameNumberVBox" alignment="CENTER" prefHeight="76.0" prefWidth="625.0">
                                        <children>
                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                              <children>
-                                                <Label text="Nombre" />
+                                                <Label text="Nombre">
+                                                   <font>
+                                                      <Font name="Franklin Gothic Medium" size="12.0" />
+                                                   </font></Label>
                                                 <TextField fx:id="textNombre" />
                                              </children>
                                           </HBox>
@@ -259,7 +262,7 @@
                                           </HBox>
                                        </children>
                                     </VBox>
-                                    <VBox fx:id="datosContactoAtributosVBox" alignment="TOP_CENTER" />
+                                    <VBox fx:id="datosContactoAtributosVBox" alignment="CENTER" />
                                     <Button fx:id="addAtributteButton" mnemonicParsing="false" onAction="#addAtributte" prefHeight="24.0" prefWidth="140.0" text="Agregar atributo">
                                        <graphic>
                                           <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
@@ -369,7 +372,7 @@
                   <Insets right="508.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="btnSalir" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#cerrarSesion" style="-fx-background-color: transparent;" text="Cerrar Sesion" textFill="WHITE">
+            <Button fx:id="btnSalir" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="34.0" prefWidth="142.0" style="-fx-background-color: transparent;" text="Cerrar Sesion" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="150.0" fitWidth="25.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
                      <image>
