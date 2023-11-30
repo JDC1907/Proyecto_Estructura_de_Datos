@@ -110,19 +110,14 @@ public class ContactosController {
     //Agrega botones en el area de los tag
     public void agregarButtonTagsEnElHBox(){//
         tagsHBox.getChildren().clear();
-        
         for(String tag: agenda.Sistema.getTags()){
-            Button button = crearButtonTag(tag);
-            HBox.setMargin(button, new Insets(0,5,0,0));
-            tagsHBox.getChildren().add(button);
+            tagsHBox.getChildren().add(crearButtonTag(tag));
         }
     }
     
     //Crea botones con el texto que tiene la tag, ademas le añade un evento que cada que es presionado filtra los contactos que tengan esa tag
     private Button crearButtonTag(String tag){
         Button buttonTag = new Button(tag);
-        buttonTag.setId("buttonTag");
-        buttonTag.setPadding(new Insets(10,10,10,10));
         buttonTag.setCursor(Cursor.HAND);
         buttonTag.setOnAction((e)->{
                 
@@ -554,7 +549,6 @@ public class ContactosController {
             cargarDatosContacto(contacto);            
         });
         cajaContacto.setId("cajaContacto");
-        cajaContacto.setPadding(new Insets(2,30,2,30));
         contactosVBox.getChildren().add(cajaContacto);
     }
     
