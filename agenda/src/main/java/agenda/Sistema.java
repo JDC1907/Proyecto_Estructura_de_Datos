@@ -51,7 +51,11 @@ public static boolean comprobarUsuario(String nombreUsuario, String contrasena){
     }
     
      public static void guardarContactos(){
-         guardarContactos(usuario);
+         if(usuario.getTipo().equals("admin")){
+             guardarContactosComoAdministrador();
+         }else{
+         guardarContactos(usuario); 
+         }
      }
     
     public static void guardarContactos(Usuario usuario){
@@ -59,7 +63,7 @@ public static boolean comprobarUsuario(String nombreUsuario, String contrasena){
         File file = new File("usuarios/"+nombreArchivo);
         
         try{
-            FileWriter fw = new FileWriter(file);
+            FileWriter fw = new FileWriter(file,StandardCharsets.UTF_8);
             String linea = "";
             
             for(Contacto contacto: contactos){
@@ -195,6 +199,13 @@ public static boolean comprobarUsuario(String nombreUsuario, String contrasena){
             cargarContactos(u);
         }
     }
+    
+    public static void guardarContactosComoAdministrador(){
+        for(Usuario u: usuarios){
+            guardarContactos(u);
+        }
+    }
+    
 
     public static void cargarUsuarios(){
         File file = new File("usuarios.txt");
@@ -224,7 +235,7 @@ public static boolean comprobarUsuario(String nombreUsuario, String contrasena){
         String nombreArchivo = "usuarios.txt";
         File file = new File(nombreArchivo);
         try{
-            FileWriter fw = new FileWriter(file);
+            FileWriter fw = new FileWriter(file,StandardCharsets.UTF_8);
             String linea = "";
             
             for(Usuario u: usuarios){

@@ -10,19 +10,17 @@
 
 #cajaContacto:hover {
     -fx-background-color: #5a88be;
-    
-    -fx-font-size: 16px;
+   
     -fx-background-radius: 2 2 2 2;
     -fx-border-radius: 2 2 2 2;
 }
-
-#labelCajaContacto {
--fx-font-family: "Franklin Gothic Book";
--fx-text-fill: #000000;
+#cajaContacto:hover #labelCajaContacto{
+ -fx-text-fill: #FFFFFF;
+ 
 }
-
-#labelCajaContacto:hover{
--fx-text-fill: #FFFFFF;
+#labelCajaContacto {
+-fx-font-family: "Franklin Gothic Medium";
+-fx-text-fill: #000000;
 }
 
 .button { 
@@ -36,7 +34,7 @@
 }
 
 .button:hover { -fx-background-color: #5a88be;
-               -fx-font-size: 13px;
+               
 }
 
 .button:pressed { -fx-background-color: #517196;

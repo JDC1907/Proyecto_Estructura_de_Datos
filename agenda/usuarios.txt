@@ -2,3 +2,4 @@ admin1,123,Administrador,admin
 Noe,noe123,Laura Preciado,normal
 Asus,123Asus,EmpresaAsus,normal
 leo1,123,Leonardo Macías,normal
+gato,23,Mica,normal

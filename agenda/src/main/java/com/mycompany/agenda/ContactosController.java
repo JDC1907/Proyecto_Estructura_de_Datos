@@ -24,6 +24,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -62,6 +63,7 @@ public class ContactosController {
     @FXML private ComboBox<Contacto> contactosRelacionadosComboBox;
     @FXML private TextField nuevaTagTextField, buscarTextField;
     @FXML private Button deletePhoto;
+    @FXML private Label labelUsuario;
     
     private Contacto contactoSeleccionado; //Contacto seleccionado
     private List<ListIterator<Contacto>> iterators = new ArrayList<>();
@@ -168,13 +170,15 @@ public class ContactosController {
 
     //Carga los datos del contacto y los coloca en el panel derecho en donde seran mostrados todos los datos del contacto seleccionado
     private void cargarDatosContacto(Contacto contacto){
-        
+        if(agenda.Sistema.usuario.getTipo().equals("admin")){
+        labelUsuario.setText("Contacto pertenece a: "+contacto.getUserName());
+        }
         if(internal != null){
             anchorPaneContac.getChildren().remove(internal);
         }
         
         photoIterator = contacto.getPhotos().listIterator();
-        agenda.Sistema.guardarContactos(agenda.Sistema.usuario);
+        
         contactosRelacionadosComboBox.getItems().clear();
         HashSet<Contacto> contactosRelacionados = new HashSet();
         for(Contacto contactoRelacionado: agenda.Sistema.contactos){
@@ -224,8 +228,9 @@ public class ContactosController {
         
         for(String key: contacto.getKeysAtributtes()){ //Se agregan los atributos(key) junto a sus valores
             agregarHBoxADatosContactoAtributosVBox(key);
-        }
+        }        
         agregarContactosAcontactosRelacionadosVBox();
+        agenda.Sistema.guardarContactos();
     }
     
     private void cargarTagsContactoSeleccionadoHBox(){
@@ -434,7 +439,7 @@ public class ContactosController {
         campoTexto.setOnAction(e->{//Cuando el usuario da enter en el txtField entonces guarda los datos del Campo de texto
             campoTexto.setDisable(true);
             contacto.setName(campoTexto.getText());
-            
+            cargarDatosContacto(contacto);
             
         }
         );
@@ -442,7 +447,7 @@ public class ContactosController {
         pane.setOnMouseExited(e->{//Cuando el mouse sale del HBox entonces guarda los datos del Campo de texto
             campoTexto.setDisable(true);
             contacto.setName(campoTexto.getText());
-            
+            cargarDatosContacto(contacto);
         }
         );
         
@@ -460,14 +465,14 @@ public class ContactosController {
         campoTexto.setOnAction(e->{//Cuando el usuario da enter en el txtField entonces guarda los datos del Campo de texto
             contacto.setNumber(campoTexto.getText());
             campoTexto.setDisable(true);
-            
+            cargarDatosContacto(contacto);
         }
         );
         
         pane.setOnMouseExited(e->{//Cuando el mouse sale del HBox entonces guarda los datos del Campo de texto
             contacto.setNumber(campoTexto.getText());
             campoTexto.setDisable(true);
-            
+            cargarDatosContacto(contacto);
         }
         );
         
@@ -489,7 +494,7 @@ public class ContactosController {
  
     private void mostrarContacto(Contacto contacto){
         HBox cajaContacto = new HBox();
-
+        cajaContacto.setPadding(new Insets(0,25,0,0));
         String photo = "/img/user.png";
         if(contacto.hasPhotos()){
             photo = contacto.getFirstPhoto();
@@ -538,7 +543,7 @@ public class ContactosController {
                 contacto.addTag("Favorito");
                 agregarButtonTagsEnElHBox();
             }
-            agenda.Sistema.guardarContactos(agenda.Sistema.usuario);
+            agenda.Sistema.guardarContactos();
         });
         
         ImageView tipo = new ImageView();
@@ -752,8 +757,16 @@ public class ContactosController {
     @FXML
     public void addContactoVinculado(){
         Contacto contacoParaAsociar = contactosRelacionadosComboBox.getSelectionModel().getSelectedItem();
+        if(contactoSeleccionado.getUserName().equals(contacoParaAsociar.getUserName())){
         contacoParaAsociar.addContactoRelacionado(contactoSeleccionado);
         cargarDatosContacto(contactoSeleccionado);
+        }else{
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("Error");
+            a.setHeaderText("Error");
+            a.setContentText("No puedes un vincular contacto que no te pertenece");
+            a.show();
+        }
     }
     
     @FXML
@@ -775,7 +788,7 @@ public class ContactosController {
         datosContactoVBox.setVisible(false);
         cargarContactosPanelIzquierdo(agenda.Sistema.contactos);
         imgBienvenida.setVisible(true);
-        agenda.Sistema.guardarContactos(agenda.Sistema.usuario);
+        agenda.Sistema.guardarContactos();
         agregarButtonTagsEnElHBox();
     }
     
@@ -1045,7 +1058,8 @@ public class ContactosController {
     private void recuperarContactoEliminado(){
         agenda.Sistema.contactos.addLast(contactosEliminados.pop());
         agenda.Sistema.guardarContactos();
-        contac = agenda.Sistema.contactos;
+        contac.removeAll();
+        contac.addAll(agenda.Sistema.contactos);
         cargarContactosPanelIzquierdo(contac);
         agregarButtonTagsEnElHBox();
         if(contactosEliminados.isEmpty()){

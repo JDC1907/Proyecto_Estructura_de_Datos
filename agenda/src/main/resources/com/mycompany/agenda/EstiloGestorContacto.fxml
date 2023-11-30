@@ -62,7 +62,7 @@
                </font></Label>
          </children>
       </VBox>
-    <SplitPane dividerPositions="0.2796081923419412" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #CBDFEA;">
+    <SplitPane dividerPositions="0.2584594835262689" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #CBDFEA;">
       <items>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #CBDFEA;">
                <children>
@@ -139,9 +139,9 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="225.0">
                      <children>
-                        <Button fx:id="addContactButton" mnemonicParsing="false" onAction="#crearcontacto" style="-fx-background-color: #156ea2;" text="Agregar contacto">
+                        <Button fx:id="addContactButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#crearcontacto" prefHeight="40.0" style="-fx-background-color: #156ea2;" text="Agregar &#10;contacto" textAlignment="RIGHT">
                            <graphic>
                               <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -152,6 +152,9 @@
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
+                           <padding>
+                              <Insets left="15.0" right="15.0" />
+                           </padding>
                         </Button>
                         <MenuButton fx:id="MenuOrdenar" mnemonicParsing="false" popupSide="RIGHT" prefHeight="48.0" prefWidth="116.0" style="-fx-background-color: #156ea2;" text="Ordenar" textFill="WHITE">
                            <items>
@@ -185,7 +188,7 @@
                               </ImageView>
                               <VBox fx:id="datosContactoVBox" alignment="CENTER" snapToPixel="false" visible="false">
                                  <children>
-                                    <Label text="Usuario" />
+                                    <Label fx:id="labelUsuario" text="Usuario" />
                                     <VBox alignment="CENTER">
                                        <children>
                                           <HBox alignment="CENTER">
