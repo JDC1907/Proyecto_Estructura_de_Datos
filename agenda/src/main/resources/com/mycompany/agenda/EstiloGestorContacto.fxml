@@ -56,13 +56,13 @@
   <children>
       <VBox alignment="CENTER" prefHeight="32.0" prefWidth="900.0">
          <children>
-            <Label alignment="CENTER" prefHeight="14.0" prefWidth="106.0" style="-fx-text-fill: #ffffff;" text="Agenda de contactos">
+            <Label alignment="CENTER" prefHeight="14.0" prefWidth="106.0" style="-fx-text-fill: #ffffff;" text="Agenda de contactos" textFill="WHITE">
                <font>
                   <Font name="Franklin Gothic Medium" size="11.0" />
                </font></Label>
          </children>
       </VBox>
-    <SplitPane dividerPositions="0.29287305122494434" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #b8d3e3;">
+    <SplitPane dividerPositions="0.29287305122494434" prefHeight="-1.0" prefWidth="-1.0">
       <items>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                <children>
@@ -80,6 +80,9 @@
                                  </cursor>
                               </ImageView>
                            </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </Button>
                         <Button maxHeight="32.0" maxWidth="32.0" minHeight="32.0" minWidth="32.0" mnemonicParsing="false" onAction="#busquedaAvanzada" prefHeight="32.0" prefWidth="32.0">
                            <graphic>
@@ -92,12 +95,15 @@
                                  </cursor>
                               </ImageView>
                            </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </Button>
                      </children>
                   </HBox>
-                  <ScrollPane fitToHeight="true" minHeight="65.0" prefHeight="65.0" style="-fx-background-color: #156ea2;" vbarPolicy="NEVER">
+                  <ScrollPane fitToHeight="true" minHeight="65.0" prefHeight="65.0" vbarPolicy="NEVER">
                      <content>
-                        <HBox fx:id="tagsHBox" alignment="CENTER" style="-fx-background-color: #156ea2;" />
+                        <HBox fx:id="tagsHBox" alignment="CENTER" style="-fx-background-color: #0f4f75;" />
                      </content>
                   </ScrollPane>
                   <Button fx:id="upContactsButton" disable="true" mnemonicParsing="false" onAction="#retrocederContactos">
@@ -105,7 +111,7 @@
                         <Font size="18.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="32.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../img/up.png" />
                            </image>
@@ -129,7 +135,7 @@
                         <Font size="18.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="150.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../img/down.png" />
                            </image>
@@ -153,7 +159,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <MenuButton fx:id="MenuOrdenar" mnemonicParsing="false" popupSide="RIGHT" prefHeight="48.0" prefWidth="116.0" style="-fx-background-color: #156ea2;" text="Ordenar">
+                        <MenuButton fx:id="MenuOrdenar" mnemonicParsing="false" popupSide="RIGHT" prefHeight="48.0" prefWidth="116.0" text="Ordenar">
                            <items>
                               <MenuItem fx:id="ItemNombre" mnemonicParsing="false" onAction="#OrdenarNombre" text="Nombre" />
                               <MenuItem fx:id="ItemApellido" mnemonicParsing="false" onAction="#OrdenarApellido" text="Apellido" />
@@ -167,6 +173,9 @@
                                  </image>
                               </ImageView>
                            </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </MenuButton>
                      </children>
                   </HBox>
@@ -362,6 +371,9 @@
                <HBox.margin>
                   <Insets right="508.0" />
                </HBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <Button fx:id="btnSalir" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#cerrarSesion" style="-fx-background-color: transparent;" text="Cerrar Sesion" textFill="WHITE">
                <graphic>
@@ -374,6 +386,9 @@
                <font>
                   <Font name="Franklin Gothic Medium" size="13.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
          </children>
       </HBox>

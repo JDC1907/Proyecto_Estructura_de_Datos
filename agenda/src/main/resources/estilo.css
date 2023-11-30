@@ -1,40 +1,30 @@
-.label {
-    -fx-text-fill: #0a386e;
-}
 
-#cajaContacto {
+
+#cajaContacto{
     -fx-border-color: #b5d0e0;
-    -fx-border-radius: 2 2 2 2;
 }
 
-#cajaContacto:hover {
-    -fx-background-color: #5a88be;
-    
-    -fx-font-size: 16px;
-    -fx-background-radius: 2 2 2 2;
-    -fx-border-radius: 2 2 2 2;
+#cajaContacto:hover{
+	-fx-background-color: #1A8BCF;
 }
 
-#labelCajaContacto:hover{
--fx-text-fill: #FFFFFF;
+#cajaContacto:hover #labelCajaContacto{
+	-fx-text-fill: #EEEEEE;
+}
+
+#buttonTag{
+    -fx-background-color: #177AB5;
+	-fx-text-fill: #DDDDDD;
+}
+
+#buttonTag:hover {
+    -fx-background-color: #1A8BCF;
+	-fx-text-fill: #EEEEEE;
 }
 
 .button { 
-    -fx-background-color: #156ea2;
-    -fx-border-color: #FFFFFF;
-    -fx-border-width: 0;
-    -fx-text-fill: #FFFFFF;
-    -fx-background-radius: 2 2 2 2;
-    -fx-border-radius: 2 2 2 2;
-}
-
-.button:hover { -fx-background-color: #5a88be;
-               -fx-font-size: 16px;
-}
-
-.button:pressed { -fx-background-color: #517196;
-	-fx-text-fill: #FFFFFF;
-	-fx-font-weight: bold;
+    -fx-background-radius: 0 0 0 0;
+    -fx-border-radius: 0 0 0 0;
 }
 
 .combo-box-base{
