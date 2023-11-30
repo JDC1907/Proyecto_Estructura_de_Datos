@@ -1,21 +1,21 @@
-0,false,Vicente Gómez,+593 802-24-3198,Todo;Amigos,file:imgpersonas/persona8.jpg,,,admin1
-0,false,Hugo Muñoz,+593 005-84-6765,Todo;Familia,file:imgpersonas/persona9.jpg,,,admin1
-0,false,Alaja Filo,+593 727-39-3931,Todo,file:imgpersonas/persona11.jpg,,,admin1
-0,false,Santiago Gutiérrez,+593 783-89-5317,Todo;Amigos,,,,admin1
+0,false,Hugo Mu?oz,+593 005-84-6765,Todo;Familia,file:imgpersonas/persona9.jpg,,,admin1
+0,true,Alaja Filo,+593 727-39-3931,Todo;Favorito,file:imgpersonas/persona11.jpg,,,admin1
+0,false,Santiago Guti?rrez,+593 783-89-5317,Todo;Amigos,,,,admin1
 0,false,Ricardo Ruiz,+593 996-41-2072,Todo;Trabajo,,,,admin1
-0,false,Daniel Álvarez,+593 069-01-2194,Todo;Trabajo,,,,admin1
-0,false,Manuel Martínez,+593 293-40-4674,Todo;Escuela,,,,admin1
+0,false,Daniel ?lvarez,+593 069-01-2194,Todo;Trabajo,,,,admin1
+0,false,Manuel Mart?nez,+593 293-40-4674,Todo;Escuela,,,,admin1
 1,false,NVidea,+593 412-56-4455,Todo;Empresa,,,,admin1
 1,false,Ferrari,+593 787-45-1445,Todo;Empresa,file:imgpersonas/Ferrari-badge.jpg,Usuario twitter:@Ferrari;Usuario fb:FerrariSA;Fecha:15/07/75;Direccion:Rosa de los Vientos 9,,admin1
-1,false,iphone,+593 744-85-7456,Todo;Empresa,file:imgpersonas/iPhone-logo.png,Usuario twitter:@iphone;Usuario fb:iphoneSa;Fecha:04/12/45;Direccion:Herrería 94,,admin1
-0,false,Juan Carlos,+593 605-07-8066,Todo;Familia;Amigos,file:imgpersonas/persona7.jpg,Apellido:Carrazco Figo;Usuario twitter:@Twitter;Usuario fb:@Facebook;Cumpleaños:05/01/98,20,admin1
-0,true,Alex Felix,+593 772-74-8902,Todo;Familia;Amigos;Trabajo;Escuela;guapo;Favorito,file:imgpersonas/persona5.jpg;file:imgpersonas/persona6.jpg;file:imgpersonas/persona2.jpg,Apellido:Sirelio Maximos;Usuario twitter:@Twitter;Usuario fb:@Facebook;Cumpleaños:15/06/99;Nuevo Atributo4:,19,admin1
-0,false,Emanuel Maclaren,+593 681-70-0726,Todo;Familia;Amigos,,Apellido:Saslovi Rifo;Usuario twitter:@Twitter;Usuario fb:@Facebook;Cumpleaños:29/11/96,18,admin1
+1,false,iphone,+593 744-85-7456,Todo;Empresa,file:imgpersonas/iPhone-logo.png,Usuario twitter:@iphone;Usuario fb:iphoneSa;Fecha:04/12/45;Direccion:Herrer?a 94,,admin1
+0,false,Juan Carlos,+593 605-07-8066,Todo;Familia;Amigos,file:imgpersonas/persona7.jpg,Apellido:Carrazco Figo;Usuario twitter:@Twitter;Usuario fb:@Facebook;Cumplea?os:05/01/98,,admin1
+0,true,Alex Felix,+593 772-74-8902,Todo;Familia;Amigos;Trabajo;Escuela;guapo;Favorito,file:imgpersonas/persona5.jpg;file:imgpersonas/persona6.jpg;file:imgpersonas/persona2.jpg,Apellido:Sirelio Maximos;Usuario twitter:@Twitter;Usuario fb:@Facebook;Cumplea?os:15/06/99;Nuevo Atributo4:,,admin1
+0,false,Emmanuel Maclaren,+593 681-70-0726,Todo;Familia;Amigos,,Apellido:Saslovi Rifo;Usuario twitter:@Twitter;Usuario fb:@Facebook;Cumplea?os:29/11/96,,admin1
 0,false,Mario Ruiz,+593 969-34-1666,Todo;Amigos,,,,admin1
 1,false,FaceBook,+593 455-74-6837,Todo;Empresa,,,,admin1
-0,false,Cris Gómez,+593 557-95-1014,Todo,file:imgpersonas/persona13.jpg,,,admin1
-0,false,Adrián Suárez,+593 961-40-2387,Todo,file:imgpersonas/persona10.jpg,,,admin1
-1,false,Dell,+593 777-54-3265,Todo;Empresa,,,13,admin1
-0,false,Clara Álvarez,+593 567-84-4712,Todo;hermosa,file:imgpersonas/persona12.jpg,,12,admin1
-1,false,Samsung,+593 652-78-8541,Todo;Empresa,file:imgpersonas/Samsung.jpg,Usuario twitter:@Samsung;Usuario fb:SamsungSa;Fecha:30/12/45;Direccion:Plaza de España 83,11,admin1
+0,false,Cris G?mez,+593 557-95-1014,Todo,file:imgpersonas/persona13.jpg,,,admin1
+0,false,Adri?n Su?rez,+593 961-40-2387,Todo,file:imgpersonas/persona10.jpg,,,admin1
+1,false,Dell,+593 777-54-3265,Todo;Empresa,,,,admin1
+0,false,Clara ?lvarez,+593 567-84-4712,Todo;hermosa,file:imgpersonas/persona12.jpg,,,admin1
+1,false,Samsung,+593 652-78-8541,Todo;Empresa,file:imgpersonas/Samsung.jpg,Usuario twitter:@Samsung;Usuario fb:SamsungSa;Fecha:30/12/45;Direccion:Plaza de Espa?a 83;Nuevo Atributo4:,,admin1
 1,false,CocaCola,+593 451-47-4521,Todo;Empresa,file:imgpersonas/Cocacola.jpg,Usuario twitter:@CocaSA;Usuario fb:CocaCola SA;Fecha:05/01/98;Direccion:Avda. Alameda Sundheim 59,,admin1
+0,false,Vicente G?mez,+593 802-24-3198,Todo;Amigos,file:imgpersonas/persona8.jpg,,,admin1

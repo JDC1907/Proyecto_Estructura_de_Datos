@@ -1,9 +1,10 @@
 .label {
     -fx-text-fill: #0a386e;
+    -fx-font-family: "Franklin Gothic Medium";
 }
 
 #cajaContacto {
-    -fx-border-color: #b5d0e0;
+    -fx-border-color: #CBDFEA;
     -fx-border-radius: 2 2 2 2;
 }
 
@@ -15,6 +16,11 @@
     -fx-border-radius: 2 2 2 2;
 }
 
+#labelCajaContacto {
+-fx-font-family: "Franklin Gothic Book";
+-fx-text-fill: #000000;
+}
+
 #labelCajaContacto:hover{
 -fx-text-fill: #FFFFFF;
 }
@@ -24,12 +30,13 @@
     -fx-border-color: #FFFFFF;
     -fx-border-width: 0;
     -fx-text-fill: #FFFFFF;
+    -fx-font-family: "Franklin Gothic Medium";
     -fx-background-radius: 2 2 2 2;
     -fx-border-radius: 2 2 2 2;
 }
 
 .button:hover { -fx-background-color: #5a88be;
-               -fx-font-size: 16px;
+               -fx-font-size: 13px;
 }
 
 .button:pressed { -fx-background-color: #517196;

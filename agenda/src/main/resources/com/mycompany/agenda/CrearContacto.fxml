@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="vBoxCrear" maxHeight="842.0" maxWidth="901.0" minHeight="720.0" minWidth="622.0" prefHeight="842.0" prefWidth="642.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.agenda.CrearContactoController">
+<VBox fx:id="vBoxCrear" maxHeight="842.0" maxWidth="901.0" minHeight="720.0" minWidth="622.0" prefHeight="842.0" prefWidth="642.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.agenda.CrearContactoController">
    <children>
       <HBox>
          <children>
@@ -35,14 +35,14 @@
                         <Image url="@../../../img/Img1Login.png" />
                      </image>
                   </ImageView>
-                  <VBox fx:id="datosContactoVBox" alignment="TOP_CENTER" layoutY="15.0" prefHeight="798.0" prefWidth="627.0" snapToPixel="false">
+                  <VBox fx:id="datosContactoVBox" alignment="TOP_CENTER" layoutY="15.0" prefHeight="798.0" prefWidth="642.0" snapToPixel="false">
                      <children>
                         <Label text="Usuario" />
                         <VBox alignment="CENTER">
                            <children>
                               <HBox alignment="CENTER">
                                  <children>
-                                    <Button fx:id="leftPhotos" disable="true" mnemonicParsing="false" onAction="#previousContactPhoto">
+                                    <Button fx:id="leftPhotos" disable="true" mnemonicParsing="false" onAction="#previousContactPhoto" style="-fx-background-color: transparent;">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
@@ -62,7 +62,7 @@
                                           <Image url="@../../../img/user.png" />
                                        </image>
                                     </ImageView>
-                                    <Button fx:id="rightPhotos" disable="true" mnemonicParsing="false" onAction="#nextContactPhoto">
+                                    <Button fx:id="rightPhotos" disable="true" mnemonicParsing="false" onAction="#nextContactPhoto" style="-fx-background-color: transparent;">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
@@ -107,24 +107,30 @@
                            <children>
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <Label text="Nombre" />
+                                    <Label text="Nombre">
+                                       <font>
+                                          <Font name="Franklin Gothic Medium" size="12.0" />
+                                       </font></Label>
                                     <TextField fx:id="textNombre" disable="true" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <Label text="Numero" />
+                                    <Label text="Numero">
+                                       <font>
+                                          <Font name="Franklin Gothic Medium" size="12.0" />
+                                       </font></Label>
                                     <TextField fx:id="textNumero" disable="true" />
                                  </children>
                               </HBox>
                            </children>
                         </VBox>
                         <VBox fx:id="datosContactoAtributosVBox" alignment="TOP_CENTER" />
-                        <Button fx:id="addAtributteButton" disable="true" mnemonicParsing="false" onAction="#addAtributte" text="Agregar atributo">
+                        <Button fx:id="addAtributteButton" disable="true" mnemonicParsing="false" onAction="#addAtributte" prefHeight="20.0" prefWidth="140.0" text="Agregar atributo">
                            <graphic>
-                              <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../img/add_atribute.png" />
+                                    <Image url="@../../../img/5814511.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -141,11 +147,11 @@
                         <HBox alignment="CENTER">
                            <children>
                               <TextField fx:id="nuevaTagTextField" disable="true" promptText="Escriba la tag..." />
-                              <Button fx:id="addTagButton" disable="true" mnemonicParsing="false" onAction="#addTagContactoSeleccionado" text="Agregar etiqueta">
+                              <Button fx:id="addTagButton" disable="true" mnemonicParsing="false" onAction="#addTagContactoSeleccionado" prefHeight="20.0" prefWidth="140.0" text="Agregar etiqueta">
                                  <graphic>
-                                    <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../img/add_atribute.png" />
+                                          <Image url="@../../../img/5814511.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>

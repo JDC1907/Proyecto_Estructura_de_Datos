@@ -21,6 +21,8 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import tda.ArrayList;
 import tda.List;
@@ -202,7 +204,8 @@ public class CrearContactoController  {
         HBox cajaTag = new HBox();
         cajaTag.getChildren().add(new Label(tag));
                 Button buttonBorrarTag = new Button();
-                buttonBorrarTag.setGraphic(new ImageView(new Image("/img/delette_atributte.png", 16,16,false,false)));
+                buttonBorrarTag.setStyle("-fx-background-color: transparent;");
+                buttonBorrarTag.setGraphic(new ImageView(new Image("/img/tacho.png", 16,16,false,false)));
                 buttonBorrarTag.setCursor(Cursor.HAND);
                 buttonBorrarTag.setOnAction((e)->{
                         contactoSeleccionado.removeTag(tag);
@@ -217,14 +220,22 @@ public class CrearContactoController  {
     private void agregarLabelNameAndTextFieldNameToPane(String textLabel, String stringTextField, Contacto contacto, Pane pane){
         Label label = new Label(textLabel);
         TextField textField = crearTextFieldName(contacto, stringTextField, label, pane);
+        label.setPrefWidth(50);
+        label.setTextFill(Color.BLACK);
+        label.setFont(Font.font("Franklin Gothic Medium", 12));
         pane.getChildren().add(label);
+        textField.setPrefWidth(150);
         pane.getChildren().add( textField);
     }
     
     private void agregarLabelNumberAndTextFieldNumberToPane(String textLabel, String stringTextField, Contacto contacto, Pane pane){
         Label label = new Label(textLabel);
         TextField textField = crearTextFieldNumber(contacto, stringTextField, label, pane);
+        label.setPrefWidth(50);
+        label.setTextFill(Color.BLACK);
+        label.setFont(Font.font("Franklin Gothic Medium", 12));
         pane.getChildren().add(label);
+        textField.setPrefWidth(150);
         pane.getChildren().add( textField);
     }
 
@@ -246,7 +257,8 @@ public class CrearContactoController  {
         datosContacto.getChildren().add(campoTexto);//agrega el campo de texto al lado del Label
 
         Button borrarAtributoButton = crearButtonDeleteAtributte(key, "", datosContacto);
-
+        borrarAtributoButton.setStyle("-fx-background-color: transparent;");
+        borrarAtributoButton.setPrefWidth(30);
         datosContacto.getChildren().add(borrarAtributoButton);//Agrega el boton para eliminar atributo al lado del Campo de texto
         datosContactoAtributosVBox.getChildren().add(datosContacto);//agrega ese reglon con datos del campo de texto, label e imagen en un VBOX
     }
@@ -456,7 +468,8 @@ public class CrearContactoController  {
     
     private Button crearButtonDeleteAtributte(String key, String textButton, Pane pane){
         Button button = crearButton(textButton);
-        button.setGraphic(new ImageView(new Image("/img/delette_atributte.png", 16,16,false,false)));
+        button.setGraphic(new ImageView(new Image("/img/tacho.png", 16,16,false,false)));
+        button.setStyle("-fx-background-color: transparent;");
         button.setOnAction((e)->{
             datosContactoAtributosVBox.getChildren().remove(pane);
             contactoSeleccionado.removeKeyAtributte(key);

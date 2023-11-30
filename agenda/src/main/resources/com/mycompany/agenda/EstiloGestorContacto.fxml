@@ -52,9 +52,9 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="vBoxAgenda" maxHeight="720.0" maxWidth="900.0" minHeight="685.0" minWidth="900.0" prefHeight="685.0" prefWidth="900.0" style="-fx-background-color: #0f4f75;" stylesheets="@../../../estilo.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.agenda.ContactosController">
+<VBox fx:id="vBoxAgenda" maxHeight="720.0" maxWidth="900.0" minHeight="685.0" minWidth="900.0" prefHeight="685.0" prefWidth="900.0" style="-fx-background-color: #0f4f75;" stylesheets="@../../../estilo.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.agenda.ContactosController">
   <children>
-      <VBox alignment="CENTER" prefHeight="32.0" prefWidth="900.0">
+      <VBox alignment="CENTER" prefHeight="32.0" prefWidth="900.0" style="-fx-background-color: #0b3d5a;">
          <children>
             <Label alignment="CENTER" prefHeight="14.0" prefWidth="106.0" style="-fx-text-fill: #ffffff;" text="Agenda de contactos">
                <font>
@@ -62,9 +62,9 @@
                </font></Label>
          </children>
       </VBox>
-    <SplitPane dividerPositions="0.29287305122494434" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #b8d3e3;">
+    <SplitPane dividerPositions="0.2796081923419412" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #CBDFEA;">
       <items>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #CBDFEA;">
                <children>
                   <HBox>
                      <children>
@@ -73,7 +73,7 @@
                            <graphic>
                               <ImageView fx:id="buscarButton" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../img/buscar.png" />
+                                    <Image url="@../../../img/lupa.png" />
                                  </image>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -85,7 +85,7 @@
                            <graphic>
                               <ImageView fx:id="busquedaAvanzadaButton" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../img/add.png" />
+                                    <Image url="@../../../img/5814511.png" />
                                  </image>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -100,7 +100,7 @@
                         <HBox fx:id="tagsHBox" alignment="CENTER" style="-fx-background-color: #156ea2;" />
                      </content>
                   </ScrollPane>
-                  <Button fx:id="upContactsButton" disable="true" mnemonicParsing="false" onAction="#retrocederContactos">
+                  <Button fx:id="upContactsButton" disable="true" mnemonicParsing="false" onAction="#retrocederContactos" style="-fx-background-color: transparent;">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -124,7 +124,7 @@
               </textFill>
             </Label>
                   <VBox fx:id="contactosVBox" fillWidth="false" maxHeight="600.0" minHeight="0.0" onScroll="#scrollMouseContacts" prefHeight="600.0" />
-                  <Button fx:id="downContactsButton" disable="true" mnemonicParsing="false" onAction="#avanzarContactos">
+                  <Button fx:id="downContactsButton" disable="true" mnemonicParsing="false" onAction="#avanzarContactos" style="-fx-background-color: transparent;">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -141,7 +141,7 @@
                   </Button>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="addContactButton" mnemonicParsing="false" onAction="#crearcontacto" text="Agregar contacto">
+                        <Button fx:id="addContactButton" mnemonicParsing="false" onAction="#crearcontacto" style="-fx-background-color: #156ea2;" text="Agregar contacto">
                            <graphic>
                               <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -153,7 +153,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <MenuButton fx:id="MenuOrdenar" mnemonicParsing="false" popupSide="RIGHT" prefHeight="48.0" prefWidth="116.0" style="-fx-background-color: #156ea2;" text="Ordenar">
+                        <MenuButton fx:id="MenuOrdenar" mnemonicParsing="false" popupSide="RIGHT" prefHeight="48.0" prefWidth="116.0" style="-fx-background-color: #156ea2;" text="Ordenar" textFill="WHITE">
                            <items>
                               <MenuItem fx:id="ItemNombre" mnemonicParsing="false" onAction="#OrdenarNombre" text="Nombre" />
                               <MenuItem fx:id="ItemApellido" mnemonicParsing="false" onAction="#OrdenarApellido" text="Apellido" />
@@ -190,7 +190,7 @@
                                        <children>
                                           <HBox alignment="CENTER">
                                              <children>
-                                                <Button fx:id="leftPhotos" disable="true" mnemonicParsing="false" onAction="#previousContactPhoto">
+                                                <Button fx:id="leftPhotos" disable="true" mnemonicParsing="false" onAction="#previousContactPhoto" style="-fx-background-color: transparent;">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font>
@@ -210,7 +210,7 @@
                                                       <Image url="@../../../img/user.png" />
                                                    </image>
                                                 </ImageView>
-                                                <Button fx:id="rightPhotos" disable="true" mnemonicParsing="false" onAction="#nextContactPhoto">
+                                                <Button fx:id="rightPhotos" disable="true" mnemonicParsing="false" onAction="#nextContactPhoto" style="-fx-background-color: transparent;">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font>
@@ -234,7 +234,7 @@
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor>
                                                 </Button>
-                                                <Button fx:id="deletePhoto" disable="true" mnemonicParsing="false" onAction="#eliminarPhoto" text="Eliminar foto">
+                                                <Button fx:id="deletePhoto" disable="true" mnemonicParsing="false" onAction="#eliminarPhoto" style="-fx-background-color: #0b3d5a;" text="Eliminar foto">
                                                    <cursor>
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor>
@@ -243,11 +243,14 @@
                                           </HBox>
                                        </children>
                                     </VBox>
-                                    <VBox fx:id="datosContactoNameNumberVBox" alignment="CENTER_RIGHT" prefHeight="76.0" prefWidth="625.0">
+                                    <VBox fx:id="datosContactoNameNumberVBox" alignment="CENTER" prefHeight="76.0" prefWidth="625.0">
                                        <children>
                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                              <children>
-                                                <Label text="Nombre" />
+                                                <Label text="Nombre">
+                                                   <font>
+                                                      <Font name="Franklin Gothic Medium" size="12.0" />
+                                                   </font></Label>
                                                 <TextField fx:id="textNombre" />
                                              </children>
                                           </HBox>
@@ -259,12 +262,12 @@
                                           </HBox>
                                        </children>
                                     </VBox>
-                                    <VBox fx:id="datosContactoAtributosVBox" alignment="TOP_CENTER" />
-                                    <Button fx:id="addAtributteButton" mnemonicParsing="false" onAction="#addAtributte" text="Agregar atributo">
+                                    <VBox fx:id="datosContactoAtributosVBox" alignment="CENTER" />
+                                    <Button fx:id="addAtributteButton" mnemonicParsing="false" onAction="#addAtributte" prefHeight="24.0" prefWidth="140.0" text="Agregar atributo">
                                        <graphic>
-                                          <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../../../img/add_atribute.png" />
+                                                <Image url="@../../../img/5814511.png" />
                                              </image>
                                           </ImageView>
                                        </graphic>
@@ -281,11 +284,11 @@
                                     <HBox alignment="CENTER">
                                        <children>
                                           <TextField fx:id="nuevaTagTextField" promptText="Escriba la tag..." />
-                                          <Button fx:id="addTagButton" mnemonicParsing="false" onAction="#addTagContactoSeleccionado" text="Agregar etiqueta">
+                                          <Button fx:id="addTagButton" mnemonicParsing="false" onAction="#addTagContactoSeleccionado" prefHeight="20.0" prefWidth="140.0" text="Agregar etiqueta" textFill="WHITE">
                                              <graphic>
-                                                <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@../../../img/add_atribute.png" />
+                                                      <Image url="@../../../img/5814511.png" />
                                                    </image>
                                                 </ImageView>
                                              </graphic>
@@ -302,21 +305,24 @@
                                        </children>
                                     </VBox>
                                     <ComboBox fx:id="contactosRelacionadosComboBox" prefWidth="150.0" />
-                                    <Button fx:id="addContactoVinculadoButton" mnemonicParsing="false" onAction="#addContactoVinculado" text="Vincular contacto">
+                                    <Button fx:id="addContactoVinculadoButton" mnemonicParsing="false" onAction="#addContactoVinculado" prefHeight="24.0" prefWidth="140.0" text="Vincular contacto" textFill="WHITE">
                                        <graphic>
-                                          <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../../../img/add_atribute.png" />
+                                                <Image url="@../../../img/5814511.png" />
                                              </image>
                                           </ImageView>
                                        </graphic>
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
+                                       <font>
+                                          <Font name="Franklin Gothic Medium" size="12.0" />
+                                       </font>
                                     </Button>
-                                    <Button fx:id="deleteContactButton" mnemonicParsing="false" onAction="#deleteContact" text="Eliminar contacto">
+                                    <Button fx:id="deleteContactButton" mnemonicParsing="false" onAction="#deleteContact" prefHeight="24.0" prefWidth="140.0" style="-fx-background-color: #0b3d5a;" text="Eliminar contacto" textFill="WHITE">
                                        <graphic>
-                                          <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../../../img/deletex2.png" />
                                              </image>
@@ -328,6 +334,9 @@
                                        <VBox.margin>
                                           <Insets top="10.0" />
                                        </VBox.margin>
+                                       <font>
+                                          <Font name="Franklin Gothic Medium" size="12.0" />
+                                       </font>
                                     </Button>
                                     <HBox alignment="CENTER" visible="false">
                                        <children>
@@ -349,9 +358,9 @@
             </ScrollPane>
       </items>
     </SplitPane>
-      <HBox alignment="TOP_RIGHT">
+      <HBox alignment="TOP_RIGHT" style="-fx-background-color: #0b3d5a;">
          <children>
-            <Button fx:id="recuperarContactosButton" disable="true" mnemonicParsing="false" onAction="#recuperarContactoEliminado" prefHeight="32.0" prefWidth="270.0" text="Recuperar contacto eliminado">
+            <Button fx:id="recuperarContactosButton" disable="true" mnemonicParsing="false" onAction="#recuperarContactoEliminado" prefHeight="32.0" prefWidth="270.0" style="-fx-background-color: transparent;" text="Recuperar contacto eliminado">
                <graphic>
                   <ImageView fitHeight="25.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -363,7 +372,7 @@
                   <Insets right="508.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="btnSalir" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#cerrarSesion" style="-fx-background-color: transparent;" text="Cerrar Sesion" textFill="WHITE">
+            <Button fx:id="btnSalir" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="34.0" prefWidth="142.0" style="-fx-background-color: transparent;" text="Cerrar Sesion" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="150.0" fitWidth="25.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
                      <image>
