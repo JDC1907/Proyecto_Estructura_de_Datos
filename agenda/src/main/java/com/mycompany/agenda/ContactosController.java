@@ -28,6 +28,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Separator;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
@@ -36,6 +39,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -64,6 +68,9 @@ public class ContactosController {
     @FXML private TextField nuevaTagTextField, buscarTextField;
     @FXML private Button deletePhoto;
     @FXML private Label labelUsuario;
+    @FXML private ScrollPane scrollTags;
+    @FXML private ScrollPane scrollContacto;
+    @FXML private SplitPane splitPantalla;
     
     private Contacto contactoSeleccionado; //Contacto seleccionado
     private List<ListIterator<Contacto>> iterators = new ArrayList<>();
@@ -171,7 +178,8 @@ public class ContactosController {
     //Carga los datos del contacto y los coloca en el panel derecho en donde seran mostrados todos los datos del contacto seleccionado
     private void cargarDatosContacto(Contacto contacto){
         if(agenda.Sistema.usuario.getTipo().equals("admin")){
-        labelUsuario.setText("Contacto pertenece a: "+contacto.getUserName());
+        labelUsuario.setText("Contacto pertenece a Usuario: "+contacto.getUserName());
+        labelUsuario.setStyle("-fx-text-fill: #000000;");
         }
         if(internal != null){
             anchorPaneContac.getChildren().remove(internal);
@@ -228,6 +236,7 @@ public class ContactosController {
         
         for(String key: contacto.getKeysAtributtes()){ //Se agregan los atributos(key) junto a sus valores
             agregarHBoxADatosContactoAtributosVBox(key);
+            
         }        
         agregarContactosAcontactosRelacionadosVBox();
         agenda.Sistema.guardarContactos();
@@ -345,6 +354,7 @@ public class ContactosController {
         
         TextField campoTexto = crearTextField(key,datosContacto);
         campoTexto.setPrefWidth(150);
+        campoTexto.setStyle( "-fx-text-inner-color: black;-fx-text-box-border: transparent; -fx-background-color: transparent;" );
         datosContacto.getChildren().add(campoTexto);//agrega el campo de texto al lado del Label
         //HBox.setMargin(campoTexto,new Insets(0,0,0,30));
         Button borrarAtributoButton = crearButtonDeleteAtributte(key, "", datosContacto);
@@ -353,6 +363,9 @@ public class ContactosController {
         datosContacto.getChildren().add(borrarAtributoButton);//Agrega el boton para eliminar atributo al lado del Campo de texto
         //datosContacto.setMaxWidth(300);
         datosContactoAtributosVBox.getChildren().add(datosContacto);//agrega ese reglon con datos del campo de texto, label e imagen en un VBOX
+        Separator separator = new Separator();
+        separator.setStyle("-fx-max-width: 300px;");
+        datosContactoAtributosVBox.getChildren().add(separator);
     }
     
     
@@ -418,6 +431,7 @@ public class ContactosController {
         
         campoTexto.setDisable(true);//pone el campo de texto desactvado
         pane.setOnMouseEntered(e->{campoTexto.setDisable(false);});//Cuando el mouse pasa encima del HBox el Campo de texto se activa
+        campoTexto.setOnMouseClicked(e -> {campoTexto.setStyle("-fx-text-box-border: blue;");});
         String oldTxt = campoTexto.getText();
         campoTexto.setOnAction(e->{//Cuando el mouse sale del HBox entonces guarda los datos del Campo de texto
             editarValueAtributte(contacto, key, oldTxt, campoTexto);
@@ -433,9 +447,10 @@ public class ContactosController {
     
     private TextField crearTextFieldName(Contacto contacto, String name, Label label, Pane pane){
         TextField campoTexto = new TextField(name);
-        
-        campoTexto.setDisable(true);//pone el campo de texto desactvado
-        pane.setOnMouseEntered(e->{campoTexto.setDisable(false);});//Cuando el mouse pasa encima del HBox el Campo de texto se activa
+        campoTexto.setStyle( "-fx-text-inner-color: black;-fx-text-box-border: transparent;-fx-background-color: transparent;" );
+        //campoTexto.setDisable(true);//pone el campo de texto desactvado
+        //pane.setOnMouseEntered(e->{campoTexto.setDisable(false);});//Cuando el mouse pasa encima del HBox el Campo de texto se activa
+        campoTexto.setOnMouseClicked(e -> {campoTexto.setStyle("-fx-text-box-border: blue;");});
         campoTexto.setOnAction(e->{//Cuando el usuario da enter en el txtField entonces guarda los datos del Campo de texto
             campoTexto.setDisable(true);
             contacto.setName(campoTexto.getText());
@@ -459,9 +474,10 @@ public class ContactosController {
     
     private TextField crearTextFieldNumber(Contacto contacto, String number, Label label, Pane pane){
         TextField campoTexto = new TextField(number);
-        
-        campoTexto.setDisable(true);//pone el campo de texto desactvado
-        pane.setOnMouseEntered(e->{campoTexto.setDisable(false);});//Cuando el mouse pasa encima del HBox el Campo de texto se activa
+        campoTexto.setStyle( "-fx-text-inner-color: black;-fx-text-box-border: transparent;-fx-background-color: transparent;" );
+        //campoTexto.setDisable(true);//pone el campo de texto desactvado
+        //pane.setOnMouseEntered(e->{campoTexto.setDisable(false);});//Cuando el mouse pasa encima del HBox el Campo de texto se activa
+        campoTexto.setOnMouseClicked(e -> {campoTexto.setStyle("-fx-text-box-border: blue;");});
         campoTexto.setOnAction(e->{//Cuando el usuario da enter en el txtField entonces guarda los datos del Campo de texto
             contacto.setNumber(campoTexto.getText());
             campoTexto.setDisable(true);
@@ -764,8 +780,8 @@ public class ContactosController {
         }else{
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setTitle("Error");
-            a.setHeaderText("Error");
-            a.setContentText("No puedes un vincular contacto que no te pertenece");
+            a.setHeaderText("ACCIÓN NO VÁLIDA");
+            a.setContentText("No puedes vincular un contacto que no te pertenece.");
             a.show();
         }
     }
@@ -992,7 +1008,7 @@ public class ContactosController {
         popUpStage.initModality(Modality.APPLICATION_MODAL);
 
         VBox layout = new VBox();
-        Scene scene = new Scene(layout, 600, 550);
+        Scene scene = new Scene(layout, 500, 300);
         layout.setAlignment(Pos.CENTER);
         VBox vBoxTextField = new VBox();
         TextField busquedaPanelIzquierdo = new TextField(buscarTextField.getText());
@@ -1036,7 +1052,7 @@ public class ContactosController {
     
     private void agregarTextLabelButton(Pane pane){
         Button borrarButton = new Button();
-        borrarButton.setGraphic(new ImageView(new Image("/img/delette_atributte.png", 16,16,false,false)));
+        borrarButton.setGraphic(new ImageView(new Image("/img/tacho.png", 16,16,false,false)));
         borrarButton.setCursor(Cursor.HAND);
         //borrarButton.setPrefSize(16, 16);
         borrarButton.setMinHeight(16);

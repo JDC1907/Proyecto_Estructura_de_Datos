@@ -64,14 +64,14 @@
       </VBox>
     <SplitPane dividerPositions="0.2584594835262689" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #CBDFEA;">
       <items>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #CBDFEA;">
+            <VBox alignment="CENTER" prefHeight="626.0" prefWidth="230.0" style="-fx-background-color: #CBDFEA;">
                <children>
-                  <HBox>
+                  <HBox prefHeight="18.0" prefWidth="230.0" style="-fx-background-color: #156ea2;">
                      <children>
-                        <TextField fx:id="buscarTextField" maxHeight="32.0" minHeight="32.0" onAction="#busquedaSimple" prefHeight="32.0" prefWidth="200.0" promptText="Buscar..." />
-                        <Button maxHeight="32.0" maxWidth="32.0" minHeight="32.0" minWidth="32.0" mnemonicParsing="false" onAction="#busquedaSimple" prefHeight="32.0" prefWidth="32.0">
+                        <TextField fx:id="buscarTextField" maxHeight="32.0" minHeight="25.0" onAction="#busquedaSimple" prefHeight="25.0" prefWidth="166.0" promptText="Buscar..." style="-fx-background-radius: 20;" />
+                        <Button maxHeight="32.0" maxWidth="32.0" minHeight="25.0" minWidth="32.0" mnemonicParsing="false" onAction="#busquedaSimple" prefHeight="25.0" prefWidth="25.0">
                            <graphic>
-                              <ImageView fx:id="buscarButton" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="buscarButton" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../img/lupa.png" />
                                  </image>
@@ -81,9 +81,9 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button maxHeight="32.0" maxWidth="32.0" minHeight="32.0" minWidth="32.0" mnemonicParsing="false" onAction="#busquedaAvanzada" prefHeight="32.0" prefWidth="32.0">
+                        <Button maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="32.0" mnemonicParsing="false" onAction="#busquedaAvanzada" prefHeight="25.0" prefWidth="25.0">
                            <graphic>
-                              <ImageView fx:id="busquedaAvanzadaButton" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="busquedaAvanzadaButton" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../img/5814511.png" />
                                  </image>
@@ -246,10 +246,11 @@
                                           </HBox>
                                        </children>
                                     </VBox>
-                                    <VBox fx:id="datosContactoNameNumberVBox" alignment="CENTER" prefHeight="76.0" prefWidth="625.0">
+                                    <VBox fx:id="datosContactoNameNumberVBox" alignment="CENTER_RIGHT" prefHeight="76.0" prefWidth="625.0">
                                        <children>
                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                              <children>
+                                                <Label prefWidth="100.0" text="Label" />
                                                 <Label text="Nombre">
                                                    <font>
                                                       <Font name="Franklin Gothic Medium" size="12.0" />

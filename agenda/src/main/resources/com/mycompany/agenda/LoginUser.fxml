@@ -83,7 +83,8 @@
                      </children>
                   </HBox>
                   <Label prefHeight="14.0" prefWidth="268.0" />
-                  <Label fx:id="error" prefHeight="31.0" prefWidth="268.0" textAlignment="CENTER" textFill="RED" />
+                  <Label fx:id="error" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="345.0" textAlignment="CENTER" textFill="RED" />
+                  <Label layoutX="10.0" layoutY="37.0" prefHeight="14.0" prefWidth="268.0" />
                </children>
             </VBox>
             <Button fx:id="buttonCrearUsuario" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#crearUsuario" prefHeight="30.0" style="-fx-background-color: #156ea2;" text="Crear Usuario" textFill="WHITE" textOverrun="CENTER_ELLIPSIS">

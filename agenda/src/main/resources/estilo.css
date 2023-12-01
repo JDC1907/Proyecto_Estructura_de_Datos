@@ -18,11 +18,12 @@
     -fx-border-radius: 2 2 2 2;
 }
 #cajaContacto:hover #labelCajaContacto{
- -fx-text-fill: #FFFFFF;
+ -fx-text-fill: #FFFFFF; 
  
 }
+
 #labelCajaContacto {
--fx-text-fill: #000000;
+-fx-text-fill: #444444;
 }
 
 .button { 
@@ -47,4 +48,50 @@
 .combo-box .list-cell {
     -fx-background-color: #90c3e2;
     -fx-text-fill: #0a386e;
+}
+
+#scrollTags {
+    -fx-background: #156ea2;
+    -fx-background-color: #156ea2;
+}
+
+.scroll-pane .scroll-bar {
+    -fx-background-color: #0b3d5a;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 0.5em;   
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #17628d; /* Color de fondo del thumb */
+}
+
+.scroll-bar .thumb:pressed {
+    -fx-background-color: #2692d0; /* Color de fondo cuando el thumb está presionado */
+}
+.scroll-bar .thumb:hover {
+    -fx-background-color: #2692d0; /* Color de fondo cuando el thumb está presionado */
+}
+.split-pane > .split-pane-divider {
+    -fx-background-color: #ffffff; /* Cambia el color de fondo de la línea de división */
+    -fx-background-insets: 0; /* Elimina los márgenes internos de la línea de división */
+}
+
+#buscarTextField{
+    -fx-background-color: #438bb4;
+    -fx-text-fill: #ffffff;
+    -fx-prompt-text-fill: #eeeeee;
+}
+#buscarTextField:focused {
+    -fx-background-color: #2692d0;   
+}
+#buscarTextField:hover {
+    -fx-background-color: #2692d0; 
+}
+
+#textFieldContainer {
+    -fx-border-width: 0 0 1 0; /* Solo un borde en la parte inferior */
+    -fx-border-color: #999999; /* Color del borde */
+}
+.text-field {
+    -fx-border-width: 0;
 }
