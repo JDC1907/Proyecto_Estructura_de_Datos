@@ -49,12 +49,7 @@ public class CrearContactoController  {
     private boolean retrocedioPhoto = false; //usado para saber si avanzó  en la lista de contactos
     private boolean avanzoPhoto = false; //usado para saber si retrocedio en la lista de contactos
     private ContactosController contactosController;
-    
     private ImageView imgBienvenida;
-    
-    @FXML
-    private void initialize(){
-    }
     
     public void cargarImagenBienvenida(ImageView imgBienvenida){
         this.imgBienvenida = imgBienvenida;
@@ -70,21 +65,11 @@ public class CrearContactoController  {
         vBoxCrear.getChildren().clear();
         vBoxCrear.setVisible(false);
         vBoxCrear.setDisable(true);
-        
-        /*vBoxCrear.getChildren().clear();
-        internal = null;
-        datosContactoVBox.getChildren();
-        datosContactoVBox.setVisible(true);*/
-
-        //Cierratodo
-        /*Node source = (Node) event.getSource();
-        Stage stage = (Stage) source.getScene().getWindow();
-        stage.close();*/
-       // contactosController.actualizarPanelIzquierdo(agenda.Sistema.contactos);
         imgBienvenida.setVisible(true);
         agenda.Sistema.guardarContactos(agenda.Sistema.usuario);
         contactosController.actualizarPanelIzquierdo(agenda.Sistema.contactos);
         contactosController.agregarButtonTagsEnElHBox();
+        contactoSeleccionado = null;
     }
      
      //carga todos los datos que se mostrará en este panel, en especial los que nos interesan en esta clase son lo textFile de cada uno de los atributos

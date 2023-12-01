@@ -561,6 +561,7 @@ public class ContactosController {
 
         cajaContacto.setCursor(Cursor.HAND);
         cajaContacto.setOnMouseClicked((e)->{
+            
             if(internal!=null){
                 internal.setVisible(false);
             }
@@ -796,11 +797,20 @@ public class ContactosController {
     //
     @FXML
     public void crearcontacto(ActionEvent event) throws IOException{
-        FXMLLoader internalLoader = new FXMLLoader(App.class.getResource("CrearContacto"+".fxml"));
-        internal = internalLoader.load();
-        CrearContactoController controller = internalLoader.getController();
-        controller.cargarImagenBienvenida(imgBienvenida);
-        controller.cargarParent(this);
+        if(internal == null){
+            FXMLLoader internalLoader = new FXMLLoader(App.class.getResource("CrearContacto"+".fxml"));
+            internal = internalLoader.load();
+            CrearContactoController controller = internalLoader.getController();
+            controller.cargarImagenBienvenida(imgBienvenida);
+            controller.cargarParent(this);
+        }else{
+            anchorPaneContac.getChildren().remove(internal);
+            FXMLLoader internalLoader = new FXMLLoader(App.class.getResource("CrearContacto"+".fxml"));
+            internal = internalLoader.load();
+            CrearContactoController controller = internalLoader.getController();
+            controller.cargarImagenBienvenida(imgBienvenida);
+            controller.cargarParent(this);
+        }
         
         anchorPaneContac.getChildren().add(internal);
         datosContactoVBox.setVisible(false);
